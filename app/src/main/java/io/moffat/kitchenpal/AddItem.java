@@ -6,25 +6,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import com.parse.*;
 
-public class MainActivity extends ActionBarActivity {
+public class AddItem extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Parse.enableLocalDatastore(this);
-
-        Parse.initialize(this, "fKFcxAML9tqkehYq0UxpMhkjSLIVdZEgIXTNLEtt", "poN3brKJyOkYPNZQWlCHMbzWHJAZIW4TMzQETGoJ");
-
-
-
-
+        setContentView(R.layout.activity_add_item);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        //don't really need anything in here, except colours. add barcode icon when i can
+        getMenuInflater().inflate(R.menu.menu_add_item, menu);
         return true;
     }
 
@@ -42,6 +36,11 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    public void onClick(){
 
+        //get info from boxes and set to parse object
+        //also might need to get an actionlistener for the class types
+        //save item here
 
+    }
 }
