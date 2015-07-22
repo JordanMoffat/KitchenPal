@@ -6,4 +6,5 @@
     <string name="logoname">Logo</string>
     <string name="logo">logo</string>
     <string name="title_activity_add_item">Add Item</string>
+    <string name="btnSave">Save</string>
 </resources>
