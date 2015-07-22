@@ -16,9 +16,6 @@ public class MainActivity extends ActionBarActivity {
 
         Parse.initialize(this, "fKFcxAML9tqkehYq0UxpMhkjSLIVdZEgIXTNLEtt", "poN3brKJyOkYPNZQWlCHMbzWHJAZIW4TMzQETGoJ");
 
-
-
-
     }
 
     @Override
