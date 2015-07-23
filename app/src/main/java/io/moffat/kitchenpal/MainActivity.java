@@ -1,5 +1,6 @@
 package io.moffat.kitchenpal;
 
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +14,14 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Parse.enableLocalDatastore(this);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        FABFragment fragment = new FABFragment();
+        transaction.replace(R.id.sample_content_fragment, fragment);
+        transaction.commit();
+
+
+
 
         Parse.initialize(this, "fKFcxAML9tqkehYq0UxpMhkjSLIVdZEgIXTNLEtt", "poN3brKJyOkYPNZQWlCHMbzWHJAZIW4TMzQETGoJ");
 
