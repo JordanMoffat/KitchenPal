@@ -3,22 +3,40 @@ package io.moffat.kitchenpal;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.Toast;
+
 import com.parse.*;
 
 public class MainActivity extends ActionBarActivity {
+
+    private Toolbar toolbar;
+    ImageButton FAB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        getSupportActionBar().setTitle("Kitchen Pal");
+
+        FAB = (ImageButton) findViewById(R.id.imageButton);
+        FAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(MainActivity.this, "Hello World", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        setSupportActionBar(toolbar);
+
         Parse.enableLocalDatastore(this);
 
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        FABFragment fragment = new FABFragment();
-        transaction.replace(R.id.sample_content_fragment, fragment);
-        transaction.commit();
 
 
 
