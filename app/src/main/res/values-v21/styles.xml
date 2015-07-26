@@ -1,10 +1,16 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/ColorPrimary</item>
         <item name="colorPrimaryDark">@color/ColorPrimaryDark</item>
         <item name="colorAccent">@color/AccentColor</item>
 
+        <item name="android:textColorPrimary">@color/abc_primary_text_material_dark</item>
+
+        <item name="android:actionMenuTextColor">@color/bright_foreground_inverse_material_dark</item>
+        <item name="android:actionMenuTextAppearance">@color/bright_foreground_inverse_material_dark</item>
+        <item name="android:textColorSecondary">@color/abc_secondary_text_material_dark</item>
+        <item name="android:actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
         <!-- Customize your theme here. -->
     </style>
 
