@@ -1,13 +1,18 @@
 package io.moffat.kitchenpal;
 
+import android.app.ActionBar;
+import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.parse.*;
@@ -22,25 +27,28 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        getSupportActionBar().setTitle("Kitchen Pal");
+
 
         FAB = (ImageButton) findViewById(R.id.imageButton);
         FAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(MainActivity.this, "Hello World", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, AddItem.class);
+                startActivity(intent);
+
+          //  Toast.makeText(MainActivity.this, "Hello World", Toast.LENGTH_SHORT).show();
 
             }
         });
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Kitchen Pal");
+
+
+
+
 
         Parse.enableLocalDatastore(this);
-
-
-
-
-
         Parse.initialize(this, "fKFcxAML9tqkehYq0UxpMhkjSLIVdZEgIXTNLEtt", "poN3brKJyOkYPNZQWlCHMbzWHJAZIW4TMzQETGoJ");
 
     }

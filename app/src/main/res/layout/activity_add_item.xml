@@ -13,11 +13,11 @@
         android:layout_height="wrap_content"
         android:text="@string/btnSave"
         android:id="@+id/btnSave"
-        android:onClick="onClick"
-        android:theme="@style/AppTheme"
+        android:theme="@style/Base.Theme.AppCompat.Light"
         style="@android:style/TextAppearance.Material.Button"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:nestedScrollingEnabled="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -27,7 +27,9 @@
         android:text="Name"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/spinnercategory"
-        android:layout_alignEnd="@+id/ISDN" />
+        android:layout_alignEnd="@+id/ISDN"
+        android:textColor="@color/abc_primary_text_material_light"
+        android:singleLine="false" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -45,6 +47,12 @@
         android:spinnerMode="dropdown"
         android:layout_above="@+id/btnSave"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="101dp" />
+        android:layout_marginBottom="101dp"
+        android:prompt="@color/abc_primary_text_material_light"
+        android:theme="@style/Base.ThemeOverlay.AppCompat.Light"
+        android:entries="@color/abc_primary_text_material_light"
+        android:focusable="false"
+        android:paddingLeft="@dimen/abc_dropdownitem_text_padding_left"
+        android:paddingRight="@dimen/abc_dropdownitem_text_padding_right" />
 
 </RelativeLayout>

@@ -1,12 +1,17 @@
 package io.moffat.kitchenpal;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toolbar;
 
 import com.parse.*;
 
@@ -29,6 +34,40 @@ public class AddItem extends ActionBarActivity {
         String[] items = new String[]{"Meat", "Vegetables", "Ready Meal", "Juice", "Milk", "Leftovers"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items);
         spinnercategory.setAdapter(adapter);
+
+        Button save = (Button) findViewById(R.id.btnSave);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ParseObject Product = new ParseObject("Product");
+
+          EditText nameText = (EditText) findViewById(R.id.editText);
+             String nameString = editText.getText().toString();
+
+             EditText barcodeText = (EditText) findViewById(R.id.ISDN);
+             String barcodeString = ISDN.getText().toString();
+
+
+                Product.put("productname", nameString);
+                Product.put("ISDN", barcodeString);
+                Product.put("Expiry", "24-8-2015T00:00:00Z");
+                Product.put("Type", "Liquid");
+                Product.put("Username", "Admin");
+                Product.saveInBackground();
+                //Product.put();
+
+
+
+                Intent i = new Intent(AddItem.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
+
+
+
+
+
     }
 
     @Override
@@ -53,16 +92,18 @@ public class AddItem extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
     public void onClick(){
 
 
     ParseObject SaveData = new ParseObject("Save");
 
-        EditText nameText = (EditText) findViewById(R.id.editText);
-        String nameString = editText.getText().toString();
+  //      EditText nameText = (EditText) findViewById(R.id.editText);
+    //    String nameString = editText.getText().toString();
 
-        EditText barcodeText = (EditText) findViewById(R.id.ISDN);
-        String barcodeString = ISDN.getText().toString();
+     //   EditText barcodeText = (EditText) findViewById(R.id.ISDN);
+      //  String barcodeString = ISDN.getText().toString();
 
    //     EditText expiryText = (EditText) findViewById(R.id.ExpiryDate);
     //    int day = ExpiryDate.getDayOfMonth();
@@ -73,11 +114,7 @@ public class AddItem extends ActionBarActivity {
 
 
 
-        SaveData.put("productname", nameString);
-        SaveData.put("ISDN", barcodeString);
-        SaveData.put("Expiry","24-8-2015T00:00:00Z");
-        SaveData.put("Type", "Liquid");
-        SaveData.saveInBackground();
+
 
        // String nametext = (EditText) findViewById(R.id.editText);
 
