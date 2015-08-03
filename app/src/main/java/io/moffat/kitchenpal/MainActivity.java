@@ -21,13 +21,37 @@ public class MainActivity extends ActionBarActivity {
 
     private Toolbar toolbar;
     ImageButton FAB;
+    public final static String EXTRA_MESSAGE = "io.moffat.kitchenpal.MESSAGE";
+    private ParseQueryAdapter<ParseObject> mainAdapter;
+    private ListView listView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
 
+        mainAdapter = new ParseQueryAdapter<ParseObject>(this, "Product");
+        mainAdapter.setTextKey("productName");
+
+        listView = (ListView)findViewById(R.id.ProductView);
+        listView.setAdapter(mainAdapter);
+        mainAdapter.loadObjects();
+
+
+
+
+
+   //     String [] test = new String[]{"Test1", "test2", "test3", "test4", "test4","test5","Test1", "test2", "test3", "test4", "test4","test5","Test1", "test2", "test3", "test4", "test4","test5", "Test1", "test2", "test3", "test4", "test4","test5"};
+    //    ArrayAdapter<String> testAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, test);
+
+     //   ListView mainView = (ListView)findViewById(R.id.ProductView);
+     //   mainView.setAdapter(testAdapter);
 
         FAB = (ImageButton) findViewById(R.id.imageButton);
         FAB.setOnClickListener(new View.OnClickListener() {
@@ -35,9 +59,10 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(MainActivity.this, AddItem.class);
+                intent.putExtra(EXTRA_MESSAGE, "new");
                 startActivity(intent);
 
-          //  Toast.makeText(MainActivity.this, "Hello World", Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(MainActivity.this, "Hello World", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -48,8 +73,7 @@ public class MainActivity extends ActionBarActivity {
 
 
 
-        Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "fKFcxAML9tqkehYq0UxpMhkjSLIVdZEgIXTNLEtt", "poN3brKJyOkYPNZQWlCHMbzWHJAZIW4TMzQETGoJ");
+
 
     }
 
