@@ -6,6 +6,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
@@ -25,6 +26,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.parse.LogInCallback;
+import com.parse.Parse;
+import com.parse.ParseUser;
+
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +46,8 @@ public class LoginActivity2 extends Activity implements LoaderCallbacks<Cursor> 
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };
+
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -55,7 +63,8 @@ public class LoginActivity2 extends Activity implements LoaderCallbacks<Cursor> 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login2);
-
+        Parse.enableLocalDatastore(this);
+        Parse.initialize(this, "fKFcxAML9tqkehYq0UxpMhkjSLIVdZEgIXTNLEtt", "poN3brKJyOkYPNZQWlCHMbzWHJAZIW4TMzQETGoJ");
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -253,6 +262,10 @@ public class LoginActivity2 extends Activity implements LoaderCallbacks<Cursor> 
         UserLoginTask(String email, String password) {
             mEmail = email;
             mPassword = password;
+
+
+
+
         }
 
         @Override
@@ -261,6 +274,7 @@ public class LoginActivity2 extends Activity implements LoaderCallbacks<Cursor> 
 
             try {
                 // Simulate network access.
+
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 return false;
@@ -284,7 +298,10 @@ public class LoginActivity2 extends Activity implements LoaderCallbacks<Cursor> 
             showProgress(false);
 
             if (success) {
+
                 finish();
+                Intent intent = new Intent(LoginActivity2.this, MainActivity.class);
+                startActivity(intent);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
