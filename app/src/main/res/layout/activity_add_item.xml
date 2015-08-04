@@ -78,12 +78,14 @@
         android:text="Search"
         android:id="@+id/btnSearch"
         android:layout_below="@+id/ISDN"
-        android:layout_alignEnd="@+id/ISDN" />
+        android:layout_alignEnd="@+id/ISDN"
+        android:nestedScrollingEnabled="false" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Expiry Date"
+
         android:id="@+id/date"
         android:layout_centerVertical="true"
         android:layout_marginLeft="16dp" />
@@ -93,10 +95,31 @@
         android:layout_height="wrap_content"
         android:inputType="date"
         android:ems="10"
+        android:focusable="false"
         android:id="@+id/expiry_date"
         android:layout_below="@+id/date"
         android:layout_alignEnd="@+id/lblISDN"
         android:layout_alignStart="@+id/date" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnercategory"
+        android:layout_alignBottom="@+id/expiry_date"
+        android:layout_alignEnd="@+id/btnSearch"
+        android:layout_toEndOf="@+id/expiry_date"
+        android:spinnerMode="dropdown"
+        android:layout_below="@+id/date"
+        android:layout_marginLeft="12dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Expiry Date"
+        android:id="@+id/SpinnerCat"
+        android:layout_marginLeft="16dp"
+        android:layout_alignTop="@+id/date"
+        android:layout_toEndOf="@+id/expiry_date" />
 
 
 </RelativeLayout>
