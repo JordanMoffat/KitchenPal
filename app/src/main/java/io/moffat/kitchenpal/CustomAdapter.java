@@ -18,6 +18,7 @@ public class CustomAdapter extends ParseQueryAdapter<ParseObject> {
     public CustomAdapter(Context context){
 
         super(context, new ParseQueryAdapter.QueryFactory<ParseObject>(){
+
             public ParseQuery create(){
                 ParseQuery query = new ParseQuery("Product");
                 query.whereEqualTo("username", "Admin");
@@ -30,16 +31,18 @@ public class CustomAdapter extends ParseQueryAdapter<ParseObject> {
     @Override
     public View getItemView(ParseObject object, View v, ViewGroup parent){
         if (v == null) {
-            v = View.inflate(getContext(), R.layout.parse_item, null);
-        }
+           v = View.inflate(getContext(), R.layout.parse_item, null);
+       }
 
-    super.getItemView(object, v, parent);
+
+        super.getItemView(object, v, parent);
+
 
         TextView titleTextView = (TextView) v.findViewById(R.id.text1);
         titleTextView.setText(object.getString("productName"));
 
         TextView timestampView = (TextView) v.findViewById(R.id.timestamp);
-        timestampView.setText(object.getString("expiry"));
+        timestampView.setText(object.getDate("expiry").toString());
 
 
         return v;
@@ -47,3 +50,4 @@ public class CustomAdapter extends ParseQueryAdapter<ParseObject> {
 
 
 }
+
