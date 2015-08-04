@@ -4,6 +4,7 @@
         <item name="colorPrimary">@color/ColorPrimary</item>
         <item name="colorPrimaryDark">@color/ColorPrimaryDark</item>
         <item name="colorAccent">@color/AccentColor</item>
+        <item name="android:datePickerDialogTheme">@style/DatePicker</item>
 
 
         <!-- Customize your theme here. -->
@@ -18,5 +19,12 @@
 
 
     </style>
+
+    <style name="DatePicker" parent="android:Theme.Material.Light.Dialog">
+
+        <item name="android:colorAccent">@color/ColorPrimary</item>
+
+    </style>
+
 
 </resources>
