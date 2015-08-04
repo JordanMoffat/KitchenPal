@@ -24,6 +24,7 @@ public class MainActivity extends ActionBarActivity {
     public final static String EXTRA_MESSAGE = "io.moffat.kitchenpal.MESSAGE";
     private ParseQueryAdapter<ParseObject> mainAdapter;
     private ListView listView;
+    private CustomAdapter newCustomAdapter;
 
 
     @Override
@@ -31,27 +32,13 @@ public class MainActivity extends ActionBarActivity {
 
 
 
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
 
-        mainAdapter = new ParseQueryAdapter<ParseObject>(this, "Product");
-        mainAdapter.setTextKey("productName");
-
-        listView = (ListView)findViewById(R.id.ProductView);
-        listView.setAdapter(mainAdapter);
-        mainAdapter.loadObjects();
+         refreshList();
 
 
-
-
-
-   //     String [] test = new String[]{"Test1", "test2", "test3", "test4", "test4","test5","Test1", "test2", "test3", "test4", "test4","test5","Test1", "test2", "test3", "test4", "test4","test5", "Test1", "test2", "test3", "test4", "test4","test5"};
-    //    ArrayAdapter<String> testAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, test);
-
-     //   ListView mainView = (ListView)findViewById(R.id.ProductView);
-     //   mainView.setAdapter(testAdapter);
 
         FAB = (ImageButton) findViewById(R.id.imageButton);
         FAB.setOnClickListener(new View.OnClickListener() {
@@ -68,11 +55,6 @@ public class MainActivity extends ActionBarActivity {
         });
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Kitchen Pal");
-
-
-
-
-
 
 
     }
@@ -96,8 +78,23 @@ public class MainActivity extends ActionBarActivity {
             return true;
         }
 
+        switch (item.getItemId()){
+            case R.id.refresh:
+                refreshList();
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
+    public void refreshList(){
+        mainAdapter = new ParseQueryAdapter<ParseObject>(this, "Product");
+        mainAdapter.setTextKey("productName");
+
+        newCustomAdapter = new CustomAdapter(this);
+
+        listView = (ListView)findViewById(R.id.ProductView);
+        listView.setAdapter(newCustomAdapter);
+        newCustomAdapter.loadObjects();
+    }
 
 }
