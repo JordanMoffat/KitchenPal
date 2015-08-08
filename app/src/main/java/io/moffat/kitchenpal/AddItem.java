@@ -10,12 +10,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.app.Activity;
 
 
 import com.parse.*;
@@ -25,12 +29,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+//UPCdatabase.org
+
 public class AddItem extends ActionBarActivity {
 
 
     private Toolbar toolbar;
     private Date expiry;
     Calendar myCalendar = Calendar.getInstance();
+    private Button search;
 
 
     @Override
@@ -95,11 +102,17 @@ public class AddItem extends ActionBarActivity {
         final EditText expiry_date;
 
         final Spinner spinnercategory = (Spinner)findViewById(R.id.spinnercategory);
-        String[] items = new String[]{"Meat", "Vegetables", "Ready Meal", "Juice", "Milk", "Leftovers"};
+        String[] items = new String[]{"Meat", "Vegetables", "Ready Meal", "Juice", "Milk", "Leftovers", "Dairy", "Sunderies", "Snacks", "Bread"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items);
         spinnercategory.setAdapter(adapter);
 
-
+        search = (Button) findViewById(R.id.btnSearch);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //do rest stuff here
+            }
+        });
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -118,6 +131,8 @@ public class AddItem extends ActionBarActivity {
         ProductName = (EditText) findViewById(R.id.ProductName);
         ISDN_text = (EditText)findViewById(R.id.ISDN);
         expiry_date = (EditText)findViewById(R.id.expiry_date);
+      final EditText quantity = (EditText)findViewById(R.id.quantity);
+
 
         expiry_date.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,7 +152,6 @@ public class AddItem extends ActionBarActivity {
 
 
                 String dateString = expiry_date.getText().toString();
-
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 Date convertedDate = new Date();
 
@@ -147,18 +161,19 @@ public class AddItem extends ActionBarActivity {
                     e.printStackTrace();
                 }
 
+
                 ParseObject newProduct = new ParseObject("Product");
-
-
                 newProduct.put("productName", ProductName.getText().toString());
                 newProduct.put("ISDN", ISDN_text.getText().toString());
                 newProduct.put("expiry", convertedDate);
                 newProduct.put("type", spinnercategory.getSelectedItem().toString());
+                newProduct.put("quantity",quantity.getText().toString());
                 newProduct.put("username", "Admin");
                 newProduct.put("listFlag", "main");
                 newProduct.put("shoppingList", false);
                 newProduct.put("eaten", false);
                 newProduct.put("discarded", false);
+
                 newProduct.saveInBackground();
 
 
@@ -174,17 +189,15 @@ public class AddItem extends ActionBarActivity {
         });
 
         Button search = (Button)findViewById(R.id.btnSearch);
-            search.setOnClickListener(new View.OnClickListener(){
+            search.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v){
+                public void onClick(View v) {
 
-                String message = "Search Button Clicked";
-                Toast.makeText(getApplicationContext(), message,
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
+                    String message = "Search Button Clicked";
+                    Toast.makeText(getApplicationContext(), message,
+                            Toast.LENGTH_SHORT).show();
+                }
+            });
     }
 
 
