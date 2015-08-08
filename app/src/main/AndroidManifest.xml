@@ -34,9 +34,13 @@
         android:allowBackup="true"
         android:icon="@mipmap/iconlarge"
         android:label="Kitchen Pal"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:name=".KitchenPalApp">
+
+
         <activity
             android:name=".MainActivity"
+
             >
 
         </activity>
