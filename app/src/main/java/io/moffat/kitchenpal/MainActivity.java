@@ -1,6 +1,7 @@
 package io.moffat.kitchenpal;
 
 import android.app.ActionBar;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
@@ -10,10 +11,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.app.Activity;
 
 import com.parse.*;
 
@@ -35,6 +38,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
+
 
          refreshList();
 
@@ -94,7 +98,25 @@ public class MainActivity extends ActionBarActivity {
 
         listView = (ListView)findViewById(R.id.ProductView);
         listView.setAdapter(newCustomAdapter);
+
         newCustomAdapter.loadObjects();
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                ParseObject selected = (ParseObject) (listView.getItemAtPosition(position));
+                String selectedID = selected.getObjectId();
+
+                Toast.makeText(getApplicationContext(), selectedID,
+                        Toast.LENGTH_SHORT).show();
+
+              //  Intent i = new Intent(MainActivity.this, AddItem.class);
+                //i.putExtra("ObjectID", selectedID);
+             //   startActivity(i);
+            }
+        });
     }
 
 }
