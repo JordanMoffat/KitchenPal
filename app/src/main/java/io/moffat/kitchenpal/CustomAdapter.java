@@ -67,7 +67,6 @@ public class CustomAdapter extends ParseQueryAdapter<ParseObject> {
         } else if (check > 0) {
             timestampView.setTextColor(Color.parseColor("#64DD17"));
             timestampView.setText(object.getDate("expiry").toString());
-
     }
 
         return v;
