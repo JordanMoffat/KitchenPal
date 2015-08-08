@@ -22,6 +22,7 @@ public class CustomAdapter extends ParseQueryAdapter<ParseObject> {
             public ParseQuery create(){
                 ParseQuery query = new ParseQuery("Product");
                 query.whereEqualTo("username", "Admin");
+                query.whereEqualTo("listFlag", "main");
                 return query;
 
             }
@@ -40,6 +41,7 @@ public class CustomAdapter extends ParseQueryAdapter<ParseObject> {
 
         TextView titleTextView = (TextView) v.findViewById(R.id.text1);
         titleTextView.setText(object.getString("productName"));
+
 
         TextView timestampView = (TextView) v.findViewById(R.id.timestamp);
         timestampView.setText(object.getDate("expiry").toString());
