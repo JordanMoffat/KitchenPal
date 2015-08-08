@@ -3,6 +3,7 @@ package io.moffat.kitchenpal;
 import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ public class MainActivity extends ActionBarActivity {
     private ParseQueryAdapter<ParseObject> mainAdapter;
     private ListView listView;
     private CustomAdapter newCustomAdapter;
+    ProgressDialog mProgressDialog;
 
 
     @Override
@@ -39,8 +41,9 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
 
+        new ParseDataTask().execute();
 
-         refreshList();
+        // refreshList();
 
 
 
@@ -62,6 +65,32 @@ public class MainActivity extends ActionBarActivity {
 
 
     }
+
+    private class ParseDataTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            mProgressDialog = new ProgressDialog(MainActivity.this);
+            mProgressDialog.setTitle("Loading Products");
+            mProgressDialog.setMessage("Loading....");
+            mProgressDialog.setIndeterminate(false);
+            mProgressDialog.show();
+        }
+
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            refreshList();
+            return null;
+        }
+
+        protected void onPostExecute(Void results) {
+            mProgressDialog.dismiss();
+        }
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

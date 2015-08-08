@@ -1,6 +1,9 @@
 package io.moffat.kitchenpal;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.text.format.DateFormat;
+import android.text.format.Time;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -9,6 +12,10 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseFile;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Jordan on 03/08/2015.
@@ -23,6 +30,7 @@ public class CustomAdapter extends ParseQueryAdapter<ParseObject> {
                 ParseQuery query = new ParseQuery("Product");
                 query.whereEqualTo("username", "Admin");
                 query.whereEqualTo("listFlag", "main");
+                query.orderByAscending("expiry");
                 return query;
 
             }
@@ -30,10 +38,10 @@ public class CustomAdapter extends ParseQueryAdapter<ParseObject> {
     }
 
     @Override
-    public View getItemView(ParseObject object, View v, ViewGroup parent){
+    public View getItemView(ParseObject object, View v, ViewGroup parent) {
         if (v == null) {
-           v = View.inflate(getContext(), R.layout.parse_item, null);
-       }
+            v = View.inflate(getContext(), R.layout.parse_item, null);
+        }
 
 
         super.getItemView(object, v, parent);
@@ -44,8 +52,23 @@ public class CustomAdapter extends ParseQueryAdapter<ParseObject> {
 
 
         TextView timestampView = (TextView) v.findViewById(R.id.timestamp);
-        timestampView.setText(object.getDate("expiry").toString());
+        //  timestampView.setText(object.getDate("expiry").toString());
 
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String date = sdf.format(Calendar.getInstance().getTime());
+        Date datecomp = new Date();
+        datecomp.getDate();
+
+        int check = object.getDate("expiry").compareTo(datecomp);
+
+        if (check < 0) {
+            timestampView.setTextColor(Color.RED);
+            timestampView.setText(object.getDate("expiry").toString());
+        } else if (check > 0) {
+            timestampView.setTextColor(Color.parseColor("#64DD17"));
+            timestampView.setText(object.getDate("expiry").toString());
+
+    }
 
         return v;
     }
