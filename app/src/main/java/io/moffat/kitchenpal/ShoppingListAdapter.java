@@ -27,7 +27,7 @@ public class ShoppingListAdapter extends ParseQueryAdapter<ParseObject> {
                 ParseQuery query = new ParseQuery("Product");
                 query.whereEqualTo("username", "Admin");
                 query.whereEqualTo("shoppingList", true);
-                query.orderByAscending("expiry");
+                query.orderByAscending("productName");
                 return query;
 
             }
