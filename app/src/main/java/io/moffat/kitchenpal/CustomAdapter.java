@@ -29,7 +29,9 @@ public class CustomAdapter extends ParseQueryAdapter<ParseObject> {
             public ParseQuery create(){
                 ParseQuery query = new ParseQuery("Product");
                 query.whereEqualTo("username", "Admin");
-                query.whereEqualTo("listFlag", "main");
+                query.whereEqualTo("mainList", true);
+                query.whereEqualTo("eaten", false);
+                query.whereEqualTo("discarded", false);
                 query.orderByAscending("expiry");
                 return query;
 
