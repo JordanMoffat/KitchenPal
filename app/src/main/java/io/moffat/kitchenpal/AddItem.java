@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -25,6 +27,7 @@ import android.app.Activity;
 
 import com.parse.*;
 
+import java.io.InputStream;
 import java.text.*;
 import java.util.Calendar;
 import java.util.Date;
@@ -108,6 +111,9 @@ public class AddItem extends ActionBarActivity {
         String[] items = new String[]{"Meat", "Vegetables", "Ready Meal", "Juice", "Milk", "Leftovers", "Dairy", "Sunderies", "Snacks", "Bread"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items);
         spinnercategory.setAdapter(adapter);
+
+        CheckBox listFlag = (CheckBox) findViewById(R.id.listflagcheck);
+        //set text for shopping list or main
 
         search = (Button) findViewById(R.id.btnSearch);
         search.setOnClickListener(new View.OnClickListener() {
@@ -228,13 +234,14 @@ public class AddItem extends ActionBarActivity {
                         @Override
                         public void run() {
 
+
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    EditText code = (EditText) findViewById(R.id.ISDN);
-                                    String barcodeString = code.getText().toString();
-                                    URLBuilder url = new URLBuilder();
 
+                                    EditText code = (EditText) findViewById(R.id.ISDN);
+                                    URLBuilder url = new URLBuilder();
+                                    String barcodeString = code.getText().toString();
                                     url.builtURL(barcodeString);
 
                                     String message = url.builtURL(barcodeString);
@@ -253,8 +260,8 @@ public class AddItem extends ActionBarActivity {
 
                 }
             });
-    }
 
+    }
 
 
 }
