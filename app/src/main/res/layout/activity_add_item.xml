@@ -138,5 +138,13 @@
         android:layout_below="@+id/expiry_date"
         android:layout_alignStart="@+id/expiry_date" />
 
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Item to Shopping List?"
+        android:id="@+id/listflagcheck"
+        android:layout_below="@+id/quantity"
+        android:layout_alignStart="@+id/quantity" />
+
 
 </RelativeLayout>
