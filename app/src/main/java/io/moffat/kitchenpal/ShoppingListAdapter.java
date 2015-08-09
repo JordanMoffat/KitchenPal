@@ -51,20 +51,8 @@ public class ShoppingListAdapter extends ParseQueryAdapter<ParseObject> {
         TextView timestampView = (TextView) v.findViewById(R.id.timestamp);
         //  timestampView.setText(object.getDate("expiry").toString());
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String date = sdf.format(Calendar.getInstance().getTime());
-        Date datecomp = new Date();
-        datecomp.getDate();
+            timestampView.setText("Barcode: " + object.getString("ISDN"));
 
-        int check = object.getDate("expiry").compareTo(datecomp);
-
-        if (check < 0) {
-            timestampView.setTextColor(Color.RED);
-            timestampView.setText(object.getDate("expiry").toString());
-        } else if (check > 0) {
-            timestampView.setTextColor(Color.parseColor("#64DD17"));
-            timestampView.setText(object.getDate("expiry").toString());
-    }
 
         return v;
     }
