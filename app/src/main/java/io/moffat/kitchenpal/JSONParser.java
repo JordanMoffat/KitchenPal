@@ -5,7 +5,9 @@ import com.parse.signpost.http.HttpResponse;
 import org.apache.http.HttpEntity;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
@@ -21,9 +23,6 @@ import java.io.InputStreamReader;
  */
 public class JSONParser {
 
-    static InputStream inStream = null;
-    static JSONArray jarry = null;
-
     public JSONParser(){
 
     }
@@ -32,7 +31,9 @@ public class JSONParser {
 
     public JSONObject getJSON(String url){
 
+        JSONParser parsenr = new JSONParser();
         JSONObject code = new JSONObject();
+
 
 
 
