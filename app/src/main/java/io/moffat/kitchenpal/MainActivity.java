@@ -54,7 +54,7 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(MainActivity.this, AddItem.class);
-                intent.putExtra(EXTRA_MESSAGE, "main");
+                intent.putExtra("flag", "main");
                 startActivity(intent);
 
                 //  Toast.makeText(MainActivity.this, "Hello World", Toast.LENGTH_SHORT).show();
