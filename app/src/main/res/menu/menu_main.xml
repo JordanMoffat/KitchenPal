@@ -10,10 +10,12 @@
         app:showAsAction="never"/>
 
     <item
+
         android:id="@+id/action_search"
         android:orderInCategory="200"
         android:title="Search"
-        android:icon="@drawable/ic_add_white_24dp"
+        android:icon="@drawable/barcode"
+
         app:showAsAction="ifRoom"
         ></item>
 </menu>
