@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -29,7 +30,7 @@ public class MainActivity extends ActionBarActivity {
     private ParseQueryAdapter<ParseObject> mainAdapter;
     private ListView listView;
     private CustomAdapter newCustomAdapter;
-    ProgressDialog mProgressDialog;
+    ProgressDialog progress;
 
 
     @Override
@@ -41,7 +42,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
 
-        new ParseDataTask().execute();
+        refreshList();
 
         // refreshList();
 
@@ -66,30 +67,14 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-    private class ParseDataTask extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            mProgressDialog = new ProgressDialog(MainActivity.this);
-            mProgressDialog.setTitle("Loading Products");
-            mProgressDialog.setMessage("Loading....");
-            mProgressDialog.setIndeterminate(false);
-            mProgressDialog.show();
-        }
 
 
-        @Override
-        protected Void doInBackground(Void... params) {
-            refreshList();
-            return null;
-        }
 
-        protected void onPostExecute(Void results) {
-            mProgressDialog.dismiss();
-        }
 
-    }
+
+
+
+
 
 
     @Override
@@ -120,32 +105,57 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void refreshList(){
-        mainAdapter = new ParseQueryAdapter<ParseObject>(this, "Product");
-        mainAdapter.setTextKey("productName");
 
-        newCustomAdapter = new CustomAdapter(this);
+        progress = ProgressDialog.show(MainActivity.this, "Loading Items", "Loading...", true);
 
-        listView = (ListView)findViewById(R.id.ProductView);
-        listView.setAdapter(newCustomAdapter);
-
-        newCustomAdapter.loadObjects();
-
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        new Thread(new Runnable() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void run() {
 
-                ParseObject selected = (ParseObject) (listView.getItemAtPosition(position));
-                String selectedID = selected.getObjectId();
 
-                Toast.makeText(getApplicationContext(), selectedID,
-                        Toast.LENGTH_SHORT).show();
 
-              //  Intent i = new Intent(MainActivity.this, AddItem.class);
-                //i.putExtra("ObjectID", selectedID);
-             //   startActivity(i);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+
+                        mainAdapter = new ParseQueryAdapter<ParseObject>(MainActivity.this, "Product");
+                        mainAdapter.setTextKey("productName");
+
+                        newCustomAdapter = new CustomAdapter(MainActivity.this);
+
+                        listView = (ListView)findViewById(R.id.ProductView);
+                        listView.setAdapter(newCustomAdapter);
+
+                        newCustomAdapter.loadObjects();
+
+
+                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                                ParseObject selected = (ParseObject) (listView.getItemAtPosition(position));
+                                String selectedID = selected.getObjectId();
+
+                                Toast.makeText(getApplicationContext(), selectedID,
+                                        Toast.LENGTH_SHORT).show();
+
+                                //  Intent i = new Intent(MainActivity.this, AddItem.class);
+                                //i.putExtra("ObjectID", selectedID);
+                                //   startActivity(i);
+                            }
+                        });
+
+                        progress.dismiss();
+                    }
+                });
             }
-        });
+        }).start();
+
+     //   mainAdapter = new ParseQueryAdapter<ParseObject>(this, "Product");
+
+
+
     }
 
 }

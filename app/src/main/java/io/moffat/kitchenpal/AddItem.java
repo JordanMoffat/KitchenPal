@@ -2,6 +2,7 @@ package io.moffat.kitchenpal;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -38,6 +39,8 @@ public class AddItem extends ActionBarActivity {
     private Date expiry;
     Calendar myCalendar = Calendar.getInstance();
     private Button search;
+    ProgressDialog progress;
+
 
 
     @Override
@@ -193,9 +196,39 @@ public class AddItem extends ActionBarActivity {
 
                 public void onClick(View v) {
 
-                    String message = "Search Button Clicked";
-                    Toast.makeText(getApplicationContext(), message,
-                            Toast.LENGTH_SHORT).show();
+                  //  String message = "Search Button Clicked";
+                 //   Toast.makeText(getApplicationContext(), message,
+                 //           Toast.LENGTH_SHORT).show();
+
+                    progress = ProgressDialog.show(AddItem.this, "Finding Barcode", "Searching....", true);
+                //    String message;
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    EditText code = (EditText) findViewById(R.id.ISDN);
+                                    String barcodeString = code.getText().toString();
+                                    URLBuilder url = new URLBuilder();
+
+                                    url.builtURL(barcodeString);
+
+                                    String message = url.builtURL(barcodeString);
+
+
+                                    EditText newEdit = (EditText)findViewById(R.id.ISDN);
+                                    newEdit.setText(message);
+
+                                    progress.dismiss();
+                                }
+                            });
+                        }
+                    }).start();
+
+
+
                 }
             });
     }
