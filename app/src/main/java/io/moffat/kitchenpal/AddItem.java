@@ -165,20 +165,42 @@ public class AddItem extends ActionBarActivity {
                 }
 
 
+
+                
                 ParseObject newProduct = new ParseObject("Product");
+
                 newProduct.put("productName", ProductName.getText().toString());
                 newProduct.put("ISDN", ISDN_text.getText().toString());
                 newProduct.put("expiry", convertedDate);
                 newProduct.put("type", spinnercategory.getSelectedItem().toString());
                 newProduct.put("quantity",quantity.getText().toString());
                 newProduct.put("username", "Admin");
-                newProduct.put("listFlag", "main");
+
+                //if box is checked + intent = shopping list || intent is main, boxed is ticked
+                //mainList =true
+                //shoppingList = true
+
+                //if intent main =  + box is unticked
+                //main = ture
+                //shoppingList = false
+
+                //if intent shopping list + box is unticked
+                //main = false
+                //shoppingList = true
+                newProduct.put("mainList", true);
                 newProduct.put("shoppingList", false);
                 newProduct.put("eaten", false);
                 newProduct.put("discarded", false);
 
-                newProduct.saveInBackground();
 
+                ProgressDialog SaveProgress = new ProgressDialog(AddItem.this);
+
+                SaveProgress.setTitle("Saving Product");
+                SaveProgress.setMessage("Saving...");
+                SaveProgress.show();
+
+                newProduct.saveInBackground();
+                SaveProgress.dismiss();
 
                 String message = ProductName.getText().toString() + " added to list";
 
