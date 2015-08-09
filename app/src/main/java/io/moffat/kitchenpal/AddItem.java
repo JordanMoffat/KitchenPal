@@ -166,7 +166,7 @@ public class AddItem extends ActionBarActivity {
 
 
 
-                
+
                 ParseObject newProduct = new ParseObject("Product");
 
                 newProduct.put("productName", ProductName.getText().toString());
