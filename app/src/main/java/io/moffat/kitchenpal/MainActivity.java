@@ -101,6 +101,7 @@ public class MainActivity extends ActionBarActivity {
                 refreshList();
         }
 
+
         return super.onOptionsItemSelected(item);
     }
 
