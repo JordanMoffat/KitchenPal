@@ -1,5 +1,7 @@
 package io.moffat.kitchenpal;
 
+import android.os.AsyncTask;
+
 import com.parse.signpost.http.HttpResponse;
 
 import org.apache.http.HttpEntity;
@@ -9,7 +11,10 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HTTP;
+import org.apache.http.protocol.HttpContext;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -23,21 +28,44 @@ import java.io.InputStreamReader;
  */
 public class JSONParser {
 
-    public JSONParser(){
+    public JSONParser() {
 
     }
 
+    public String getJSON(String url){
+
+        DefaultHttpClient httpClient = new DefaultHttpClient((new BasicHttpParams()));
+        HttpPost httppost = new HttpPost(url);
 
 
-    public JSONObject getJSON(String url){
+        httppost.setHeader("Content-type", "application/json");
 
-        JSONParser parsenr = new JSONParser();
-        JSONObject code = new JSONObject();
+        InputStream inputStream = null;
+        String result = null;
 
+        try{
+            org.apache.http.HttpResponse response = httpClient.execute(httppost);
+            HttpEntity entity = response.getEntity();
 
+            inputStream = entity.getContent();
 
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+            StringBuilder sb = new StringBuilder();
 
-        return code;
+            String line = null;
+            while((line = reader.readLine()) !=null){
+                sb.append(line+"\n");
+
+            }
+            result = sb.toString();
+
+        } catch(Exception e){
+            System.out.println(e);
+        }
+        finally {
+            try{if(inputStream !=null) inputStream.close();}catch (Exception f){}
+        }
+        return result;
     }
 
 }
