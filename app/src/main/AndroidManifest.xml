@@ -91,7 +91,7 @@
         <activity
             android:name=".AddItem"
             android:label="@string/title_activity_add_item"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName="io.moffat.kitchenpal.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
 
