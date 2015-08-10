@@ -27,6 +27,8 @@ import android.app.Activity;
 
 import com.parse.*;
 
+import org.json.JSONObject;
+
 import java.io.InputStream;
 import java.text.*;
 import java.util.Calendar;
@@ -45,7 +47,6 @@ public class AddItem extends ActionBarActivity {
     ProgressDialog progress;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +56,7 @@ public class AddItem extends ActionBarActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setTitle("Add Item");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         onCreateHandler();
 
@@ -65,11 +67,13 @@ public class AddItem extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         //don't really need anything in here, except colours. add barcode icon when i can
         getMenuInflater().inflate(R.menu.menu_add_item, menu);
+
         return true;
     }
-    public void kill(){
+
+    public void kill() {
         Intent i = new Intent(this, MainActivity.class);
-       // i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        // i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
         //finish();
     }
@@ -79,16 +83,19 @@ public class AddItem extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
+        int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
-
-
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()){
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void updateLabel() {
@@ -96,18 +103,18 @@ public class AddItem extends ActionBarActivity {
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.UK);
 
-        EditText update = (EditText)findViewById(R.id.expiry_date);
+        EditText update = (EditText) findViewById(R.id.expiry_date);
 
         update.setText(sdf.format(myCalendar.getTime()));
     }
 
-    public void onCreateHandler(){
+    public void onCreateHandler() {
 
         final EditText ProductName;
         final EditText ISDN_text;
         final EditText expiry_date;
 
-        final Spinner spinnercategory = (Spinner)findViewById(R.id.spinnercategory);
+        final Spinner spinnercategory = (Spinner) findViewById(R.id.spinnercategory);
         String[] items = new String[]{"Meat", "Vegetables", "Ready Meal", "Juice", "Milk", "Leftovers", "Dairy", "Sunderies", "Snacks", "Bread"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items);
         spinnercategory.setAdapter(adapter);
@@ -138,9 +145,9 @@ public class AddItem extends ActionBarActivity {
         };
 
         ProductName = (EditText) findViewById(R.id.ProductName);
-        ISDN_text = (EditText)findViewById(R.id.ISDN);
-        expiry_date = (EditText)findViewById(R.id.expiry_date);
-      final EditText quantity = (EditText)findViewById(R.id.quantity);
+        ISDN_text = (EditText) findViewById(R.id.ISDN);
+        expiry_date = (EditText) findViewById(R.id.expiry_date);
+        final EditText quantity = (EditText) findViewById(R.id.quantity);
 
 
         expiry_date.setOnClickListener(new View.OnClickListener() {
@@ -164,13 +171,11 @@ public class AddItem extends ActionBarActivity {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 Date convertedDate = new Date();
 
-                try{
+                try {
                     convertedDate = dateFormat.parse(dateString);
-                } catch (java.text.ParseException e){
+                } catch (java.text.ParseException e) {
                     e.printStackTrace();
                 }
-
-
 
 
                 ParseObject newProduct = new ParseObject("Product");
@@ -179,7 +184,7 @@ public class AddItem extends ActionBarActivity {
                 newProduct.put("ISDN", ISDN_text.getText().toString());
                 newProduct.put("expiry", convertedDate);
                 newProduct.put("type", spinnercategory.getSelectedItem().toString());
-                newProduct.put("quantity",quantity.getText().toString());
+                newProduct.put("quantity", quantity.getText().toString());
                 newProduct.put("username", "Admin");
 
                 //if box is checked + intent = shopping list || intent is main, boxed is ticked
@@ -219,49 +224,69 @@ public class AddItem extends ActionBarActivity {
             }
         });
 
-        Button search = (Button)findViewById(R.id.btnSearch);
-            search.setOnClickListener(new View.OnClickListener() {
+        Button search = (Button) findViewById(R.id.btnSearch);
+        search.setOnClickListener(new View.OnClickListener() {
 
-                public void onClick(View v) {
-
-                  //  String message = "Search Button Clicked";
-                 //   Toast.makeText(getApplicationContext(), message,
-                 //           Toast.LENGTH_SHORT).show();
-
-                    progress = ProgressDialog.show(AddItem.this, "Finding Barcode", "Searching....", true);
-                //    String message;
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
+            public void onClick(View v) {
 
 
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
+                EditText code = (EditText) findViewById(R.id.ISDN);
+                URLBuilder url = new URLBuilder();
+                String barcodeString = code.getText().toString();
 
-                                    EditText code = (EditText) findViewById(R.id.ISDN);
-                                    URLBuilder url = new URLBuilder();
-                                    String barcodeString = code.getText().toString();
-                                    url.builtURL(barcodeString);
-
-                                    String message = url.builtURL(barcodeString);
+                String message = url.builtURL(barcodeString);
+                new BarcodeSearch().execute(message);
+            }
 
 
-                                    EditText newEdit = (EditText)findViewById(R.id.ISDN);
-                                    newEdit.setText(message);
-
-                                    progress.dismiss();
-                                }
-                            });
-                        }
-                    }).start();
-
-
-
-                }
-            });
+        });
 
     }
+
+        class BarcodeSearch extends AsyncTask<String, Void, JSONObject> {
+
+            protected void onPreExecute() {
+                progress = ProgressDialog.show(AddItem.this, "Finding Barcode", "Searching....", true);
+            }
+
+            @Override
+            protected JSONObject doInBackground(String... urls) {
+
+                JSONParser barcodeParse = new JSONParser();
+                String restParse = barcodeParse.getJSON(urls[0]);
+
+                try {
+                    JSONObject jsonProduct = new JSONObject(restParse);
+                    return jsonProduct;
+                }catch(Exception e)
+                {
+                    System.out.println(e);
+                    //return restParse;
+                }
+
+
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(JSONObject jsonObject) {
+                //  TextView tv = (TextView) findViewById(R.id.txtView);
+                // tv.setText(jsonObject.toString());
+                if(jsonObject.has("Error") == true){
+                    EditText name = (EditText)findViewById(R.id.ProductName);
+                    Toast.makeText(getApplicationContext(), "Barcode not found in Database",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Barcode found",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+
+
+                progress.dismiss();
+            }
+        }
 
 
 }
