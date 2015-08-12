@@ -121,6 +121,14 @@ public class AddItem extends ActionBarActivity {
         spinnercategory.setAdapter(adapter);
 
         final CheckBox listFlag = (CheckBox) findViewById(R.id.listflagcheck);
+        Intent i = getIntent();
+        String intentFlag = i.getStringExtra("flag");
+
+        if (intentFlag.equals("main")){
+            listFlag.setText("Add to Shopping List?");
+        } else if (intentFlag.equals("shoppingList")){
+            listFlag.setText("Add to Main List?");
+        }
         //set text for shopping list or main
 
 
@@ -189,22 +197,25 @@ public class AddItem extends ActionBarActivity {
                 newProduct.put("quantity", quantity.getText().toString());
                 newProduct.put("username", "Admin");
 
-                if(listFlag.isChecked()){
+                Intent i = getIntent();
+                String intentFlag = i.getStringExtra("flag");
+
+
+                if(listFlag.isChecked() && intentFlag.equals("main")){
                     newProduct.put("shoppingList", true);
+                    newProduct.put("mainList", true);
+                } else if (listFlag.isChecked() && intentFlag.equals("shoppingList")){
+                    newProduct.put("mainList", true);
+                    newProduct.put("shoppingList", true);
+               } else if (!listFlag.isChecked() && intentFlag.equals("main")){
+                    newProduct.put("mainList", true);
+                    newProduct.put("shoppingList", false);
+                } else if (!listFlag.isChecked() && intentFlag.equals("shoppingList")){
+                    newProduct.put("mainList", false);
+                   newProduct.put("shoppingList", true);
                 }
-                //if box is checked + intent = shopping list || intent is main, boxed is ticked
-                //mainList =true
-                //shoppingList = true
 
-                //if intent main =  + box is unticked
-                //main = ture
-                //shoppingList = false
-
-                //if intent shopping list + box is unticked
-                //main = false
-                //shoppingList = true
-                newProduct.put("mainList", true);
-               // newProduct.put("shoppingList", false);
+               // newProduct.put("mainList", true);
                 newProduct.put("eaten", false);
                 newProduct.put("discarded", false);
 
@@ -287,6 +298,7 @@ public class AddItem extends ActionBarActivity {
                     EditText name = (EditText)findViewById(R.id.ProductName);
                     Toast.makeText(getApplicationContext(), "Barcode not found in Database",
                             Toast.LENGTH_SHORT).show();
+                    progress.dismiss();
                 } else if (jsonObject.has("name") && (jsonObject.has("ean"))) {
 
                     try {
