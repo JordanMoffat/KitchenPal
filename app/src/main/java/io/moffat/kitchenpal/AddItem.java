@@ -27,6 +27,7 @@ import android.app.Activity;
 
 import com.parse.*;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.InputStream;
@@ -119,8 +120,9 @@ public class AddItem extends ActionBarActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items);
         spinnercategory.setAdapter(adapter);
 
-        CheckBox listFlag = (CheckBox) findViewById(R.id.listflagcheck);
+        final CheckBox listFlag = (CheckBox) findViewById(R.id.listflagcheck);
         //set text for shopping list or main
+
 
         search = (Button) findViewById(R.id.btnSearch);
         search.setOnClickListener(new View.OnClickListener() {
@@ -187,6 +189,9 @@ public class AddItem extends ActionBarActivity {
                 newProduct.put("quantity", quantity.getText().toString());
                 newProduct.put("username", "Admin");
 
+                if(listFlag.isChecked()){
+                    newProduct.put("shoppingList", true);
+                }
                 //if box is checked + intent = shopping list || intent is main, boxed is ticked
                 //mainList =true
                 //shoppingList = true
@@ -199,7 +204,7 @@ public class AddItem extends ActionBarActivity {
                 //main = false
                 //shoppingList = true
                 newProduct.put("mainList", true);
-                newProduct.put("shoppingList", false);
+               // newProduct.put("shoppingList", false);
                 newProduct.put("eaten", false);
                 newProduct.put("discarded", false);
 
@@ -252,38 +257,49 @@ public class AddItem extends ActionBarActivity {
             @Override
             protected JSONObject doInBackground(String... urls) {
 
+
+
+                JSONObject jsonProduct = new JSONObject();
                 JSONParser barcodeParse = new JSONParser();
                 String restParse = barcodeParse.getJSON(urls[0]);
-
                 try {
-                    JSONObject jsonProduct = new JSONObject(restParse);
+                    JSONArray objectArray = new JSONArray(restParse);
+
+                    jsonProduct = objectArray.getJSONObject(0);
+
                     return jsonProduct;
+                    //do some shit here to turn json array into json object
+
                 }catch(Exception e)
                 {
                     System.out.println(e);
                     //return restParse;
+                    return null;
                 }
-
-
-
-                return null;
+               // return jsonObject;
             }
 
             @Override
             protected void onPostExecute(JSONObject jsonObject) {
                 //  TextView tv = (TextView) findViewById(R.id.txtView);
                 // tv.setText(jsonObject.toString());
-                if(jsonObject.has("Error") == true){
+                if(jsonObject.has("error")){
                     EditText name = (EditText)findViewById(R.id.ProductName);
                     Toast.makeText(getApplicationContext(), "Barcode not found in Database",
                             Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Barcode found",
-                            Toast.LENGTH_SHORT).show();
+                } else if (jsonObject.has("name") && (jsonObject.has("ean"))) {
+
+                    try {
+                        EditText name = (EditText) findViewById(R.id.ProductName);
+                        name.setText(jsonObject.getString("name"));
+                        EditText barcode = (EditText) findViewById(R.id.ISDN);
+                        barcode.setText(jsonObject.getString("ean"));
+
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error",
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
-
-
-
                 progress.dismiss();
             }
         }

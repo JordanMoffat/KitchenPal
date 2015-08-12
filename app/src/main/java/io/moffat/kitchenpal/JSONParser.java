@@ -35,7 +35,7 @@ public class JSONParser {
     public String getJSON(String url){
 
         DefaultHttpClient httpClient = new DefaultHttpClient((new BasicHttpParams()));
-        HttpPost httppost = new HttpPost(url);
+        HttpGet httppost = new HttpGet(url);
 
 
         httppost.setHeader("Content-type", "application/json");
@@ -54,7 +54,7 @@ public class JSONParser {
 
             String line = null;
             while((line = reader.readLine()) !=null){
-                sb.append(line+"\n");
+                sb.append(line);
 
             }
             result = sb.toString();
