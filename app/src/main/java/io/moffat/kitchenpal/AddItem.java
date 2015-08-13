@@ -1,6 +1,5 @@
 package io.moffat.kitchenpal;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -8,21 +7,16 @@ import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.app.Activity;
 
 
 import com.parse.*;
@@ -30,7 +24,6 @@ import com.parse.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.InputStream;
 import java.text.*;
 import java.util.Calendar;
 import java.util.Date;
@@ -58,6 +51,8 @@ public class AddItem extends ActionBarActivity {
 
         getSupportActionBar().setTitle("Add Item");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
 
         onCreateHandler();
 
@@ -91,11 +86,16 @@ public class AddItem extends ActionBarActivity {
             return true;
         }
         switch (item.getItemId()){
+            case R.id.barcode:
+                Intent i = new Intent(AddItem.this, BarcodeScanner.class);
+                startActivity(i);
+
             case android.R.id.home:
                 this.finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+
         }
     }
 
@@ -120,142 +120,197 @@ public class AddItem extends ActionBarActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items);
         spinnercategory.setAdapter(adapter);
 
-        final CheckBox listFlag = (CheckBox) findViewById(R.id.listflagcheck);
-        Intent i = getIntent();
-        String intentFlag = i.getStringExtra("flag");
+        final CheckBox listFlag = (CheckBox) findViewById(R.id.shoppingCheckBox);
+        //Intent i = getIntent();
+      //  String intentFlag = i.getStringExtra("flag");
 
-        if (intentFlag.equals("main")){
-            listFlag.setText("Add to Shopping List?");
-        } else if (intentFlag.equals("shoppingList")){
-            listFlag.setText("Add to Main List?");
+
+        Intent i =getIntent();
+        if (i.hasExtra("flag")){
+
+            //   EditText code = (EditText) findViewById(R.id.ISDN);
+            URLBuilder url = new URLBuilder();
+
+            String barcodeString = i.getStringExtra("barcode");
+
+            String message = url.builtURL(barcodeString);
+            new BarcodeSearch().execute(message);
+
         }
-        //set text for shopping list or main
+
+            search = (Button) findViewById(R.id.btnSearch);
+            search.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //do rest stuff here
+                }
+            });
+
+            final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                      int dayOfMonth) {
+                    // TODO Auto-generated method stub
+                    myCalendar.set(Calendar.YEAR, year);
+                    myCalendar.set(Calendar.MONTH, monthOfYear);
+                    myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                    updateLabel();
+                }
+
+            };
+
+            ProductName = (EditText) findViewById(R.id.ProductName);
+            ISDN_text = (EditText) findViewById(R.id.ISDN);
+            expiry_date = (EditText) findViewById(R.id.expiry_date);
+            final EditText quantity = (EditText) findViewById(R.id.quantity);
 
 
-        search = (Button) findViewById(R.id.btnSearch);
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //do rest stuff here
-            }
-        });
+            expiry_date.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+                    new DatePickerDialog(AddItem.this, date, myCalendar
+                            .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                            myCalendar.get(Calendar.DAY_OF_MONTH)).show();
 
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
-                myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH, monthOfYear);
-                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateLabel();
-            }
+                }
+            });
 
-        };
-
-        ProductName = (EditText) findViewById(R.id.ProductName);
-        ISDN_text = (EditText) findViewById(R.id.ISDN);
-        expiry_date = (EditText) findViewById(R.id.expiry_date);
-        final EditText quantity = (EditText) findViewById(R.id.quantity);
+            Button save = (Button) findViewById(R.id.btnSave);
+            save.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
 
-        expiry_date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                    String dateString = expiry_date.getText().toString();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    Date convertedDate = new Date();
 
-                new DatePickerDialog(AddItem.this, date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-
-            }
-        });
-
-        Button save = (Button) findViewById(R.id.btnSave);
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                    try {
+                        convertedDate = dateFormat.parse(dateString);
+                    } catch (java.text.ParseException e) {
+                        e.printStackTrace();
+                    }
 
 
-                String dateString = expiry_date.getText().toString();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                Date convertedDate = new Date();
+                    ParseObject newProduct = new ParseObject("Product");
 
-                try {
-                    convertedDate = dateFormat.parse(dateString);
-                } catch (java.text.ParseException e) {
-                    e.printStackTrace();
+
+
+                    CheckBox mainFlag = (CheckBox) findViewById(R.id.mainCheckBox);
+
+
+                    if (listFlag.isChecked() && mainFlag.isChecked()) {
+
+                        newProduct.put("productName", ProductName.getText().toString());
+                        newProduct.put("ISDN", ISDN_text.getText().toString());
+                        newProduct.put("expiry", convertedDate);
+                        newProduct.put("type", spinnercategory.getSelectedItem().toString());
+                        newProduct.put("quantity", quantity.getText().toString());
+                        newProduct.put("username", "Admin");
+                        newProduct.put("shoppingList", true);
+                        newProduct.put("mainList", true);
+                        newProduct.put("eaten", false);
+                        newProduct.put("discarded", false);
+                        ProgressDialog SaveProgress = new ProgressDialog(AddItem.this);
+
+                        SaveProgress.setTitle("Saving Product");
+                        SaveProgress.setMessage("Saving...");
+                        SaveProgress.show();
+
+                        newProduct.saveInBackground();
+                        SaveProgress.dismiss();
+
+                        String message = ProductName.getText().toString() + " added to list";
+
+                        Toast.makeText(getApplicationContext(), message,
+                                Toast.LENGTH_SHORT).show();
+
+                        kill();
+
+                    } else if (!listFlag.isChecked() && mainFlag.isChecked()) {
+                        newProduct.put("productName", ProductName.getText().toString());
+                        newProduct.put("ISDN", ISDN_text.getText().toString());
+                        newProduct.put("expiry", convertedDate);
+                        newProduct.put("type", spinnercategory.getSelectedItem().toString());
+                        newProduct.put("quantity", quantity.getText().toString());
+                        newProduct.put("username", "Admin");
+                        newProduct.put("mainList", true);
+                        newProduct.put("shoppingList", false);
+                        newProduct.put("eaten", false);
+                        newProduct.put("discarded", false);
+
+                        ProgressDialog SaveProgress = new ProgressDialog(AddItem.this);
+
+                        SaveProgress.setTitle("Saving Product");
+                        SaveProgress.setMessage("Saving...");
+                        SaveProgress.show();
+
+                        newProduct.saveInBackground();
+                        SaveProgress.dismiss();
+
+                        String message = ProductName.getText().toString() + " added to list";
+
+                        Toast.makeText(getApplicationContext(), message,
+                                Toast.LENGTH_SHORT).show();
+
+                        kill();
+                    } else if (listFlag.isChecked() && !mainFlag.isChecked()) {
+                        newProduct.put("productName", ProductName.getText().toString());
+                        newProduct.put("ISDN", ISDN_text.getText().toString());
+                        newProduct.put("expiry", convertedDate);
+                        newProduct.put("type", spinnercategory.getSelectedItem().toString());
+                        newProduct.put("quantity", quantity.getText().toString());
+                        newProduct.put("username", "Admin");
+                        newProduct.put("eaten", false);
+                        newProduct.put("discarded", false);
+                        newProduct.put("mainList", false);
+                        newProduct.put("shoppingList", true);
+
+                        ProgressDialog SaveProgress = new ProgressDialog(AddItem.this);
+
+                        SaveProgress.setTitle("Saving Product");
+                        SaveProgress.setMessage("Saving...");
+                        SaveProgress.show();
+
+                        newProduct.saveInBackground();
+                        SaveProgress.dismiss();
+
+                        String message = ProductName.getText().toString() + " added to list";
+
+                        Toast.makeText(getApplicationContext(), message,
+                                Toast.LENGTH_SHORT).show();
+
+                        kill();
+
+                    } else if (!listFlag.isChecked() && !mainFlag.isChecked()) {
+                        Toast.makeText(getApplicationContext(), "List not selected!",
+                                Toast.LENGTH_SHORT).show();
+                    }
+
+                    // newProduct.put("mainList", true);
+
+
+                }
+            });
+
+            Button search = (Button) findViewById(R.id.btnSearch);
+            search.setOnClickListener(new View.OnClickListener() {
+
+                public void onClick(View v) {
+
+
+                    EditText code = (EditText) findViewById(R.id.ISDN);
+                    URLBuilder url = new URLBuilder();
+                    String barcodeString = code.getText().toString();
+
+                    String message = url.builtURL(barcodeString);
+                    new BarcodeSearch().execute(message);
                 }
 
 
-                ParseObject newProduct = new ParseObject("Product");
-
-                newProduct.put("productName", ProductName.getText().toString());
-                newProduct.put("ISDN", ISDN_text.getText().toString());
-                newProduct.put("expiry", convertedDate);
-                newProduct.put("type", spinnercategory.getSelectedItem().toString());
-                newProduct.put("quantity", quantity.getText().toString());
-                newProduct.put("username", "Admin");
-
-                Intent i = getIntent();
-                String intentFlag = i.getStringExtra("flag");
-
-
-                if(listFlag.isChecked() && intentFlag.equals("main")){
-                    newProduct.put("shoppingList", true);
-                    newProduct.put("mainList", true);
-                } else if (listFlag.isChecked() && intentFlag.equals("shoppingList")){
-                    newProduct.put("mainList", true);
-                    newProduct.put("shoppingList", true);
-               } else if (!listFlag.isChecked() && intentFlag.equals("main")){
-                    newProduct.put("mainList", true);
-                    newProduct.put("shoppingList", false);
-                } else if (!listFlag.isChecked() && intentFlag.equals("shoppingList")){
-                    newProduct.put("mainList", false);
-                   newProduct.put("shoppingList", true);
-                }
-
-               // newProduct.put("mainList", true);
-                newProduct.put("eaten", false);
-                newProduct.put("discarded", false);
-
-
-                ProgressDialog SaveProgress = new ProgressDialog(AddItem.this);
-
-                SaveProgress.setTitle("Saving Product");
-                SaveProgress.setMessage("Saving...");
-                SaveProgress.show();
-
-                newProduct.saveInBackground();
-                SaveProgress.dismiss();
-
-                String message = ProductName.getText().toString() + " added to list";
-
-                Toast.makeText(getApplicationContext(), message,
-                        Toast.LENGTH_SHORT).show();
-
-                kill();
-
-
-            }
-        });
-
-        Button search = (Button) findViewById(R.id.btnSearch);
-        search.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-
-
-                EditText code = (EditText) findViewById(R.id.ISDN);
-                URLBuilder url = new URLBuilder();
-                String barcodeString = code.getText().toString();
-
-                String message = url.builtURL(barcodeString);
-                new BarcodeSearch().execute(message);
-            }
-
-
-        });
+            });
 
     }
 
@@ -315,6 +370,5 @@ public class AddItem extends ActionBarActivity {
                 progress.dismiss();
             }
         }
-
 
 }
