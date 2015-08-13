@@ -4,6 +4,7 @@
 
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA"/>
     <!--
  To retrieve OAuth 2.0 tokens or invalidate tokens to disconnect a user. This disconnect
      option is required to comply with the Google+ Sign-In developer policies
@@ -31,18 +32,12 @@
     <uses-permission android:name="io.moffat.kitchenpal" />
 
     <application
+        android:name=".KitchenPalApp"
         android:allowBackup="true"
         android:icon="@mipmap/iconlarge"
         android:label="Kitchen Pal"
-        android:theme="@style/AppTheme"
-        android:name=".KitchenPalApp">
-
-
-        <activity
-            android:name=".MainActivity"
-
-            >
-
+        android:theme="@style/AppTheme" >
+        <activity android:name=".MainActivity" >
         </activity>
 
         <meta-data
@@ -81,22 +76,29 @@
         <activity
             android:name=".LoginActivity2"
             android:label="@string/app_name"
-            android:windowSoftInputMode="adjustResize|stateVisible"
-            >
+            android:windowSoftInputMode="adjustResize|stateVisible" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"></action>
-            <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".AddItem"
             android:label="@string/title_activity_add_item"
-            android:parentActivityName="io.moffat.kitchenpal.MainActivity" >
+            android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-
-                android:value="io.moffat.kitchenpal.MainActivity"/>
+                android:value="io.moffat.kitchenpal.MainActivity" />
             />
+        </activity>
+        <activity
+            android:name=".BarcodeScanner"
+            android:label="@string/title_activity_barcode_scanner"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.moffat.kitchenpal.MainActivity" />
         </activity>
     </application>
 
