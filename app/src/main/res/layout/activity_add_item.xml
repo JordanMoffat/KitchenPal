@@ -142,9 +142,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Item to Shopping List?"
-        android:id="@+id/listflagcheck"
+        android:id="@+id/shoppingCheckBox"
         android:layout_below="@+id/quantity"
-        android:layout_alignStart="@+id/quantity" />
+        android:layout_alignStart="@+id/quantity"
+        android:layout_toStartOf="@+id/spinnercategory" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Item to Main List?"
+        android:id="@+id/mainCheckBox"
+        android:layout_alignTop="@+id/shoppingCheckBox"
+        android:layout_alignStart="@+id/SpinnerCat"
+        android:layout_alignBottom="@+id/shoppingCheckBox"
+        android:layout_toStartOf="@+id/btnSave" />
 
 
 </RelativeLayout>
