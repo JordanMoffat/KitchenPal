@@ -54,7 +54,7 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(MainActivity.this, AddItem.class);
-                intent.putExtra("flag", "main");
+             //   intent.putExtra("flag", "main");
                 startActivity(intent);
 
                 //  Toast.makeText(MainActivity.this, "Hello World", Toast.LENGTH_SHORT).show();
@@ -96,9 +96,13 @@ public class MainActivity extends ActionBarActivity {
             return true;
         }
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.refresh:
                 refreshList();
+
+            case R.id.barcode:
+                Intent i = new Intent(MainActivity.this, BarcodeScanner.class);
+                startActivity(i);
         }
 
 
