@@ -93,8 +93,16 @@
             />
         </activity>
         <activity
-            android:name=".BarcodeScanner"
-            android:label="@string/title_activity_barcode_scanner"
+        android:name=".BarcodeScanner"
+        android:label="@string/title_activity_barcode_scanner"
+        android:parentActivityName=".MainActivity" >
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="io.moffat.kitchenpal.MainActivity" />
+    </activity>
+        <activity
+            android:name=".EditItem"
+            android:label="@string/title_activity_edit_item"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
