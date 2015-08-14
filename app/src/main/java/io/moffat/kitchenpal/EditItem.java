@@ -172,7 +172,7 @@ public class EditItem extends ActionBarActivity {
 
                     String dateString = expiry_date.getText().toString();
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                    Date convertedDate = new Date();
+                   Date convertedDate = new Date();
 
                     try {
                         convertedDate = dateFormat.parse(dateString);
@@ -181,7 +181,7 @@ public class EditItem extends ActionBarActivity {
                     }
 
 
-                    ParseObject newProduct = new ParseObject("Product");
+                    ParseObject editProduct = new ParseObject("Product");
 
 
 
@@ -190,26 +190,27 @@ public class EditItem extends ActionBarActivity {
 
                     if (listFlag.isChecked() && mainFlag.isChecked()) {
 
-                        newProduct.put("productName", ProductName.getText().toString());
-                        newProduct.put("ISDN", ISDN_text.getText().toString());
-                        newProduct.put("expiry", convertedDate);
-                        newProduct.put("type", spinnercategory.getSelectedItem().toString());
-                        newProduct.put("quantity", quantity.getText().toString());
-                        newProduct.put("username", "Admin");
-                        newProduct.put("shoppingList", true);
-                        newProduct.put("mainList", true);
-                        newProduct.put("eaten", false);
-                        newProduct.put("discarded", false);
-                        ProgressDialog SaveProgress = new ProgressDialog(EditItem.this);
+                        ParseQuery<ParseObject> query = ParseQuery.getQuery("Product");
+                        Intent i = getIntent();
+                        query.getInBackground(i.getStringExtra("id"), new GetCallback<ParseObject>() {
+                            public void done(ParseObject editProduct, ParseException e) {
+                                if (e == null) {
+                                    editProduct.put("productName", ProductName.getText().toString());
+                                    editProduct.put("ISDN", ISDN_text.getText().toString());
+                                    editProduct.put("expiry", expiry_date.getText().toString());
+                                    editProduct.put("type", spinnercategory.getSelectedItem().toString());
+                                    editProduct.put("quantity", quantity.getText().toString());
+                                    editProduct.put("username", "Admin");
+                                    editProduct.put("shoppingList", true);
+                                    editProduct.put("mainList", true);
 
-                        SaveProgress.setTitle("Saving Product");
-                        SaveProgress.setMessage("Saving...");
-                        SaveProgress.show();
+                                    editProduct.saveInBackground();
+                                }
+                            }
+                        });
 
-                        newProduct.saveInBackground();
-                        SaveProgress.dismiss();
 
-                        String message = ProductName.getText().toString() + " added to list";
+                        String message = ProductName.getText().toString() + " edited";
 
                         Toast.makeText(getApplicationContext(), message,
                                 Toast.LENGTH_SHORT).show();
@@ -217,53 +218,55 @@ public class EditItem extends ActionBarActivity {
                         kill();
 
                     } else if (!listFlag.isChecked() && mainFlag.isChecked()) {
-                        newProduct.put("productName", ProductName.getText().toString());
-                        newProduct.put("ISDN", ISDN_text.getText().toString());
-                        newProduct.put("expiry", convertedDate);
-                        newProduct.put("type", spinnercategory.getSelectedItem().toString());
-                        newProduct.put("quantity", quantity.getText().toString());
-                        newProduct.put("username", "Admin");
-                        newProduct.put("mainList", true);
-                        newProduct.put("shoppingList", false);
-                        newProduct.put("eaten", false);
-                        newProduct.put("discarded", false);
 
-                        ProgressDialog SaveProgress = new ProgressDialog(EditItem.this);
 
-                        SaveProgress.setTitle("Saving Product");
-                        SaveProgress.setMessage("Saving...");
-                        SaveProgress.show();
+                        ParseQuery<ParseObject> query = ParseQuery.getQuery("Product");
+                        Intent i = getIntent();
+                        query.getInBackground(i.getStringExtra("id"), new GetCallback<ParseObject>() {
+                            public void done(ParseObject editProduct, ParseException e) {
+                                if (e == null) {
+                                    editProduct.put("productName", ProductName.getText().toString());
+                                    editProduct.put("ISDN", ISDN_text.getText().toString());
+                                    editProduct.put("expiry", expiry_date.getText().toString());
+                                    editProduct.put("type", spinnercategory.getSelectedItem().toString());
+                                    editProduct.put("quantity", quantity.getText().toString());
+                                    editProduct.put("username", "Admin");
+                                    editProduct.put("shoppingList", false);
+                                    editProduct.put("mainList", true);
 
-                        newProduct.saveInBackground();
-                        SaveProgress.dismiss();
+                                    editProduct.saveInBackground();
+                                }
+                            }
+                        });
 
-                        String message = ProductName.getText().toString() + " added to list";
+
+                        String message = ProductName.getText().toString() + " edited";
 
                         Toast.makeText(getApplicationContext(), message,
                                 Toast.LENGTH_SHORT).show();
 
                         kill();
+
                     } else if (listFlag.isChecked() && !mainFlag.isChecked()) {
-                        newProduct.put("productName", ProductName.getText().toString());
-                        newProduct.put("ISDN", ISDN_text.getText().toString());
-                        newProduct.put("expiry", convertedDate);
-                        newProduct.put("type", spinnercategory.getSelectedItem().toString());
-                        newProduct.put("quantity", quantity.getText().toString());
-                        newProduct.put("username", "Admin");
-                        newProduct.put("eaten", false);
-                        newProduct.put("discarded", false);
-                        newProduct.put("mainList", false);
-                        newProduct.put("shoppingList", true);
 
-                        ProgressDialog SaveProgress = new ProgressDialog(EditItem.this);
-
-                        SaveProgress.setTitle("Saving Product");
-                        SaveProgress.setMessage("Saving...");
-                        SaveProgress.show();
-
-                        newProduct.saveInBackground();
-                        SaveProgress.dismiss();
-
+                        ParseQuery<ParseObject> query = ParseQuery.getQuery("Product");
+                        Intent i = getIntent();
+                        query.getInBackground(i.getStringExtra("id"), new GetCallback<ParseObject>() {
+                            public void done(ParseObject editProduct, ParseException e) {
+                                if (e == null) {
+                                    editProduct.put("productName", ProductName.getText().toString());
+                                    editProduct.put("ISDN", ISDN_text.getText().toString());
+                                    editProduct.put("expiry", expiry_date.getText().toString());
+                                    editProduct.put("type", spinnercategory.getSelectedItem().toString());
+                                    editProduct.put("quantity", quantity.getText().toString());
+                                    editProduct.put("username", "Admin");
+                                    editProduct.put("shoppingList", true);
+                                    editProduct.put("mainList", false);
+                                    editProduct.saveInBackground();
+                                }
+                            }
+                        });
+                        
                         String message = ProductName.getText().toString() + " added to list";
 
                         Toast.makeText(getApplicationContext(), message,
@@ -393,6 +396,8 @@ public class EditItem extends ActionBarActivity {
                 }
             }
         });
+
+        kill();
         //editobject with id
     }
     public void markDiscarded(){
@@ -409,6 +414,7 @@ public class EditItem extends ActionBarActivity {
                 }
             }
         });
+       kill();
     }
 
 }
