@@ -8,4 +8,5 @@
     <string name="title_activity_add_item">Add Item</string>
     <string name="btnSave">Save</string>
     <string name="title_activity_barcode_scanner">BarcodeScanner</string>
+    <string name="title_activity_edit_item">Edit Item</string>
 </resources>
