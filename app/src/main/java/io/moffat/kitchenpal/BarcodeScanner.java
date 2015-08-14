@@ -3,6 +3,11 @@ package io.moffat.kitchenpal;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -38,7 +43,13 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
     }
 
     public void handleResult(Result rawResult){
+        try {
 
+
+            Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+            r.play();
+        } catch (Exception e) {}
 
         Intent intent = new Intent(BarcodeScanner.this, AddItem.class);
         intent.putExtra("flag", "barcode");
