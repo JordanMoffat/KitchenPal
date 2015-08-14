@@ -23,6 +23,6 @@
         android:title="Scan"
         android:orderInCategory="200"
         android:icon="@drawable/barcode"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         />
 </menu>
