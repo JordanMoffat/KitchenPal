@@ -67,16 +67,6 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-
-
-
-
-
-
-
-
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -104,8 +94,6 @@ public class MainActivity extends ActionBarActivity {
                 Intent i = new Intent(MainActivity.this, BarcodeScanner.class);
                 startActivity(i);
         }
-
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -140,14 +128,14 @@ public class MainActivity extends ActionBarActivity {
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                                 ParseObject selected = (ParseObject) (listView.getItemAtPosition(position));
-                                String selectedID = selected.getObjectId();
+                              //  String selectedID = selected.getObjectId();
 
-                                Toast.makeText(getApplicationContext(), selectedID,
-                                        Toast.LENGTH_SHORT).show();
+                             //   Toast.makeText(getApplicationContext(), selectedID,
+                             //           Toast.LENGTH_SHORT).show();
 
-                                //  Intent i = new Intent(MainActivity.this, AddItem.class);
-                                //i.putExtra("ObjectID", selectedID);
-                                //   startActivity(i);
+                                Intent i = new Intent(MainActivity.this, EditItem.class);
+                                i.putExtra("id", selected.getObjectId());
+                                startActivity(i);
                             }
                         });
 
@@ -156,11 +144,6 @@ public class MainActivity extends ActionBarActivity {
                 });
             }
         }).start();
-
-     //   mainAdapter = new ParseQueryAdapter<ParseObject>(this, "Product");
-
-
-
     }
 
 }
