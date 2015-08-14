@@ -6,14 +6,6 @@
         android:orderInCategory="100" app:showAsAction="never" />
 
     <item
-        android:id="@+id/barcode"
-        android:orderInCategory="200"
-        android:title="Search"
-        android:icon="@drawable/barcode"
-        app:showAsAction="always"
-        ></item>
-
-    <item
     android:id="@+id/eaten"
     android:orderInCategory="200"
     android:title="Mark as Eaten"
