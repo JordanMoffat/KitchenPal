@@ -87,12 +87,13 @@ public class MainActivity extends ActionBarActivity {
         }
 
         switch (item.getItemId()) {
-            case R.id.refresh:
-                refreshList();
-
             case R.id.barcode:
                 Intent i = new Intent(MainActivity.this, BarcodeScanner.class);
                 startActivity(i);
+
+            case R.id.refresh:
+                refreshList();
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -128,13 +129,10 @@ public class MainActivity extends ActionBarActivity {
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                                 ParseObject selected = (ParseObject) (listView.getItemAtPosition(position));
-                              //  String selectedID = selected.getObjectId();
 
-                             //   Toast.makeText(getApplicationContext(), selectedID,
-                             //           Toast.LENGTH_SHORT).show();
-
+                                String objectId = selected.getObjectId();
                                 Intent i = new Intent(MainActivity.this, EditItem.class);
-                                i.putExtra("id", selected.getObjectId());
+                                i.putExtra("id", objectId);
                                 startActivity(i);
                             }
                         });
