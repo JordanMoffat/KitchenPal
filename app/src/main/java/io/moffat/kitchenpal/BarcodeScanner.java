@@ -55,6 +55,7 @@ public class BarcodeScanner extends Activity implements ZXingScannerView.ResultH
         intent.putExtra("flag", "barcode");
         intent.putExtra("barcode", rawResult.getText());
         startActivity(intent);
+        finish();
 
        // Toast.makeText(getApplicationContext(), rawResult.getText(),
          //       Toast.LENGTH_SHORT).show();

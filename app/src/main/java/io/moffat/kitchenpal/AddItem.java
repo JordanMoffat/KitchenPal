@@ -71,7 +71,7 @@ public class AddItem extends ActionBarActivity {
         Intent i = new Intent(this, MainActivity.class);
         // i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
-        //finish();
+        finish();
     }
 
     @Override
