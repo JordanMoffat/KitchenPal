@@ -127,8 +127,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/quantity"
         android:layout_below="@+id/lblQuantity"
-        android:layout_alignEnd="@+id/btnSearch"
-        android:layout_alignStart="@+id/lblQuantity" />
+        android:layout_alignStart="@+id/lblQuantity"
+        android:layout_toStartOf="@+id/btnSearch" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -156,6 +156,15 @@
         android:layout_alignStart="@+id/SpinnerCat"
         android:layout_alignBottom="@+id/shoppingCheckBox"
         android:layout_toStartOf="@+id/btnSave" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/quantityType"
+        android:layout_alignTop="@+id/quantity"
+        android:layout_alignBottom="@+id/quantity"
+        android:layout_alignEnd="@+id/spinnercategory" />
 
 
 </RelativeLayout>
