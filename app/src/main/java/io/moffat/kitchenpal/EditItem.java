@@ -85,13 +85,14 @@ public class EditItem extends ActionBarActivity {
             return true;
         }
         switch (item.getItemId()){
-            case R.id.barcode:
-                Intent i = new Intent(EditItem.this, BarcodeScanner.class);
-                startActivity(i);
+            case R.id.discarded:
+                markDiscarded();
+
+            case R.id.eaten:
+                markEaten();
 
             case android.R.id.home:
                 this.finish();
-
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -266,7 +267,7 @@ public class EditItem extends ActionBarActivity {
                                 }
                             }
                         });
-                        
+
                         String message = ProductName.getText().toString() + " added to list";
 
                         Toast.makeText(getApplicationContext(), message,
@@ -302,7 +303,7 @@ public class EditItem extends ActionBarActivity {
 
             });
 
-        Intent i =getIntent();
+        Intent i = getIntent();
         if (i.hasExtra("id")){
 
             ParseQuery<ParseObject> query = ParseQuery.getQuery("Product");
