@@ -9,4 +9,5 @@
     <string name="btnSave">Save</string>
     <string name="title_activity_barcode_scanner">BarcodeScanner</string>
     <string name="title_activity_edit_item">Edit Item</string>
+    <string name="title_activity_shopping_list">Shopping List</string>
 </resources>
