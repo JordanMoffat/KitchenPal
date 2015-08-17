@@ -108,6 +108,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="io.moffat.kitchenpal.MainActivity" />
         </activity>
+        <activity
+            android:name=".ShoppingList"
+            android:label="@string/title_activity_shopping_list"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.moffat.kitchenpal.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
