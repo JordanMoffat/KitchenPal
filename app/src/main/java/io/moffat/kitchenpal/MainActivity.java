@@ -94,6 +94,10 @@ public class MainActivity extends ActionBarActivity {
             case R.id.refresh:
                 refreshList();
                 return true;
+            case R.id.open_shopping_list:
+                Intent intent = new Intent(MainActivity.this, ShoppingList.class);
+                startActivity(intent);
+          return true;
         }
         return super.onOptionsItemSelected(item);
     }
