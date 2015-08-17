@@ -89,10 +89,9 @@ public class AddItem extends ActionBarActivity {
             case R.id.barcode:
                 Intent i = new Intent(AddItem.this, BarcodeScanner.class);
                 startActivity(i);
-
+                return true;
             case android.R.id.home:
                 this.finish();
-
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

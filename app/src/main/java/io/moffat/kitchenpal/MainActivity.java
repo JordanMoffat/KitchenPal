@@ -90,10 +90,10 @@ public class MainActivity extends ActionBarActivity {
             case R.id.barcode:
                 Intent i = new Intent(MainActivity.this, BarcodeScanner.class);
                 startActivity(i);
-
+                return true;
             case R.id.refresh:
                 refreshList();
-
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

@@ -87,10 +87,11 @@ public class EditItem extends ActionBarActivity {
         switch (item.getItemId()){
             case R.id.discarded:
                 markDiscarded();
+                return true;
 
             case R.id.eaten:
                 markEaten();
-
+                return true;
             case android.R.id.home:
                 this.finish();
                 return true;
@@ -117,7 +118,7 @@ public class EditItem extends ActionBarActivity {
         final EditText expiry_date;
 
         final Spinner spinnercategory = (Spinner) findViewById(R.id.spinnercategory);
-        String[] items = new String[]{"Meat", "Vegetables", "Ready Meal", "Juice", "Milk", "Leftovers", "Dairy", "Sunderies", "Snacks", "Bread"};
+         final String[] items = new String[]{"Meat", "Vegetables", "Ready Meal", "Juice", "Milk", "Leftovers", "Dairy", "Sunderies", "Snacks", "Bread"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items);
         spinnercategory.setAdapter(adapter);
 
@@ -186,7 +187,7 @@ public class EditItem extends ActionBarActivity {
 
 
 
-                    CheckBox mainFlag = (CheckBox) findViewById(R.id.mainCheckBox);
+                 final CheckBox mainFlag = (CheckBox) findViewById(R.id.mainCheckBox);
 
 
                     if (listFlag.isChecked() && mainFlag.isChecked()) {
@@ -279,10 +280,6 @@ public class EditItem extends ActionBarActivity {
                         Toast.makeText(getApplicationContext(), "List not selected!",
                                 Toast.LENGTH_SHORT).show();
                     }
-
-                    // newProduct.put("mainList", true);
-
-
                 }
             });
 
@@ -310,17 +307,37 @@ public class EditItem extends ActionBarActivity {
             query.getInBackground(i.getStringExtra("id"), new GetCallback<ParseObject>() {
                 @Override
                 public void done(ParseObject parseObject, ParseException e) {
-                    parseObject.getString("productName");
+                 //   parseObject.getString("productName");
+                    ProductName.setText(parseObject.getString("productName"));
 
-                    //put data into fields
-                    //checkboxes
-                    //spinner etc
+                    //Sets the category spinner
+                    int index = -1;
+                    for (int i=0;i<items.length;i++){
+                        if (items[i].equals(parseObject.getString("type"))){
+                            index = i;
+                            break;
+                        }
+                    }
+                    if (index >=0) {
+                        spinnercategory.setSelection(index);
+                    } else {
+                        spinnercategory.setSelection(0);
+                    }
+                    //sets the Barcode number and the quantity
+                    ISDN_text.setText(parseObject.getString("ISDN"));
+                    quantity.setText(parseObject.getString("quantity"));
+
+                    //sets check boxes
+                    if (parseObject.getBoolean("shoppingList") == true){
+                        listFlag.setChecked(true);
+                    } else if (parseObject.getBoolean("mainList") == true){
+                        CheckBox mainFlag = (CheckBox) findViewById(R.id.mainCheckBox);
+                        mainFlag.setChecked(true);
+                    }
+
+                    expiry_date.setText(parseObject.getDate("expiry").toString());
                 }
             });
-            //search for ObjectID
-
-
-
         }
 
     }
@@ -358,8 +375,7 @@ public class EditItem extends ActionBarActivity {
 
             @Override
             protected void onPostExecute(JSONObject jsonObject) {
-                //  TextView tv = (TextView) findViewById(R.id.txtView);
-                // tv.setText(jsonObject.toString());
+
                 if(jsonObject.has("error")){
                     EditText name = (EditText)findViewById(R.id.ProductName);
                     Toast.makeText(getApplicationContext(), "Barcode not found in Database",
@@ -387,19 +403,18 @@ public class EditItem extends ActionBarActivity {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Product");
         Intent i = getIntent();
 
-// Retrieve the object by id
+
         query.getInBackground(i.getStringExtra("id"), new GetCallback<ParseObject>() {
             public void done(ParseObject editProduct, ParseException e) {
                 if (e == null) {
-                    // Now let's update it with some new data. In this case, only cheatMode and score
-                    // will get sent to the Parse Cloud. playerName hasn't changed.
                     editProduct.put("eaten", true);
                 }
             }
         });
 
-        kill();
-        //editobject with id
+        Toast.makeText(EditItem.this, "Marked as Eaten", Toast.LENGTH_SHORT).show();
+      //  kill();
+
     }
     public void markDiscarded(){
         //edit object
@@ -409,13 +424,11 @@ public class EditItem extends ActionBarActivity {
         query.getInBackground(i.getStringExtra("id"), new GetCallback<ParseObject>() {
             public void done(ParseObject editProduct, ParseException e) {
                 if (e == null) {
-                    // Now let's update it with some new data. In this case, only cheatMode and score
-                    // will get sent to the Parse Cloud. playerName hasn't changed.
                     editProduct.put("discarded", true);
                 }
             }
         });
-       kill();
+        Toast.makeText(EditItem.this, "Marked as Discarded", Toast.LENGTH_SHORT).show();
     }
 
 }
