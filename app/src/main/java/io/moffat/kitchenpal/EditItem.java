@@ -172,7 +172,7 @@ public class EditItem extends ActionBarActivity {
                 public void onClick(View v) {
 
 
-                    String dateString = expiry_date.getText().toString();
+            /*        String dateString = expiry_date.getText().toString();
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                    Date convertedDate = new Date();
 
@@ -182,10 +182,11 @@ public class EditItem extends ActionBarActivity {
                         e.printStackTrace();
                     }
 
+                */
+                 //   ParseObject editProduct = new ParseObject("Product");
 
-                    ParseObject editProduct = new ParseObject("Product");
 
-
+                    //need to figure out how to convert date backwards to display
 
                  final CheckBox mainFlag = (CheckBox) findViewById(R.id.mainCheckBox);
 
@@ -194,12 +195,14 @@ public class EditItem extends ActionBarActivity {
 
                         ParseQuery<ParseObject> query = ParseQuery.getQuery("Product");
                         Intent i = getIntent();
-                        query.getInBackground(i.getStringExtra("id"), new GetCallback<ParseObject>() {
+                        String queryString = i.getStringExtra("id");
+                        query.getInBackground(queryString, new GetCallback<ParseObject>() {
+                            @Override
                             public void done(ParseObject editProduct, ParseException e) {
                                 if (e == null) {
                                     editProduct.put("productName", ProductName.getText().toString());
                                     editProduct.put("ISDN", ISDN_text.getText().toString());
-                                    editProduct.put("expiry", expiry_date.getText().toString());
+                                 //   editProduct.put("expiry", expiry_date.getText().toString());
                                     editProduct.put("type", spinnercategory.getSelectedItem().toString());
                                     editProduct.put("quantity", quantity.getText().toString());
                                     editProduct.put("username", "Admin");
@@ -224,12 +227,14 @@ public class EditItem extends ActionBarActivity {
 
                         ParseQuery<ParseObject> query = ParseQuery.getQuery("Product");
                         Intent i = getIntent();
-                        query.getInBackground(i.getStringExtra("id"), new GetCallback<ParseObject>() {
+                        String queryString = i.getStringExtra("id");
+                        query.getInBackground(queryString, new GetCallback<ParseObject>() {
+                            @Override
                             public void done(ParseObject editProduct, ParseException e) {
                                 if (e == null) {
                                     editProduct.put("productName", ProductName.getText().toString());
                                     editProduct.put("ISDN", ISDN_text.getText().toString());
-                                    editProduct.put("expiry", expiry_date.getText().toString());
+                                 //   editProduct.put("expiry", expiry_date.getText().toString());
                                     editProduct.put("type", spinnercategory.getSelectedItem().toString());
                                     editProduct.put("quantity", quantity.getText().toString());
                                     editProduct.put("username", "Admin");
@@ -253,12 +258,14 @@ public class EditItem extends ActionBarActivity {
 
                         ParseQuery<ParseObject> query = ParseQuery.getQuery("Product");
                         Intent i = getIntent();
-                        query.getInBackground(i.getStringExtra("id"), new GetCallback<ParseObject>() {
+                        String queryString = i.getStringExtra("id");
+                        query.getInBackground(queryString, new GetCallback<ParseObject>() {
+                            @Override
                             public void done(ParseObject editProduct, ParseException e) {
                                 if (e == null) {
                                     editProduct.put("productName", ProductName.getText().toString());
                                     editProduct.put("ISDN", ISDN_text.getText().toString());
-                                    editProduct.put("expiry", expiry_date.getText().toString());
+                                 //   editProduct.put("expiry", expiry_date.getText().toString());
                                     editProduct.put("type", spinnercategory.getSelectedItem().toString());
                                     editProduct.put("quantity", quantity.getText().toString());
                                     editProduct.put("username", "Admin");
@@ -304,7 +311,8 @@ public class EditItem extends ActionBarActivity {
         if (i.hasExtra("id")){
 
             ParseQuery<ParseObject> query = ParseQuery.getQuery("Product");
-            query.getInBackground(i.getStringExtra("id"), new GetCallback<ParseObject>() {
+            String queryString = i.getStringExtra("id");
+            query.getInBackground(queryString, new GetCallback<ParseObject>() {
                 @Override
                 public void done(ParseObject parseObject, ParseException e) {
                  //   parseObject.getString("productName");
@@ -404,10 +412,12 @@ public class EditItem extends ActionBarActivity {
         Intent i = getIntent();
 
 
-        query.getInBackground(i.getStringExtra("id"), new GetCallback<ParseObject>() {
+        String queryString = i.getStringExtra("id");
+        query.getInBackground(queryString, new GetCallback<ParseObject>() {
             public void done(ParseObject editProduct, ParseException e) {
                 if (e == null) {
                     editProduct.put("eaten", true);
+                    editProduct.saveInBackground();
                 }
             }
         });
@@ -420,15 +430,19 @@ public class EditItem extends ActionBarActivity {
         //edit object
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Product");
         Intent i = getIntent();
+        String queryString = i.getStringExtra("id");
+        query.getInBackground(queryString, new GetCallback<ParseObject>() {
+                                public void done (ParseObject editProduct, ParseException e){
+                                if (e == null) {
+                                    editProduct.put("discarded", true);
+                                    editProduct.saveInBackground();
+                                }
+                            }
+                            }
 
-        query.getInBackground(i.getStringExtra("id"), new GetCallback<ParseObject>() {
-            public void done(ParseObject editProduct, ParseException e) {
-                if (e == null) {
-                    editProduct.put("discarded", true);
-                }
-            }
-        });
-        Toast.makeText(EditItem.this, "Marked as Discarded", Toast.LENGTH_SHORT).show();
+                            );
+                            Toast.makeText(EditItem.this,"Marked as Discarded",Toast.LENGTH_SHORT).
+                                    show();
+                        }
+
     }
-
-}
