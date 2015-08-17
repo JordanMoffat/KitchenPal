@@ -23,14 +23,12 @@ public class ShoppingList extends ActionBarActivity {
     public final static String EXTRA_MESSAGE = "io.moffat.kitchenpal.MESSAGE";
     private ParseQueryAdapter<ParseObject> mainAdapter;
     private ListView listView;
-    private CustomAdapter newCustomAdapter;
+    private ShoppingListAdapter newCustomAdapter;
     ProgressDialog progress;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shopping_list_activity);
@@ -48,7 +46,6 @@ public class ShoppingList extends ActionBarActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(ShoppingList.this, AddItem.class);
-                intent.putExtra(EXTRA_MESSAGE, "shoppingList");
                 startActivity(intent);
 
                 //  Toast.makeText(MainActivity.this, "Hello World", Toast.LENGTH_SHORT).show();
@@ -56,7 +53,7 @@ public class ShoppingList extends ActionBarActivity {
             }
         });
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Kitchen Pal");
+        getSupportActionBar().setTitle("Shopping List");
 
 
     }
@@ -116,9 +113,9 @@ public class ShoppingList extends ActionBarActivity {
                         mainAdapter = new ParseQueryAdapter<ParseObject>(ShoppingList.this, "Product");
                         mainAdapter.setTextKey("productName");
 
-                        newCustomAdapter = new CustomAdapter(ShoppingList.this);
+                        newCustomAdapter = new ShoppingListAdapter(ShoppingList.this);
 
-                        listView = (ListView)findViewById(R.id.ProductView);
+                        listView = (ListView)findViewById(R.id.ShoppingListView);
                         listView.setAdapter(newCustomAdapter);
 
                         newCustomAdapter.loadObjects();
@@ -129,14 +126,11 @@ public class ShoppingList extends ActionBarActivity {
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                                 ParseObject selected = (ParseObject) (listView.getItemAtPosition(position));
-                                String selectedID = selected.getObjectId();
 
-                                Toast.makeText(getApplicationContext(), selectedID,
-                                        Toast.LENGTH_SHORT).show();
-
-                                //  Intent i = new Intent(MainActivity.this, AddItem.class);
-                                //i.putExtra("ObjectID", selectedID);
-                                //   startActivity(i);
+                                String objectId = selected.getObjectId();
+                                Intent i = new Intent(ShoppingList.this, EditItem.class);
+                                i.putExtra("id", objectId);
+                                startActivity(i);
                             }
                         });
 
