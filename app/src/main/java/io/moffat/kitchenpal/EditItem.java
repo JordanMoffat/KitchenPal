@@ -419,6 +419,7 @@ public class EditItem extends ActionBarActivity {
             public void done(ParseObject editProduct, ParseException e) {
                 if (e == null) {
                     editProduct.put("eaten", true);
+                    editProduct.put("expiry", null);
                     editProduct.saveInBackground();
                 }
             }
@@ -437,6 +438,7 @@ public class EditItem extends ActionBarActivity {
                                 public void done (ParseObject editProduct, ParseException e){
                                 if (e == null) {
                                     editProduct.put("discarded", true);
+                                    editProduct.put("expiry", null);
                                     editProduct.saveInBackground();
                                 }
                             }
