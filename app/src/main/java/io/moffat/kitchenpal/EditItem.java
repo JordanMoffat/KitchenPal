@@ -123,6 +123,12 @@ public class EditItem extends ActionBarActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items);
         spinnercategory.setAdapter(adapter);
 
+        final Spinner quantityCategory = (Spinner) findViewById(R.id.measureSpinner);
+        String[] quantities = new String[]{"ml", "fl.oz", "cups", "packets", "g", "kg", "items", "oz", "pt", "L"};
+        ArrayAdapter<String> quantityAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, quantities);
+        quantityCategory.setAdapter(quantityAdapter);
+
+
         final CheckBox listFlag = (CheckBox) findViewById(R.id.shoppingCheckBox);
         //Intent i = getIntent();
       //  String intentFlag = i.getStringExtra("flag")
@@ -210,7 +216,7 @@ public class EditItem extends ActionBarActivity {
                                     editProduct.put("username", ParseUser.getCurrentUser());
                                     editProduct.put("shoppingList", true);
                                     editProduct.put("mainList", true);
-
+                                    editProduct.put("unit", quantityCategory.getSelectedItem().toString());
                                     editProduct.saveInBackground();
                                 }
                             }
@@ -242,6 +248,7 @@ public class EditItem extends ActionBarActivity {
                                     editProduct.put("username", ParseUser.getCurrentUser());
                                     editProduct.put("shoppingList", false);
                                     editProduct.put("mainList", true);
+                                    editProduct.put("unit", quantityCategory.getSelectedItem().toString());
 
                                     editProduct.saveInBackground();
                                 }
@@ -273,6 +280,7 @@ public class EditItem extends ActionBarActivity {
                                     editProduct.put("username", ParseUser.getCurrentUser());
                                     editProduct.put("shoppingList", true);
                                     editProduct.put("mainList", false);
+                                    editProduct.put("unit", quantityCategory.getSelectedItem().toString());
                                     editProduct.saveInBackground();
                                 }
                             }
