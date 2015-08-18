@@ -22,6 +22,7 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -53,6 +54,7 @@ public class EditItem extends ActionBarActivity {
 
         getSupportActionBar().setTitle("Edit Item");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         onCreateHandler();
 
     }
@@ -205,7 +207,7 @@ public class EditItem extends ActionBarActivity {
                                  //   editProduct.put("expiry", expiry_date.getText().toString());
                                     editProduct.put("type", spinnercategory.getSelectedItem().toString());
                                     editProduct.put("quantity", quantity.getText().toString());
-                                    editProduct.put("username", "Admin");
+                                    editProduct.put("username", ParseUser.getCurrentUser());
                                     editProduct.put("shoppingList", true);
                                     editProduct.put("mainList", true);
 
@@ -237,7 +239,7 @@ public class EditItem extends ActionBarActivity {
                                  //   editProduct.put("expiry", expiry_date.getText().toString());
                                     editProduct.put("type", spinnercategory.getSelectedItem().toString());
                                     editProduct.put("quantity", quantity.getText().toString());
-                                    editProduct.put("username", "Admin");
+                                    editProduct.put("username", ParseUser.getCurrentUser());
                                     editProduct.put("shoppingList", false);
                                     editProduct.put("mainList", true);
 
@@ -268,7 +270,7 @@ public class EditItem extends ActionBarActivity {
                                  //   editProduct.put("expiry", expiry_date.getText().toString());
                                     editProduct.put("type", spinnercategory.getSelectedItem().toString());
                                     editProduct.put("quantity", quantity.getText().toString());
-                                    editProduct.put("username", "Admin");
+                                    editProduct.put("username", ParseUser.getCurrentUser());
                                     editProduct.put("shoppingList", true);
                                     editProduct.put("mainList", false);
                                     editProduct.saveInBackground();
