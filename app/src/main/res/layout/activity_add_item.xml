@@ -166,5 +166,14 @@
         android:layout_alignBottom="@+id/quantity"
         android:layout_alignEnd="@+id/spinnercategory" />
 
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/measureSpinner"
+        android:layout_alignEnd="@+id/spinnercategory"
+        android:layout_toEndOf="@+id/quantity"
+        android:layout_alignBottom="@+id/quantity"
+        android:layout_alignTop="@+id/quantity" />
+
 
 </RelativeLayout>

@@ -120,6 +120,11 @@ public class AddItem extends ActionBarActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items);
         spinnercategory.setAdapter(adapter);
 
+        final Spinner quantityCategory = (Spinner) findViewById(R.id.measureSpinner);
+        String[] quantities = new String[]{"ml", "fl.oz", "cups", "packets", "g", "kg", "items", "oz", "pt", "L"};
+        ArrayAdapter<String> quantityAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, quantities);
+        quantityCategory.setAdapter(quantityAdapter);
+
         final CheckBox listFlag = (CheckBox) findViewById(R.id.shoppingCheckBox);
         //Intent i = getIntent();
       //  String intentFlag = i.getStringExtra("flag");
@@ -213,6 +218,7 @@ public class AddItem extends ActionBarActivity {
                         newProduct.put("mainList", true);
                         newProduct.put("eaten", false);
                         newProduct.put("discarded", false);
+                        newProduct.put("unit", quantityCategory.getSelectedItem().toString());
                         ProgressDialog SaveProgress = new ProgressDialog(AddItem.this);
 
                         SaveProgress.setTitle("Saving Product");
@@ -240,6 +246,7 @@ public class AddItem extends ActionBarActivity {
                         newProduct.put("shoppingList", false);
                         newProduct.put("eaten", false);
                         newProduct.put("discarded", false);
+                        newProduct.put("unit", quantityCategory.getSelectedItem().toString());
 
                         ProgressDialog SaveProgress = new ProgressDialog(AddItem.this);
 
@@ -267,6 +274,7 @@ public class AddItem extends ActionBarActivity {
                         newProduct.put("discarded", false);
                         newProduct.put("mainList", false);
                         newProduct.put("shoppingList", true);
+                        newProduct.put("unit", quantityCategory.getSelectedItem().toString());
 
                         ProgressDialog SaveProgress = new ProgressDialog(AddItem.this);
 
