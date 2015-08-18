@@ -26,6 +26,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.LogInCallback;
 import com.parse.Parse;
@@ -44,10 +45,6 @@ public class LoginActivity2 extends Activity implements LoaderCallbacks<Cursor> 
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
      */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
-
 
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -81,6 +78,22 @@ public class LoginActivity2 extends Activity implements LoaderCallbacks<Cursor> 
             }
         });
 
+        TextView forgotpass = (TextView) findViewById(R.id.forgottenpass);
+        forgotpass.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //pass to activity
+            }
+        });
+
+        Button register = (Button) findViewById(R.id.Register);
+        register.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //new activity
+            }
+        });
+
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -89,6 +102,12 @@ public class LoginActivity2 extends Activity implements LoaderCallbacks<Cursor> 
             }
         });
 
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if(currentUser !=null){
+          Intent i = new Intent(LoginActivity2.this, MainActivity.class);
+            startActivity(i);
+            finish();
+        }
         mLoginFormView = findViewById(R.id.email_login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
@@ -104,9 +123,9 @@ public class LoginActivity2 extends Activity implements LoaderCallbacks<Cursor> 
      * errors are presented and no actual login attempt is made.
      */
     public void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
+      //  if (mAuthTask != null) {
+       //     return;
+       // }
 
         // Reset errors.
         mEmailView.setError(null);
@@ -120,7 +139,7 @@ public class LoginActivity2 extends Activity implements LoaderCallbacks<Cursor> 
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if (TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
@@ -152,7 +171,7 @@ public class LoginActivity2 extends Activity implements LoaderCallbacks<Cursor> 
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+        return email.length() >4;
     }
 
     private boolean isPasswordValid(String password) {
@@ -262,34 +281,32 @@ public class LoginActivity2 extends Activity implements LoaderCallbacks<Cursor> 
         UserLoginTask(String email, String password) {
             mEmail = email;
             mPassword = password;
-
-
-
-
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-            try {
+
                 // Simulate network access.
+                ParseUser.logInInBackground(mEmail, mPassword, new LogInCallback() {
+                    @Override
+                    public void done(ParseUser parseUser, com.parse.ParseException e) {
+                        if (parseUser != null) {
 
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
+                            //login successful
+                            //cache user here
+                        }
+                    }
+                });
             // TODO: register the new account here.
-            return true;
+
+            if (ParseUser.getCurrentUser() == null){
+                return false;
+            } else {
+                return true;
+            }
         }
 
         @Override
@@ -297,8 +314,7 @@ public class LoginActivity2 extends Activity implements LoaderCallbacks<Cursor> 
             mAuthTask = null;
             showProgress(false);
 
-            if (success) {
-
+            if (success == true) {
                 finish();
                 Intent intent = new Intent(LoginActivity2.this, MainActivity.class);
                 startActivity(intent);
