@@ -4,7 +4,7 @@
 
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
     <!--
  To retrieve OAuth 2.0 tokens or invalidate tokens to disconnect a user. This disconnect
      option is required to comply with the Google+ Sign-In developer policies
@@ -93,13 +93,13 @@
             />
         </activity>
         <activity
-        android:name=".BarcodeScanner"
-        android:label="@string/title_activity_barcode_scanner"
-        android:parentActivityName=".MainActivity" >
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="io.moffat.kitchenpal.MainActivity" />
-    </activity>
+            android:name=".BarcodeScanner"
+            android:label="@string/title_activity_barcode_scanner"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.moffat.kitchenpal.MainActivity" />
+        </activity>
         <activity
             android:name=".EditItem"
             android:label="@string/title_activity_edit_item"
@@ -115,6 +115,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="io.moffat.kitchenpal.MainActivity" />
+        </activity>
+        <activity
+            android:name=".ForgottenPassword"
+            android:label="@string/title_activity_forgotten_password"
+            android:parentActivityName=".LoginActivity2" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.moffat.kitchenpal.LoginActivity2" />
         </activity>
     </application>
 

@@ -82,7 +82,8 @@ public class LoginActivity2 extends Activity implements LoaderCallbacks<Cursor> 
         forgotpass.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                //pass to activity
+                Intent passIntent = new Intent(LoginActivity2.this, ForgottenPassword.class);
+                startActivity(passIntent);
             }
         });
 
