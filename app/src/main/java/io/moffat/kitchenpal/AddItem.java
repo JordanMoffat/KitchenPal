@@ -208,7 +208,7 @@ public class AddItem extends ActionBarActivity {
                         newProduct.put("expiry", convertedDate);
                         newProduct.put("type", spinnercategory.getSelectedItem().toString());
                         newProduct.put("quantity", quantity.getText().toString());
-                        newProduct.put("username", "Admin");
+                        newProduct.put("username", ParseUser.getCurrentUser());
                         newProduct.put("shoppingList", true);
                         newProduct.put("mainList", true);
                         newProduct.put("eaten", false);
@@ -235,7 +235,7 @@ public class AddItem extends ActionBarActivity {
                         newProduct.put("expiry", convertedDate);
                         newProduct.put("type", spinnercategory.getSelectedItem().toString());
                         newProduct.put("quantity", quantity.getText().toString());
-                        newProduct.put("username", "Admin");
+                        newProduct.put("username", ParseUser.getCurrentUser());
                         newProduct.put("mainList", true);
                         newProduct.put("shoppingList", false);
                         newProduct.put("eaten", false);
@@ -262,7 +262,7 @@ public class AddItem extends ActionBarActivity {
                         newProduct.put("expiry", convertedDate);
                         newProduct.put("type", spinnercategory.getSelectedItem().toString());
                         newProduct.put("quantity", quantity.getText().toString());
-                        newProduct.put("username", "Admin");
+                        newProduct.put("username", ParseUser.getCurrentUser());
                         newProduct.put("eaten", false);
                         newProduct.put("discarded", false);
                         newProduct.put("mainList", false);

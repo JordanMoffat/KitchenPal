@@ -98,6 +98,11 @@ public class MainActivity extends ActionBarActivity {
                 Intent intent = new Intent(MainActivity.this, ShoppingList.class);
                 startActivity(intent);
           return true;
+            case R.id.LogOut:
+                ParseUser.logOut();
+                Intent logout = new Intent(MainActivity.this, LoginActivity2.class);
+                startActivity(logout);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

@@ -12,6 +12,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,7 +29,7 @@ public class CustomAdapter extends ParseQueryAdapter<ParseObject> {
 
             public ParseQuery create(){
                 ParseQuery query = new ParseQuery("Product");
-                query.whereEqualTo("username", "Admin");
+                query.whereEqualTo("username", ParseUser.getCurrentUser());
                 query.whereEqualTo("mainList", true);
                 query.whereEqualTo("eaten", false);
                 query.whereEqualTo("discarded", false);
