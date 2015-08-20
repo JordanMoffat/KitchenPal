@@ -217,6 +217,7 @@ public class EditItem extends ActionBarActivity {
                                     editProduct.put("shoppingList", true);
                                     editProduct.put("mainList", true);
                                     editProduct.put("unit", quantityCategory.getSelectedItem().toString());
+                                    editProduct.put("archived", false);
                                     editProduct.saveInBackground();
                                 }
                             }
@@ -249,6 +250,7 @@ public class EditItem extends ActionBarActivity {
                                     editProduct.put("shoppingList", false);
                                     editProduct.put("mainList", true);
                                     editProduct.put("unit", quantityCategory.getSelectedItem().toString());
+                                    editProduct.put("archived", false);
 
                                     editProduct.saveInBackground();
                                 }
@@ -281,6 +283,7 @@ public class EditItem extends ActionBarActivity {
                                     editProduct.put("shoppingList", true);
                                     editProduct.put("mainList", false);
                                     editProduct.put("unit", quantityCategory.getSelectedItem().toString());
+                                    editProduct.put("archived", false);
                                     editProduct.saveInBackground();
                                 }
                             }
@@ -427,14 +430,14 @@ public class EditItem extends ActionBarActivity {
             public void done(ParseObject editProduct, ParseException e) {
                 if (e == null) {
                     editProduct.put("eaten", true);
-                    editProduct.put("expiry", null);
+                //    editProduct.put("expiry", null);
                     editProduct.saveInBackground();
                 }
             }
         });
 
         Toast.makeText(EditItem.this, "Marked as Eaten", Toast.LENGTH_SHORT).show();
-      //  kill();
+        kill();
 
     }
     public void markDiscarded(){
@@ -446,7 +449,7 @@ public class EditItem extends ActionBarActivity {
                                 public void done (ParseObject editProduct, ParseException e){
                                 if (e == null) {
                                     editProduct.put("discarded", true);
-                                    editProduct.put("expiry", null);
+                                   // editProduct.put("expiry", null);
                                     editProduct.saveInBackground();
                                 }
                             }
@@ -455,6 +458,7 @@ public class EditItem extends ActionBarActivity {
                             );
                             Toast.makeText(EditItem.this,"Marked as Discarded",Toast.LENGTH_SHORT).
                                     show();
+        kill();
                         }
 
     }

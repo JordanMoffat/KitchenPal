@@ -219,6 +219,7 @@ public class AddItem extends ActionBarActivity {
                         newProduct.put("eaten", false);
                         newProduct.put("discarded", false);
                         newProduct.put("unit", quantityCategory.getSelectedItem().toString());
+                        newProduct.put("archived", false);
                         ProgressDialog SaveProgress = new ProgressDialog(AddItem.this);
 
                         SaveProgress.setTitle("Saving Product");
@@ -247,7 +248,7 @@ public class AddItem extends ActionBarActivity {
                         newProduct.put("eaten", false);
                         newProduct.put("discarded", false);
                         newProduct.put("unit", quantityCategory.getSelectedItem().toString());
-
+                        newProduct.put("archived", false);
                         ProgressDialog SaveProgress = new ProgressDialog(AddItem.this);
 
                         SaveProgress.setTitle("Saving Product");
@@ -275,7 +276,7 @@ public class AddItem extends ActionBarActivity {
                         newProduct.put("mainList", false);
                         newProduct.put("shoppingList", true);
                         newProduct.put("unit", quantityCategory.getSelectedItem().toString());
-
+                        newProduct.put("archived", false);
                         ProgressDialog SaveProgress = new ProgressDialog(AddItem.this);
 
                         SaveProgress.setTitle("Saving Product");
