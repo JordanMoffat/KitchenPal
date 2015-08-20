@@ -124,7 +124,7 @@ public class EditItem extends ActionBarActivity {
         spinnercategory.setAdapter(adapter);
 
         final Spinner quantityCategory = (Spinner) findViewById(R.id.measureSpinner);
-        String[] quantities = new String[]{"ml", "fl.oz", "cups", "packets", "g", "kg", "items", "oz", "pt", "L"};
+        String[] quantities = new String[]{"ml", "fl.oz", "cups", "packets", "g", "kg", "items", "oz", "pt", "L", "bottles", "cartons", "loaves"};
         ArrayAdapter<String> quantityAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, quantities);
         quantityCategory.setAdapter(quantityAdapter);
 
@@ -347,13 +347,16 @@ public class EditItem extends ActionBarActivity {
                     //sets the Barcode number and the quantity
                     ISDN_text.setText(parseObject.getString("ISDN"));
                     quantity.setText(parseObject.getString("quantity"));
-
+                    CheckBox mainFlag = (CheckBox) findViewById(R.id.mainCheckBox);
                     //sets check boxes
-                    if (parseObject.getBoolean("shoppingList") == true){
+                    if (parseObject.getBoolean("shoppingList") == true && parseObject.getBoolean("mainList") == true){
                         listFlag.setChecked(true);
-                    } else if (parseObject.getBoolean("mainList") == true){
-                        CheckBox mainFlag = (CheckBox) findViewById(R.id.mainCheckBox);
                         mainFlag.setChecked(true);
+                    } else if (parseObject.getBoolean("mainList") == true && !parseObject.getBoolean("shoppingList")){
+
+                        mainFlag.setChecked(true);
+                    } else if (!parseObject.getBoolean("mainList") == true && parseObject.getBoolean("listFlag")){
+                        listFlag.setChecked(true);
                     }
 
                     expiry_date.setText(parseObject.getDate("expiry").toString());

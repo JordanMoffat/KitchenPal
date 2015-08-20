@@ -121,7 +121,7 @@ public class AddItem extends ActionBarActivity {
         spinnercategory.setAdapter(adapter);
 
         final Spinner quantityCategory = (Spinner) findViewById(R.id.measureSpinner);
-        String[] quantities = new String[]{"ml", "fl.oz", "cups", "packets", "g", "kg", "items", "oz", "pt", "L"};
+        String[] quantities = new String[]{"ml", "fl.oz", "cups", "packets", "g", "kg", "items", "oz", "pt", "L", "bottles", "cartons", "loaves"};
         ArrayAdapter<String> quantityAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, quantities);
         quantityCategory.setAdapter(quantityAdapter);
 
