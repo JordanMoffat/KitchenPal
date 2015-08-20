@@ -52,7 +52,8 @@ public class ShoppingListAdapter extends ParseQueryAdapter<ParseObject> {
         TextView timestampView = (TextView) v.findViewById(R.id.timestamp);
         //  timestampView.setText(object.getDate("expiry").toString());
 
-            timestampView.setText("Barcode: " + object.getString("ISDN"));
+           // timestampView.setText("Barcode: " + object.getString("ISDN"));
+        timestampView.setText(object.getString("quantity") + " " + object.getString("unit"));
 
 
         return v;
