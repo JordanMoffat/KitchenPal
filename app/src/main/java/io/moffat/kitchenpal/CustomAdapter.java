@@ -54,6 +54,7 @@ public class CustomAdapter extends ParseQueryAdapter<ParseObject> {
         titleTextView.setText(object.getString("productName"));
 
 
+
         TextView timestampView = (TextView) v.findViewById(R.id.timestamp);
         //  timestampView.setText(object.getDate("expiry").toString());
 
@@ -71,6 +72,8 @@ public class CustomAdapter extends ParseQueryAdapter<ParseObject> {
             timestampView.setTextColor(Color.parseColor("#64DD17"));
             timestampView.setText("Expires: " + object.getDate("expiry").toString());
     }
+
+
 
         return v;
     }
