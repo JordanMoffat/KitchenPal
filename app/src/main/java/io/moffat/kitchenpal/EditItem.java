@@ -27,6 +27,7 @@ import com.parse.ParseUser;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -202,7 +203,17 @@ public class EditItem extends ActionBarActivity {
                                 if (e == null) {
                                     editProduct.put("productName", ProductName.getText().toString());
                                     editProduct.put("ISDN", ISDN_text.getText().toString());
-                                  //  editProduct.put("expiry", expiry_date.getText().);
+
+                                    String dateString = expiry_date.getText().toString();
+                                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                                    Date convertedDate = new Date();
+
+                                    try {
+                                        convertedDate = dateFormat.parse(dateString);
+                                    } catch (java.text.ParseException x) {
+                                        e.printStackTrace();
+                                    }
+                                    editProduct.put("expiry", convertedDate);
                                     editProduct.put("type", spinnercategory.getSelectedItem().toString());
                                     editProduct.put("quantity", quantity.getText().toString());
                                     editProduct.put("username", ParseUser.getCurrentUser());
@@ -235,7 +246,18 @@ public class EditItem extends ActionBarActivity {
                                 if (e == null) {
                                     editProduct.put("productName", ProductName.getText().toString());
                                     editProduct.put("ISDN", ISDN_text.getText().toString());
-                                 //   editProduct.put("expiry", expiry_date.getText().toString());
+
+                                    String dateString = expiry_date.getText().toString();
+                                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                                    Date convertedDate = new Date();
+
+                                    try {
+                                        convertedDate = dateFormat.parse(dateString);
+                                    } catch (java.text.ParseException x) {
+                                        e.printStackTrace();
+                                    }
+                                    editProduct.put("expiry", convertedDate);
+
                                     editProduct.put("type", spinnercategory.getSelectedItem().toString());
                                     editProduct.put("quantity", quantity.getText().toString());
                                     editProduct.put("username", ParseUser.getCurrentUser());
@@ -268,7 +290,18 @@ public class EditItem extends ActionBarActivity {
                                 if (e == null) {
                                     editProduct.put("productName", ProductName.getText().toString());
                                     editProduct.put("ISDN", ISDN_text.getText().toString());
-                                 //   editProduct.put("expiry", expiry_date.getText().toString());
+
+                                    String dateString = expiry_date.getText().toString();
+                                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                                    Date convertedDate = new Date();
+
+                                    try {
+                                        convertedDate = dateFormat.parse(dateString);
+                                    } catch (java.text.ParseException x) {
+                                        e.printStackTrace();
+                                    }
+                                    editProduct.put("expiry", convertedDate);
+
                                     editProduct.put("type", spinnercategory.getSelectedItem().toString());
                                     editProduct.put("quantity", quantity.getText().toString());
                                     editProduct.put("username", ParseUser.getCurrentUser());
@@ -351,7 +384,10 @@ public class EditItem extends ActionBarActivity {
                         listFlag.setChecked(true);
                     }
 
-                    expiry_date.setText(parseObject.getDate("expiry").toString());
+                    Format formatter = new SimpleDateFormat("dd/MM/yyyy");
+                    String s = formatter.format(parseObject.getDate("expiry"));
+
+                    expiry_date.setText(s);
                 }
             });
         }
