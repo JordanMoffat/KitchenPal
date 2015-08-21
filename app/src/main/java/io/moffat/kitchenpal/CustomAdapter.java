@@ -14,6 +14,7 @@ import com.parse.ParseQueryAdapter;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 
+import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -66,11 +67,15 @@ public class CustomAdapter extends ParseQueryAdapter<ParseObject> {
         int check = object.getDate("expiry").compareTo(datecomp);
 
         if (check < 0) {
+            Format formatter = new SimpleDateFormat("dd/MM/yyyy");
+            String s = formatter.format(object.getDate("expiry"));
             timestampView.setTextColor(Color.RED);
-            timestampView.setText("Expired on "+object.getDate("expiry").toString());
+            timestampView.setText("Expired on "+ s);
         } else if (check > 0) {
+            Format formatter = new SimpleDateFormat("dd/MM/yyyy");
+            String s = formatter.format(object.getDate("expiry"));
             timestampView.setTextColor(Color.parseColor("#64DD17"));
-            timestampView.setText("Expires: " + object.getDate("expiry").toString());
+            timestampView.setText("Expires: " + s);
     }
 
 

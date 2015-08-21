@@ -189,17 +189,9 @@ public class EditItem extends ActionBarActivity {
                         e.printStackTrace();
                     }
 
-
-                 //   ParseObject editProduct = new ParseObject("Product");
-
-
-                    //need to figure out how to convert date backwards to display
-
                  final CheckBox mainFlag = (CheckBox) findViewById(R.id.mainCheckBox);
 
-
                     if (listFlag.isChecked() && mainFlag.isChecked()) {
-
 
                         ParseQuery<ParseObject> query = ParseQuery.getQuery("Product");
                         Intent i = getIntent();
