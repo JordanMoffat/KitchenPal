@@ -103,10 +103,9 @@ public class AddItem extends ActionBarActivity {
 
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.UK);
-
         EditText update = (EditText) findViewById(R.id.expiry_date);
-
         update.setText(sdf.format(myCalendar.getTime()));
+
     }
 
     public void onCreateHandler() {

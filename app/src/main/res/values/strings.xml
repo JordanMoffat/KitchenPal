@@ -11,4 +11,5 @@
     <string name="title_activity_edit_item">Edit Item</string>
     <string name="title_activity_shopping_list">Shopping List</string>
     <string name="title_activity_forgotten_password">ForgottenPassword</string>
+    <string name="title_activity_register">Register</string>
 </resources>
