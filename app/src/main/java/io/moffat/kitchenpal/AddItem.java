@@ -52,8 +52,6 @@ public class AddItem extends ActionBarActivity {
         getSupportActionBar().setTitle("Add Item");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-
         onCreateHandler();
 
     }
@@ -102,7 +100,7 @@ public class AddItem extends ActionBarActivity {
     private void updateLabel() {
 
         String myFormat = "dd/MM/yyyy"; //In which you need put here
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.UK);
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
         EditText update = (EditText) findViewById(R.id.expiry_date);
         update.setText(sdf.format(myCalendar.getTime()));
 
@@ -120,7 +118,7 @@ public class AddItem extends ActionBarActivity {
         spinnercategory.setAdapter(adapter);
 
         final Spinner quantityCategory = (Spinner) findViewById(R.id.measureSpinner);
-        String[] quantities = new String[]{"ml", "fl.oz", "cups", "packets", "g", "kg", "items", "oz", "pt", "L", "bottles", "cartons", "loaves"};
+        String[] quantities = new String[]{"ml", "fl.oz", "cups", "packets", "g", "kg", "items", "oz", "pt", "L", "cl", "bottles", "cartons", "loaves"};
         ArrayAdapter<String> quantityAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, quantities);
         quantityCategory.setAdapter(quantityAdapter);
 
@@ -199,14 +197,9 @@ public class AddItem extends ActionBarActivity {
 
 
                     ParseObject newProduct = new ParseObject("Product");
-
-
-
                     CheckBox mainFlag = (CheckBox) findViewById(R.id.mainCheckBox);
 
-
                     if (listFlag.isChecked() && mainFlag.isChecked()) {
-
                         newProduct.put("productName", ProductName.getText().toString());
                         newProduct.put("ISDN", ISDN_text.getText().toString());
                         newProduct.put("expiry", convertedDate);
@@ -312,7 +305,6 @@ public class AddItem extends ActionBarActivity {
                     EditText code = (EditText) findViewById(R.id.ISDN);
                     URLBuilder url = new URLBuilder();
                     String barcodeString = code.getText().toString();
-
                     String message = url.builtURL(barcodeString);
                     new BarcodeSearch().execute(message);
                 }
@@ -331,26 +323,20 @@ public class AddItem extends ActionBarActivity {
             @Override
             protected JSONObject doInBackground(String... urls) {
 
-
-
                 JSONObject jsonProduct = new JSONObject();
                 JSONParser barcodeParse = new JSONParser();
                 String restParse = barcodeParse.getJSON(urls[0]);
                 try {
                     JSONArray objectArray = new JSONArray(restParse);
-
                     jsonProduct = objectArray.getJSONObject(0);
-
                     return jsonProduct;
                     //do some shit here to turn json array into json object
-
                 }catch(Exception e)
                 {
                     System.out.println(e);
                     //return restParse;
                     return null;
                 }
-               // return jsonObject;
             }
 
             @Override
@@ -378,5 +364,4 @@ public class AddItem extends ActionBarActivity {
                 progress.dismiss();
             }
         }
-
 }
