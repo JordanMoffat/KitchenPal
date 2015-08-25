@@ -92,6 +92,8 @@ public class LoginActivity2 extends Activity implements LoaderCallbacks<Cursor> 
             @Override
             public void onClick(View v) {
                 //new activity
+                Intent registerint = new Intent(LoginActivity2.this, Register.class);
+                startActivity(registerint);
             }
         });
 

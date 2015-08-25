@@ -1,17 +1,43 @@
 package io.moffat.kitchenpal;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 
 public class Register extends ActionBarActivity {
 
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Register");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        Button registery = (Button) findViewById(R.id.btnRegister);
+        registery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //start progress spinner
+                //save stuff here
+
+                //success
+                Intent i = new Intent(Register.this, LoginActivity2.class);
+                startActivity(i);
+                //else
+                //highlight errors
+            }
+        });
     }
 
     @Override

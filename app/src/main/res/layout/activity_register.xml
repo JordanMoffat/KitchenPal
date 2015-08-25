@@ -9,4 +9,102 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"></include>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Register your new account"
+        android:id="@+id/lblReg"
+        android:layout_below="@+id/tool_bar"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_alignEnd="@+id/btnRegister" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:id="@+id/btnRegister"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/password"
+        android:hint="Password"
+        android:layout_marginTop="42dp"
+        android:layout_below="@+id/editTextEmail"
+        android:layout_alignStart="@+id/editTextForename"
+        android:layout_alignEnd="@+id/btnRegister" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editTextForename"
+        android:layout_below="@+id/lblReg"
+        android:layout_alignStart="@+id/lblReg"
+        android:hint="Forename" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editTextSurname"
+        android:hint="Surname"
+        android:layout_below="@+id/lblReg"
+        android:layout_alignEnd="@+id/password"
+        android:layout_toEndOf="@+id/editTextForename" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/editTextConfirmPass"
+        android:hint="Confirm Password"
+        android:layout_below="@+id/password"
+        android:layout_alignStart="@+id/password"
+        android:layout_alignEnd="@+id/password" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/editTextEmail"
+        android:hint="Email"
+        android:layout_below="@+id/confirmEmail"
+        android:layout_alignStart="@+id/confirmEmail"
+        android:layout_alignEnd="@+id/password" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/confirmEmail"
+        android:hint="Confirm Email"
+        android:layout_below="@+id/editTextUsername"
+        android:layout_alignStart="@+id/editTextUsername"
+        android:layout_alignEnd="@+id/editTextUsername" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextUsername"
+        android:layout_alignEnd="@+id/editTextSurname"
+        android:layout_below="@+id/editTextSurname"
+        android:layout_alignStart="@+id/editTextForename"
+        android:hint="Username" />
+
 </RelativeLayout>
