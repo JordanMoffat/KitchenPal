@@ -4,6 +4,8 @@ import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.design.widget.*;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -25,7 +27,7 @@ import com.parse.*;
 public class MainActivity extends ActionBarActivity {
 
     private Toolbar toolbar;
-    ImageButton FAB;
+   android.support.design.widget.FloatingActionButton FAB;
     public final static String EXTRA_MESSAGE = "io.moffat.kitchenpal.MESSAGE";
     private ParseQueryAdapter<ParseObject> mainAdapter;
     private ListView listView;
@@ -48,7 +50,7 @@ public class MainActivity extends ActionBarActivity {
 
 
 
-        FAB = (ImageButton) findViewById(R.id.imageButton);
+        FAB = (FloatingActionButton) findViewById(R.id.fab);
         FAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,7 +97,7 @@ public class MainActivity extends ActionBarActivity {
                 refreshList();
                 return true;
             case R.id.open_shopping_list:
-                Intent intent = new Intent(MainActivity.this, ShoppingList.class);
+                Intent intent = new Intent(MainActivity.this, TabbedTest.class);
                 startActivity(intent);
           return true;
             case R.id.LogOut:
