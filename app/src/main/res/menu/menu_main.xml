@@ -29,6 +29,12 @@
         android:title="Log Out"
         android:orderInCategory="200"
         android:icon="@drawable/ic_exit_to_app_white_24dp"
+        app:showAsAction="never"
+        />
+    <item android:id="@+id/TabTest"
+        android:title="Tab Test"
+        android:orderInCategory="200"
+        android:icon="@drawable/ic_add_white_24dp"
         app:showAsAction="ifRoom"
         />
 

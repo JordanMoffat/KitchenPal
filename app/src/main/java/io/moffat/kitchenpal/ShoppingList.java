@@ -11,7 +11,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
+
+import android.support.design.widget.FloatingActionButton;
 
 import com.parse.ParseObject;
 import com.parse.ParseQueryAdapter;
@@ -19,7 +20,7 @@ import com.parse.ParseQueryAdapter;
 public class ShoppingList extends ActionBarActivity {
 
     private Toolbar toolbar;
-    ImageButton FAB;
+    FloatingActionButton FAB;
     public final static String EXTRA_MESSAGE = "io.moffat.kitchenpal.MESSAGE";
     private ParseQueryAdapter<ParseObject> mainAdapter;
     private ListView listView;
@@ -40,7 +41,7 @@ public class ShoppingList extends ActionBarActivity {
 
 
 
-        FAB = (ImageButton) findViewById(R.id.imageButton);
+        FAB = (FloatingActionButton) findViewById(R.id.fab);
         FAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,10 +1,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="fill_parent"
     android:layout_height="fill_parent" android:paddingLeft="0dp"
 
     tools:context=".ShoppingListActivity"
     android:id="@+id/viewcont"
     android:transitionGroup="true">
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:src="@drawable/fab_icons"
+        android:layout_gravity="bottom|end|right"
+
+        app:elevation="8dp"
+        app:pressedTranslationZ="12dp"
+        app:borderWidth="0dp"
+
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"/>
 
     <include
         android:id="@+id/tool_bar"
@@ -18,30 +35,8 @@
         android:layout_gravity="center_horizontal|top"
         android:layout_below="@+id/tool_bar" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:id="@+id/frameLayout"
-        android:layout_alignParentBottom="true">
 
 
 
-        <ImageButton
-            android:layout_margin="16dp"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:elevation="8dp"
-            android:padding="16dp"
-            android:src="@drawable/fab_icons"
-            android:scaleType="fitXY"
-            android:background="@drawable/circle"
-            android:id="@+id/imageButton"
-            android:layout_gravity="right|bottom" />
-
-
-    </FrameLayout>
 
 </RelativeLayout>

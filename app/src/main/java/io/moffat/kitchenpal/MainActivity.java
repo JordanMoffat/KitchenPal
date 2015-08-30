@@ -97,13 +97,18 @@ public class MainActivity extends ActionBarActivity {
                 refreshList();
                 return true;
             case R.id.open_shopping_list:
-                Intent intent = new Intent(MainActivity.this, TabbedTest.class);
+                Intent intent = new Intent(MainActivity.this, ShoppingList.class);
                 startActivity(intent);
           return true;
             case R.id.LogOut:
                 ParseUser.logOut();
                 Intent logout = new Intent(MainActivity.this, LoginActivity2.class);
                 startActivity(logout);
+                return true;
+            case R.id.TabTest:
+                ParseUser.logOut();
+                Intent tabtest = new Intent(MainActivity.this, TabbedTest.class);
+                startActivity(tabtest);
                 return true;
         }
         return super.onOptionsItemSelected(item);
