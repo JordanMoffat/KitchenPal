@@ -140,6 +140,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="io.moffat.kitchenpal.LoginActivity2" />
         </activity>
+        <activity
+            android:name=".TabbedTest"
+            android:label="@string/title_activity_tabbed_test" >
+        </activity>
     </application>
 
 </manifest>
