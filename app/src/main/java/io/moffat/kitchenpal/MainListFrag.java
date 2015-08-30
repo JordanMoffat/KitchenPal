@@ -11,4 +11,12 @@ import android.view.ViewGroup;
 
 public class MainListFrag extends Fragment {
 
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState){
+
+        View rootView = inflater.inflate(R.layout.fragment_main_list_fragmnet, container, false);
+
+        return rootView;
+
+    }
 }

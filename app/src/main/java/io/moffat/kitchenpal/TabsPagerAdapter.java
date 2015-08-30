@@ -10,10 +10,11 @@ import android.support.v4.app.FragmentPagerAdapter;
  * Created by Jordan on 29/08/2015.
  */
 public class TabsPagerAdapter extends FragmentPagerAdapter{
-    private static final int NO_OF_TABS = 2;
+   int mNumofTabs;
 
-    public TabsPagerAdapter(FragmentManager fm) {
+    public TabsPagerAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
+        this.mNumofTabs = NumOfTabs;
     }
 
     @Override
@@ -24,13 +25,13 @@ public class TabsPagerAdapter extends FragmentPagerAdapter{
                 return new MainListFrag();
             case 1:
                 return new ShoppingListFrag();
+            default:
+                return null;
         }
-
-        return null;
     }
 
     @Override
     public int getCount() {
-        return NO_OF_TABS;
+        return mNumofTabs;
     }
 }
