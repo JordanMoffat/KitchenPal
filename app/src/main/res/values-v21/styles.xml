@@ -26,5 +26,17 @@
 
     </style>
 
+    <style name ="Base.Widget.Design.TabLayout" parent ="android:Widget">
+        <item name="tabSelectedTextColor">@color/abc_primary_text_material_dark</item>
+        <item name="tabMaxWidth">@dimen/tab_max_width</item>
+        <item name="tabIndicatorColor">?attr/colorAccent</item>
+        <item name="tabIndicatorHeight">2dp</item>
+        <item name="tabPaddingStart">12dp</item>
+        <item name="tabPaddingEnd">12dp</item>
+        <item name="tabBackground">?attr/selectableItemBackground</item>
+        <item name="tabTextAppearance">@style/TextAppearance.Design.Tab</item>
+
+    </style>
+
 
 </resources>
