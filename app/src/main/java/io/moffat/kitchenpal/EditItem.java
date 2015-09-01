@@ -131,9 +131,6 @@ public class EditItem extends ActionBarActivity {
 
 
         final CheckBox listFlag = (CheckBox) findViewById(R.id.shoppingCheckBox);
-        //Intent i = getIntent();
-      //  String intentFlag = i.getStringExtra("flag")
-
 
             search = (Button) findViewById(R.id.btnSearch);
             search.setOnClickListener(new View.OnClickListener() {
@@ -161,7 +158,6 @@ public class EditItem extends ActionBarActivity {
             ISDN_text = (EditText) findViewById(R.id.ISDN);
             expiry_date = (EditText) findViewById(R.id.expiry_date);
             final EditText quantity = (EditText) findViewById(R.id.quantity);
-
 
             expiry_date.setOnClickListener(new View.OnClickListener() {
                 @Override

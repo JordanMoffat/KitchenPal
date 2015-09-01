@@ -9,6 +9,10 @@ public class SearchBuilder {
     public String builtURL(String queryBuilder){
         String queryBuild = new String();
 
+        //might have to build in support for multiple string search
+        //possible string[]?
+        //depends on design
+
 
         if (queryBuilder !=null){
             for (int i =0; i<queryBuilder.length(); i++){

@@ -123,14 +123,9 @@ public class AddItem extends ActionBarActivity {
         quantityCategory.setAdapter(quantityAdapter);
 
         final CheckBox listFlag = (CheckBox) findViewById(R.id.shoppingCheckBox);
-        //Intent i = getIntent();
-      //  String intentFlag = i.getStringExtra("flag");
-
-
-        Intent i =getIntent();
+           Intent i =getIntent();
         if (i.hasExtra("flag")){
 
-            //   EditText code = (EditText) findViewById(R.id.ISDN);
             URLBuilder url = new URLBuilder();
 
             String barcodeString = i.getStringExtra("barcode");
@@ -194,7 +189,6 @@ public class AddItem extends ActionBarActivity {
                     } catch (java.text.ParseException e) {
                         e.printStackTrace();
                     }
-
 
                     ParseObject newProduct = new ParseObject("Product");
                     CheckBox mainFlag = (CheckBox) findViewById(R.id.mainCheckBox);
@@ -289,10 +283,6 @@ public class AddItem extends ActionBarActivity {
                         Toast.makeText(getApplicationContext(), "List not selected!",
                                 Toast.LENGTH_SHORT).show();
                     }
-
-                    // newProduct.put("mainList", true);
-
-
                 }
             });
 
@@ -300,7 +290,6 @@ public class AddItem extends ActionBarActivity {
             search.setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(View v) {
-
 
                     EditText code = (EditText) findViewById(R.id.ISDN);
                     URLBuilder url = new URLBuilder();

@@ -11,7 +11,7 @@ public class KitchenPalApp extends Application {
     @Override
     public void onCreate(){
         super.onCreate();
-       // Parse.enableLocalDatastore(this);
+
         Parse.initialize(this, "fKFcxAML9tqkehYq0UxpMhkjSLIVdZEgIXTNLEtt", "poN3brKJyOkYPNZQWlCHMbzWHJAZIW4TMzQETGoJ");
     }
 

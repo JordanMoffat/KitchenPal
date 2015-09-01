@@ -36,11 +36,7 @@ public class ForgottenPassword extends ActionBarActivity {
 
 
         resetButton.setOnClickListener(new View.OnClickListener() {
-
-
-
             EditText email = (EditText) findViewById(R.id.emailText);
-
 
             @Override
             public void onClick(View v) {
@@ -48,7 +44,6 @@ public class ForgottenPassword extends ActionBarActivity {
                     ParseUser.requestPasswordResetInBackground(email.getText().toString(), new RequestPasswordResetCallback() {
                         @Override
                         public void done(com.parse.ParseException e) {
-
 
                             Toast.makeText(getApplicationContext(), "Password Email Sent",
                                     Toast.LENGTH_SHORT).show();

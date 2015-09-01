@@ -57,7 +57,6 @@ public class CustomAdapter extends ParseQueryAdapter<ParseObject> {
 
 
         TextView timestampView = (TextView) v.findViewById(R.id.timestamp);
-        //  timestampView.setText(object.getDate("expiry").toString());
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String date = sdf.format(Calendar.getInstance().getTime());
