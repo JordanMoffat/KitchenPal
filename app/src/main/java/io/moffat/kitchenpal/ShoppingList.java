@@ -34,7 +34,6 @@ public class ShoppingList extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shopping_list_activity);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         refreshList();
 
@@ -56,6 +55,7 @@ public class ShoppingList extends ActionBarActivity {
         });
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Shopping List");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
     }

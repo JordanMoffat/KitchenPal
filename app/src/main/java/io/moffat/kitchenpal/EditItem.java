@@ -365,6 +365,18 @@ public class EditItem extends ActionBarActivity {
                     } else {
                         spinnercategory.setSelection(0);
                     }
+                    int UnitIndex = -1;
+                    for (int i=0;i<items.length;i++){
+                        if (items[i].equals(parseObject.getString("unit"))){
+                            UnitIndex = i;
+                            break;
+                        }
+                    }
+                    if (UnitIndex >=0) {
+                        spinnercategory.setSelection(index);
+                    } else {
+                        spinnercategory.setSelection(0);
+                    }
                     //sets the Barcode number and the quantity
                     ISDN_text.setText(parseObject.getString("ISDN"));
                     quantity.setText(parseObject.getString("quantity"));
