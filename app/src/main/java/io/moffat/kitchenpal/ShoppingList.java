@@ -34,6 +34,7 @@ public class ShoppingList extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shopping_list_activity);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         refreshList();
 
@@ -60,15 +61,6 @@ public class ShoppingList extends ActionBarActivity {
     }
 
 
-
-
-
-
-
-
-
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -88,12 +80,19 @@ public class ShoppingList extends ActionBarActivity {
             return true;
         }
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.refresh:
                 refreshList();
+
+
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+
+                return super.onOptionsItemSelected(item);
         }
 
-        return super.onOptionsItemSelected(item);
     }
 
     public void refreshList(){
@@ -129,7 +128,7 @@ public class ShoppingList extends ActionBarActivity {
                                 ParseObject selected = (ParseObject) (listView.getItemAtPosition(position));
 
                                 String objectId = selected.getObjectId();
-                                Intent i = new Intent(ShoppingList.this, EditItem.class);
+                                Intent i = new Intent(ShoppingList.this, ShoppingListEdit.class);
                                 i.putExtra("id", objectId);
                                 startActivity(i);
                             }
