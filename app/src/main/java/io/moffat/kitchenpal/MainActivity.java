@@ -49,7 +49,6 @@ public class MainActivity extends ActionBarActivity {
         // refreshList();
 
 
-
         FAB = (FloatingActionButton) findViewById(R.id.fab);
         FAB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,11 +104,7 @@ public class MainActivity extends ActionBarActivity {
                 Intent logout = new Intent(MainActivity.this, LoginActivity2.class);
                 startActivity(logout);
                 return true;
-            case R.id.TabTest:
-                ParseUser.logOut();
-                Intent tabtest = new Intent(MainActivity.this, TabbedTest.class);
-                startActivity(tabtest);
-                return true;
+
         }
         return super.onOptionsItemSelected(item);
     }
