@@ -271,7 +271,7 @@ public class ShoppingListEdit extends ActionBarActivity {
                     } else {
                         spinnercategory.setSelection(0);
                     }
-                    
+
                     //sets the Barcode number and the quantity
                     ISDN_text.setText(parseObject.getString("ISDN"));
                     quantity.setText(parseObject.getString("quantity"));
