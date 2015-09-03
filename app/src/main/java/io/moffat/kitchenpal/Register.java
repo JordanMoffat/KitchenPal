@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,7 +14,7 @@ import android.widget.EditText;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
-import java.text.ParseException;
+import com.parse.ParseException;
 
 
 public class Register extends ActionBarActivity {
@@ -24,6 +25,7 @@ public class Register extends ActionBarActivity {
     final EditText email = (EditText) findViewById(R.id.emailText);
     final EditText forename = (EditText) findViewById(R.id.editTextForename);
     final EditText surname = (EditText) findViewById(R.id.editTextSurname);
+    private Boolean cancel;
     private Toolbar toolbar;
 
     @Override
@@ -42,45 +44,65 @@ public class Register extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-
-                if (passwordMatch() == true){
-                    if (validEmail() == true) {
-                        ParseUser user = new ParseUser();
-                        user.setUsername(username.getText().toString());
-                        user.setPassword(password.getText().toString());
-                        user.setEmail(email.getText().toString());
-
-                        user.put("forename", forename.getText().toString());
-                        user.put("surname", surname.getText().toString());
-
-                        user.signUpInBackground(new SignUpCallback() {
-                            @Override
-                            public void done(com.parse.ParseException e) {
-                                if (e == null) {
-                                    Intent i = new Intent(Register.this, LoginActivity2.class);
-                                    startActivity(i);
-                                } else {
-                                    //error handling here
-                                }
-
-                            }
-                        });
-                    } else {
-                        //do feedback here
-                    }
-                } else {
-                    //do feedback here
+                if (TextUtils.isEmpty(password.getText())){
+                    cancel = true;
+                    password.setError("Cannot be empty");
+                }
+                if(TextUtils.isEmpty(username.getText())){
+                    cancel = true;
+                    username.setError("Cannot be empty");
+                }
+                if(TextUtils.isEmpty(email.getText())){
+                    cancel = true;
+                    email.setError("Cannot be empty");
+                }
+                if(TextUtils.isEmpty(confirmPassword.getText())){
+                    cancel = true;
+                    confirmPassword.setError("Cannot be empty");
+                }
+                if (TextUtils.isEmpty(forename.getText())){
+                    cancel = true;
+                    forename.setError("Cannot be empty");
+                }
+                if (TextUtils.isEmpty(surname.getText())){
+                    cancel = true;
+                    surname.setError("Cannot be empty");
                 }
 
+                if (!cancel) {
+                    if (passwordMatch() == true) {
+                        if (validEmail() == true) {
+                            ParseUser user = new ParseUser();
+                            user.setUsername(username.getText().toString());
+                            user.setPassword(password.getText().toString());
+                            user.setEmail(email.getText().toString());
 
+                            user.put("forename", forename.getText().toString());
+                            user.put("surname", surname.getText().toString());
 
-                //start progress spinner
-                //save stuff here
+                            user.signUpInBackground(new SignUpCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                    if (e == null) {
+                                        Intent i = new Intent(Register.this, LoginActivity2.class);
+                                        startActivity(i);
+                                    } else {
+                                        //error handling here
+                                    }
 
-                //success
+                                }
+                            });
+                        } else {
+                            password.setError("Passwords do not match");
+                            password.requestFocus();
+                        }
+                    } else {
+                        email.setError("Not a valid email");
+                        email.requestFocus();
+                        //do feedback here
+                    }
+                }
 
-                //else
-                //highlight errors
             }
         });
     }
