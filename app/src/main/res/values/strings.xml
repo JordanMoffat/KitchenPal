@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">KitchenPal</string>
+    <string name="app_name">Kitchen Pal</string>
 
     <string name="hello_world">Kitchen Pal</string>
     <string name="action_settings">Settings</string>
@@ -7,7 +7,7 @@
     <string name="logo">logo</string>
     <string name="title_activity_add_item">Add Item</string>
     <string name="btnSave">Save</string>
-    <string name="title_activity_barcode_scanner">BarcodeScanner</string>
+    <string name="title_activity_barcode_scanner">Barcode Scanner</string>
     <string name="title_activity_edit_item">Edit Item</string>
     <string name="title_activity_shopping_list">Shopping List</string>
     <string name="title_activity_forgotten_password">ForgottenPassword</string>
@@ -19,13 +19,12 @@
     <string name="title_section3">Section 3</string>
 
 <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_tabbed_test">TabbedTest</string>
     <string name="title_activity_shopping_list_edit">ShoppingListEdit</string>
-    <string name="title_activity_recipe_search">RecipeSearch</string>
+    <string name="title_activity_recipe_search">Kitchen Pal</string>
 
-    <string name="title_activity_splash__screen">Splash_Screen</string>
+
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="title_activity_splash_screen">SplashScreen</string>
+    <string name="title_activity_splash_screen">Kitchen Pal</string>
 </resources>

@@ -18,7 +18,7 @@ import com.parse.ParseUser;
 
 public class SplashScreen extends Activity {
 
-    private static int TIME = 4000;
+    private static int TIME = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
