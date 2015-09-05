@@ -21,6 +21,8 @@ import java.text.ParseException;
 public class ForgottenPassword extends ActionBarActivity {
 
     private Toolbar toolbar;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

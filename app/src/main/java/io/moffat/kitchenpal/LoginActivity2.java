@@ -12,7 +12,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.app.Activity;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -57,62 +56,60 @@ public class LoginActivity2 extends Activity implements LoaderCallbacks<Cursor> 
     private View mProgressView;
     private View mLoginFormView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login2);
 
-        // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_login2);
+
+            // Set up the login form.
+            mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+            populateAutoComplete();
+
+            mPasswordView = (EditText) findViewById(R.id.password);
+            mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                    if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                        attemptLogin();
+                        return true;
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
 
-        TextView forgotpass = (TextView) findViewById(R.id.forgottenpass);
-        forgotpass.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent passIntent = new Intent(LoginActivity2.this, ForgottenPassword.class);
-                startActivity(passIntent);
-            }
-        });
+            TextView forgotpass = (TextView) findViewById(R.id.forgottenpass);
+            forgotpass.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent passIntent = new Intent(LoginActivity2.this, ForgottenPassword.class);
+                    startActivity(passIntent);
+                }
+            });
 
-        Button register = (Button) findViewById(R.id.Register);
-        register.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //new activity
-                Intent registerint = new Intent(LoginActivity2.this, Register.class);
-                startActivity(registerint);
-            }
-        });
+            Button registerButton = (Button) findViewById(R.id.buttonRegister);
+            registerButton.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //new activity
+                    registerActivity();
+                }
+            });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
+            Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+            mEmailSignInButton.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    attemptLogin();
+                }
+            });
 
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        if(currentUser !=null){
-          Intent i = new Intent(LoginActivity2.this, MainActivity.class);
-            startActivity(i);
-            finish();
-        }
-        mLoginFormView = findViewById(R.id.email_login_form);
-        mProgressView = findViewById(R.id.login_progress);
+
+            mLoginFormView = findViewById(R.id.email_login_form);
+            mProgressView = findViewById(R.id.login_progress);
+
     }
 
     private void populateAutoComplete() {
@@ -298,6 +295,9 @@ public class LoginActivity2 extends Activity implements LoaderCallbacks<Cursor> 
                         if (parseUser != null) {
 
 
+                        }else {
+                            //false
+
                             //login successful
                             //cache user here
                         }
@@ -332,6 +332,11 @@ public class LoginActivity2 extends Activity implements LoaderCallbacks<Cursor> 
             mAuthTask = null;
             showProgress(false);
         }
+    }
+
+    public void registerActivity(){
+        Intent registerint = new Intent(LoginActivity2.this, Register.class);
+        startActivity(registerint);
     }
 }
 

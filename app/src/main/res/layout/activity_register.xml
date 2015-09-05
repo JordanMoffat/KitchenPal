@@ -37,11 +37,10 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/password"
+        android:id="@+id/EditTextpassword"
         android:hint="Password"
-        android:layout_marginTop="42dp"
-        android:layout_below="@+id/editTextEmail"
-        android:layout_alignStart="@+id/editTextForename"
+        android:layout_above="@+id/editTextConfirmPass"
+        android:layout_alignStart="@+id/confirmEmail"
         android:layout_alignEnd="@+id/btnRegister" />
 
     <EditText
@@ -62,7 +61,8 @@
         android:id="@+id/editTextSurname"
         android:hint="Surname"
         android:layout_below="@+id/lblReg"
-        android:layout_alignEnd="@+id/password"
+        android:layout_marginRight="16dp"
+        android:layout_alignParentEnd="true"
         android:layout_toEndOf="@+id/editTextForename" />
 
     <EditText
@@ -72,9 +72,9 @@
         android:ems="10"
         android:id="@+id/editTextConfirmPass"
         android:hint="Confirm Password"
-        android:layout_below="@+id/password"
-        android:layout_alignStart="@+id/password"
-        android:layout_alignEnd="@+id/password" />
+        android:layout_above="@+id/btnRegister"
+        android:layout_alignStart="@+id/EditTextpassword"
+        android:layout_alignEnd="@+id/btnRegister" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -83,9 +83,9 @@
         android:ems="10"
         android:id="@+id/editTextEmail"
         android:hint="Email"
-        android:layout_below="@+id/confirmEmail"
-        android:layout_alignStart="@+id/confirmEmail"
-        android:layout_alignEnd="@+id/password" />
+        android:layout_below="@+id/editTextUsername"
+        android:layout_alignStart="@+id/editTextUsername"
+        android:layout_alignEnd="@+id/confirmEmail" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -94,7 +94,7 @@
         android:ems="10"
         android:id="@+id/confirmEmail"
         android:hint="Confirm Email"
-        android:layout_below="@+id/editTextUsername"
+        android:layout_below="@+id/editTextEmail"
         android:layout_alignStart="@+id/editTextUsername"
         android:layout_alignEnd="@+id/editTextUsername" />
 
@@ -102,9 +102,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editTextUsername"
-        android:layout_alignEnd="@+id/editTextSurname"
         android:layout_below="@+id/editTextSurname"
         android:layout_alignStart="@+id/editTextForename"
-        android:hint="Username" />
+        android:hint="Username"
+        android:layout_alignEnd="@+id/editTextSurname" />
 
 </RelativeLayout>
