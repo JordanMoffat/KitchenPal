@@ -23,4 +23,9 @@
     <string name="title_activity_tabbed_test">TabbedTest</string>
     <string name="title_activity_shopping_list_edit">ShoppingListEdit</string>
     <string name="title_activity_recipe_search">RecipeSearch</string>
+
+    <string name="title_activity_splash__screen">Splash_Screen</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_splash_screen">SplashScreen</string>
 </resources>
