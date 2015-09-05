@@ -337,7 +337,8 @@ public class AddItem extends ActionBarActivity {
                     Toast.makeText(getApplicationContext(), "Barcode not found in Database",
                             Toast.LENGTH_SHORT).show();
                     progress.dismiss();
-                } else if (jsonObject.has("name") && (jsonObject.has("ean"))) {
+                } else if (jsonObject.has("name") && (jsonObject.has("ean")))
+                progress.dismiss();{
 
                     try {
                         EditText name = (EditText) findViewById(R.id.ProductName);
@@ -350,7 +351,6 @@ public class AddItem extends ActionBarActivity {
                                 Toast.LENGTH_SHORT).show();
                     }
                 }
-                progress.dismiss();
             }
         }
 }

@@ -122,7 +122,7 @@ public class ShoppingListEdit extends ActionBarActivity {
         spinnercategory.setAdapter(adapter);
 
         final Spinner quantityCategory = (Spinner) findViewById(R.id.measureSpinner);
-        String[] quantities = new String[]{"ml", "fl.oz", "cups", "packets", "g", "kg", "items", "oz", "pt", "L", "bottles", "cartons", "loaves"};
+        final String[] quantities = new String[]{"ml", "fl.oz", "cups", "packets", "g", "kg", "items", "oz", "pt", "L", "bottles", "cartons", "loaves"};
         ArrayAdapter<String> quantityAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, quantities);
         quantityCategory.setAdapter(quantityAdapter);
 
@@ -260,16 +260,16 @@ public class ShoppingListEdit extends ActionBarActivity {
                     }
 
                     int UnitIndex = -1;
-                    for (int i=0;i<items.length;i++){
-                        if (items[i].equals(parseObject.getString("unit"))){
-                            UnitIndex = i;
+                    for (int j=0;j<quantities.length;j++){
+                        if (quantities[j].equals(parseObject.getString("unit"))){
+                            UnitIndex = j;
                             break;
                         }
                     }
                     if (UnitIndex >=0) {
-                        spinnercategory.setSelection(index);
+                        quantityCategory.setSelection(UnitIndex);
                     } else {
-                        spinnercategory.setSelection(0);
+                        quantityCategory.setSelection(0);
                     }
 
                     //sets the Barcode number and the quantity
