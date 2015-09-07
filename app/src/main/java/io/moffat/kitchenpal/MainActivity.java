@@ -20,10 +20,13 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
 
 import com.parse.*;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -48,11 +51,18 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
 
-        navList = (ListView) findViewById(R.id.navList);
+
+        TextView name = (TextView)findViewById(R.id.name);
+        TextView email = (TextView)findViewById(R.id.header_email);
+        String forename = ParseUser.getCurrentUser().get("forename").toString();
+        String surname = ParseUser.getCurrentUser().get("Surname").toString();
+
+        name.setText(forename + " " + surname);
+        email.setText(ParseUser.getCurrentUser().getEmail());
 
         String[] pageArray = {"Shopping List", "Archive", "Scales", "Graphs"};
         navAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, pageArray);
-        navList.setAdapter(navAdapter);
+     //   navList.setAdapter(navAdapter);
 
         refreshList();
 

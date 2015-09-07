@@ -58,14 +58,14 @@
 
 
 
-
-    <ListView
-        android:id="@+id/navList"
-        android:layout_width="match_parent"
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navigation_view"
         android:layout_height="match_parent"
+        android:layout_width="wrap_content"
         android:layout_gravity="start"
-        android:background="@color/White"
-        android:scrollingCache="false" />
+        app:headerLayout="@layout/nav_drawer_header"
+        app:menu="@menu/drawer"
+                />
 
 
 
