@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.support.design.widget.*;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +34,9 @@ public class MainActivity extends ActionBarActivity {
     private ListView listView;
     private CustomAdapter newCustomAdapter;
     ProgressDialog progress;
+    private ListView navList;
+    private ArrayAdapter<String> navAdapter;
+    private DrawerLayout mDrawerLayout;
 
 
     @Override
@@ -43,6 +47,12 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
+
+        navList = (ListView) findViewById(R.id.navList);
+
+        String[] pageArray = {"Shopping List", "Archive", "Scales", "Graphs"};
+        navAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, pageArray);
+        navList.setAdapter(navAdapter);
 
         refreshList();
 
@@ -153,6 +163,10 @@ public class MainActivity extends ActionBarActivity {
                 });
             }
         }).start();
+    }
+
+    private void addDrawerItems(){
+
     }
 
 }

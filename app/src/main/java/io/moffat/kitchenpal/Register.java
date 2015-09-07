@@ -137,8 +137,8 @@ public class Register extends ActionBarActivity {
         user.setPassword(password);
         user.setEmail(email);
 
-      //  user.put("forename", forename);
-      //  user.put("surname", Surname);
+       user.put("forename", forename);
+        user.put("surname", Surname);
 
         user.signUpInBackground(new SignUpCallback() {
             @Override
