@@ -8,6 +8,7 @@ import android.support.design.widget.*;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -29,7 +30,7 @@ import com.parse.*;
 
 import org.w3c.dom.Text;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity{
 
     private Toolbar toolbar;
    android.support.design.widget.FloatingActionButton FAB;
@@ -108,9 +109,12 @@ public class MainActivity extends ActionBarActivity {
                     case R.id.shoppinglist:
                         Intent shop = new Intent(MainActivity.this, ShoppingList.class);
                         startActivity(shop);
+                        finish();
                         return true;
                     case R.id.archive:
-                        Toast.makeText(getApplicationContext(),"Feature not available in this version",Toast.LENGTH_SHORT).show();
+                        Intent archive = new Intent(MainActivity.this, ArchiveActivity.class);
+                        startActivity(archive);
+                        finish();
                         return true;
                     case R.id.scales:
                         Toast.makeText(getApplicationContext(),"Feature not available in this version",Toast.LENGTH_SHORT).show();

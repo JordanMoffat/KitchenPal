@@ -157,12 +157,20 @@
         <activity
             android:name=".SplashScreen"
             android:label="@string/title_activity_splash_screen"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ArchiveActivity"
+            android:label="@string/title_activity_archive" >
+        </activity>
+        <activity
+            android:name=".EditArchive"
+            android:label="@string/title_activity_edit_archive" >
         </activity>
     </application>
 

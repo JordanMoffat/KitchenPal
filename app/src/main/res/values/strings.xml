@@ -30,4 +30,6 @@
 
     <string name="openDrawer">Navigation</string>
     <string name="closeDrawer">"Kitchen Pal</string>
+    <string name="title_activity_archive">ArchiveActivity</string>
+    <string name="title_activity_edit_archive">EditArchive</string>
 </resources>

@@ -1,36 +1,43 @@
 package io.moffat.kitchenpal;
 
+import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.design.widget.NavigationView;
+import android.os.AsyncTask;
+import android.support.design.widget.*;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-
-import android.support.design.widget.FloatingActionButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.app.Activity;
 
-import com.parse.ParseObject;
-import com.parse.ParseQueryAdapter;
-import com.parse.ParseUser;
+import com.parse.*;
 
-public class ShoppingList extends ActionBarActivity {
+import org.w3c.dom.Text;
+
+public class ArchiveActivity extends ActionBarActivity{
 
     private Toolbar toolbar;
-    FloatingActionButton FAB;
+    android.support.design.widget.FloatingActionButton FAB;
     public final static String EXTRA_MESSAGE = "io.moffat.kitchenpal.MESSAGE";
     private ParseQueryAdapter<ParseObject> mainAdapter;
     private ListView listView;
-    private ShoppingListAdapter shoppingListAdapter;
+    private ArchiveAdapter newCustomAdapter;
     ProgressDialog progress;
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
@@ -39,9 +46,12 @@ public class ShoppingList extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.shopping_list_activity);
+        setContentView(R.layout.activity_archive);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
+
 
         TextView name = (TextView)findViewById(R.id.name);
         TextView email = (TextView)findViewById(R.id.header_email);
@@ -51,72 +61,52 @@ public class ShoppingList extends ActionBarActivity {
         name.setText(forename + " " + surname);
         email.setText(ParseUser.getCurrentUser().getEmail());
 
+
+        //   navList.setAdapter(navAdapter);
+
         refreshList();
 
         // refreshList();
 
 
-
-        FAB = (FloatingActionButton) findViewById(R.id.fab);
-        FAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(ShoppingList.this, AddItem.class);
-                startActivity(intent);
-
-
-                //  Toast.makeText(MainActivity.this, "Hello World", Toast.LENGTH_SHORT).show();
-
-            }
-        });
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Shopping List");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        getSupportActionBar().setTitle("Archive");
         toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
 
         navigationView = (NavigationView)findViewById(R.id.navigation_view);
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
             @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
+            public boolean onNavigationItemSelected(MenuItem menuItem){
                 // if(menuItem.isChecked()) menuItem.setChecked(false);
                 //   else menuItem.setChecked(true);
 
                 drawerLayout.closeDrawers();
 
-                switch (menuItem.getItemId()) {
+                switch (menuItem.getItemId()){
 
-                    case R.id.add:
-                        Intent i = new Intent(ShoppingList.this, AddItem.class);
-                        startActivity(i);
-                        return true;
-                    case R.id.barcodeadd:
-                        Intent barcode = new Intent(ShoppingList.this, BarcodeScanner.class);
-                        startActivity(barcode);
+
+                    case R.id.shoppinglist:
+                        Intent shop = new Intent(ArchiveActivity.this, ShoppingList.class);
+                        startActivity(shop);
+                        finish();
                         return true;
                     case R.id.mainList:
-                        Intent main = new Intent(ShoppingList.this, MainActivity.class);
+                        Intent main = new Intent(ArchiveActivity.this, MainActivity.class);
                         startActivity(main);
                         finish();
                         return true;
-                    case R.id.archive:
-                        Intent archive = new Intent(ShoppingList.this, ArchiveActivity.class);
-                        startActivity(archive);
-                        finish();
-                        return true;
                     case R.id.scales:
-                        Toast.makeText(getApplicationContext(), "Feature not available in this version", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"Feature not available in this version",Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.LogOut:
                         ParseUser.logOut();
-                        Intent logout = new Intent(ShoppingList.this, LoginActivity2.class);
+                        Intent logout = new Intent(ArchiveActivity.this, LoginActivity2.class);
                         startActivity(logout);
                         return true;
 
                     default:
-                        Toast.makeText(getApplicationContext(), "Somethings Wrong", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"Somethings Wrong",Toast.LENGTH_SHORT).show();
                         return true;
 
                 }
@@ -147,15 +137,12 @@ public class ShoppingList extends ActionBarActivity {
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
-
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_archive, menu);
         return true;
     }
 
@@ -172,42 +159,39 @@ public class ShoppingList extends ActionBarActivity {
         }
 
         switch (item.getItemId()) {
+
             case R.id.refresh:
                 refreshList();
-
                 return true;
-            case android.R.id.home:
-                this.finish();
-                return true;
-            default:
 
-                return super.onOptionsItemSelected(item);
         }
-
+        return super.onOptionsItemSelected(item);
     }
 
     public void refreshList(){
 
-        progress = ProgressDialog.show(ShoppingList.this, "Loading Items", "Loading...", true);
+        progress = ProgressDialog.show(ArchiveActivity.this, "Loading Items", "Loading...", true);
 
         new Thread(new Runnable() {
             @Override
             public void run() {
+
+
 
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
 
 
-                        mainAdapter = new ParseQueryAdapter<ParseObject>(ShoppingList.this, "Product");
+                        mainAdapter = new ParseQueryAdapter<ParseObject>(ArchiveActivity.this, "Product");
                         mainAdapter.setTextKey("productName");
 
-                        shoppingListAdapter = new ShoppingListAdapter(ShoppingList.this);
+                        newCustomAdapter = new ArchiveAdapter(ArchiveActivity.this);
 
-                        listView = (ListView) findViewById(R.id.ShoppingListView);
-                        listView.setAdapter(shoppingListAdapter);
+                        listView = (ListView)findViewById(R.id.ProductView);
+                        listView.setAdapter(newCustomAdapter);
 
-                        shoppingListAdapter.loadObjects();
+                        newCustomAdapter.loadObjects();
 
 
                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -217,10 +201,9 @@ public class ShoppingList extends ActionBarActivity {
                                 ParseObject selected = (ParseObject) (listView.getItemAtPosition(position));
 
                                 String objectId = selected.getObjectId();
-                                Intent i = new Intent(ShoppingList.this, ShoppingListEdit.class);
+                                Intent i = new Intent(ArchiveActivity.this, EditArchive.class);
                                 i.putExtra("id", objectId);
                                 startActivity(i);
-
                             }
                         });
 
@@ -229,12 +212,7 @@ public class ShoppingList extends ActionBarActivity {
                 });
             }
         }).start();
-
-
-     //   mainAdapter = new ParseQueryAdapter<ParseObject>(this, "Product");
-
-
-
     }
+
 
 }
