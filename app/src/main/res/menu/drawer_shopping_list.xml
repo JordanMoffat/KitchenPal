@@ -3,11 +3,21 @@
 
     <group android:checkableBehavior="single">
 
-        <item
-            android:id="@+id/add"
-            android:checked="false"
-            android:icon="@drawable/ic_add_white_24dp"
-            android:title="Add Item" />
+
+        <group android:id="@+id/adding">
+            <item
+                android:id="@+id/add"
+                android:checked="false"
+                android:icon="@drawable/ic_add_white_24dp"
+                android:title="Add Item" />
+
+            <item
+                android:id="@+id/barcodeadd"
+                android:checked="false"
+                android:icon="@drawable/barcode"
+                android:title="Scan Barcode" />
+
+        </group>
 
         <item
             android:id="@+id/mainList"
@@ -22,21 +32,20 @@
             android:title="Archive" />
 
         <item
-        android:id="@+id/scales"
-        android:checked="false"
-        android:icon="@drawable/balance13"
-        android:title="Scales" />
+            android:id="@+id/scales"
+            android:checked="false"
+            android:icon="@drawable/balance13"
+            android:title="Scales" />
 
     </group>
 
-        <group android:id="@+id/groupLog">
+    <group android:id="@+id/groupLog">
         <item
             android:id="@+id/LogOut"
             android:checked="false"
             android:icon="@drawable/ic_exit_to_app_white_24dp"
             android:title="Log Out" />
-            </group>
-
+    </group>
 
 
 </menu>

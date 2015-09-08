@@ -30,7 +30,7 @@ public class ShoppingList extends ActionBarActivity {
     public final static String EXTRA_MESSAGE = "io.moffat.kitchenpal.MESSAGE";
     private ParseQueryAdapter<ParseObject> mainAdapter;
     private ListView listView;
-    private ShoppingListAdapter newCustomAdapter;
+    private ShoppingListAdapter shoppingListAdapter;
     ProgressDialog progress;
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
@@ -172,7 +172,7 @@ public class ShoppingList extends ActionBarActivity {
             case R.id.refresh:
                 refreshList();
 
-
+                return true;
             case android.R.id.home:
                 this.finish();
                 return true;
@@ -191,8 +191,6 @@ public class ShoppingList extends ActionBarActivity {
             @Override
             public void run() {
 
-
-
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -201,12 +199,12 @@ public class ShoppingList extends ActionBarActivity {
                         mainAdapter = new ParseQueryAdapter<ParseObject>(ShoppingList.this, "Product");
                         mainAdapter.setTextKey("productName");
 
-                        newCustomAdapter = new ShoppingListAdapter(ShoppingList.this);
+                        shoppingListAdapter = new ShoppingListAdapter(ShoppingList.this);
 
-                        listView = (ListView)findViewById(R.id.ShoppingListView);
-                        listView.setAdapter(newCustomAdapter);
+                        listView = (ListView) findViewById(R.id.ShoppingListView);
+                        listView.setAdapter(shoppingListAdapter);
 
-                        newCustomAdapter.loadObjects();
+                        shoppingListAdapter.loadObjects();
 
 
                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -228,6 +226,7 @@ public class ShoppingList extends ActionBarActivity {
                 });
             }
         }).start();
+
 
      //   mainAdapter = new ParseQueryAdapter<ParseObject>(this, "Product");
 
