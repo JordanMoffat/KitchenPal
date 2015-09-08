@@ -32,6 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 //UPCdatabase.org
 
@@ -103,7 +104,9 @@ public class ShoppingListEdit extends ActionBarActivity {
     private void updateLabel() {
 
         String myFormat = "dd/MM/yyyy"; //In which you need put here
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.UK);
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
+        TimeZone tz = TimeZone.getTimeZone("GMT0");
+        sdf.setTimeZone(tz);
 
         EditText update = (EditText) findViewById(R.id.expiry_date);
 
@@ -192,6 +195,8 @@ public class ShoppingListEdit extends ActionBarActivity {
                            String dateString = expiry_date.getText().toString();
                            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                            Date convertedDate = new Date();
+                           TimeZone tz = TimeZone.getTimeZone("GMT0");
+                           dateFormat.setTimeZone(tz);
 
                            try {
                                convertedDate = dateFormat.parse(dateString);
@@ -207,7 +212,7 @@ public class ShoppingListEdit extends ActionBarActivity {
                            editProduct.put("archived", false);
                            editProduct.saveInBackground();
 
-                           Toast.makeText(getApplicationContext(), "Item Edited",
+                           Toast.makeText(getApplicationContext(), ProductName.getText().toString() + " Edited",
                                    Toast.LENGTH_SHORT).show();
 
                            kill();

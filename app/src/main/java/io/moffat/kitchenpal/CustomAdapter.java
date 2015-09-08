@@ -18,6 +18,7 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Created by Jordan on 03/08/2015.
@@ -59,6 +60,8 @@ public class CustomAdapter extends ParseQueryAdapter<ParseObject> {
         TextView timestampView = (TextView) v.findViewById(R.id.timestamp);
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        TimeZone timeZone = TimeZone.getDefault();
+        sdf.setTimeZone(timeZone);
         String date = sdf.format(Calendar.getInstance().getTime());
         Date datecomp = new Date();
         datecomp.getDate();

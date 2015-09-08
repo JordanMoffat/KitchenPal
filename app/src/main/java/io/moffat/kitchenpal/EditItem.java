@@ -32,6 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 //UPCdatabase.org
 
@@ -104,7 +105,9 @@ public class EditItem extends ActionBarActivity {
     private void updateLabel() {
 
         String myFormat = "dd/MM/yyyy"; //In which you need put here
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.UK);
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
+        TimeZone tz = TimeZone.getTimeZone("GMT0");
+        sdf.setTimeZone(tz);
 
         EditText update = (EditText) findViewById(R.id.expiry_date);
 
@@ -178,6 +181,9 @@ public class EditItem extends ActionBarActivity {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                    Date convertedDate = new Date();
 
+                    TimeZone tz = TimeZone.getTimeZone("GMT0");
+                    dateFormat.setTimeZone(tz);
+
                     try {
                         convertedDate = dateFormat.parse(dateString);
                     } catch (java.text.ParseException e) {
@@ -201,6 +207,8 @@ public class EditItem extends ActionBarActivity {
                                     String dateString = expiry_date.getText().toString();
                                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                                     Date convertedDate = new Date();
+                                    TimeZone tz = TimeZone.getTimeZone("GMT0");
+                                    dateFormat.setTimeZone(tz);
 
                                     try {
                                         convertedDate = dateFormat.parse(dateString);
@@ -244,6 +252,8 @@ public class EditItem extends ActionBarActivity {
                                     String dateString = expiry_date.getText().toString();
                                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                                     Date convertedDate = new Date();
+                                    TimeZone tz = TimeZone.getTimeZone("GMT0");
+                                    dateFormat.setTimeZone(tz);
 
                                     try {
                                         convertedDate = dateFormat.parse(dateString);
@@ -288,6 +298,8 @@ public class EditItem extends ActionBarActivity {
                                     String dateString = expiry_date.getText().toString();
                                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                                     Date convertedDate = new Date();
+                                    TimeZone tz = TimeZone.getTimeZone("GMT0");
+                                    dateFormat.setTimeZone(tz);
 
                                     try {
                                         convertedDate = dateFormat.parse(dateString);
