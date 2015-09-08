@@ -1,24 +1,24 @@
-package io.moffat.kitchenpal;
+package io.moffat.kitchenpal.util;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import io.moffat.kitchenpal.R;
 
-public class RecipeSearch extends ActionBarActivity {
+public class RecipeView extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_search);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        setContentView(R.layout.activity_recipe_view);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_recipe_search, menu);
+        getMenuInflater().inflate(R.menu.menu_recipe_view, menu);
         return true;
     }
 
@@ -35,9 +35,5 @@ public class RecipeSearch extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void recipeSearch(){
-
     }
 }

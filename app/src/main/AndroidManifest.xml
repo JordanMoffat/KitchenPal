@@ -172,6 +172,10 @@
             android:name=".EditArchive"
             android:label="@string/title_activity_edit_archive" >
         </activity>
+        <activity
+            android:name=".util.RecipeView"
+            android:label="@string/title_activity_recipe_view" >
+        </activity>
     </application>
 
 </manifest>

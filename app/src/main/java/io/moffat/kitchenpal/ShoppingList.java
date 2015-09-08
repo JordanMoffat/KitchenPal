@@ -104,7 +104,7 @@ public class ShoppingList extends ActionBarActivity {
                     case R.id.archive:
                         Intent archive = new Intent(ShoppingList.this, ArchiveActivity.class);
                         startActivity(archive);
-                        finish();
+                        finish(); 
                         return true;
                     case R.id.scales:
                         Toast.makeText(getApplicationContext(), "Feature not available in this version", Toast.LENGTH_SHORT).show();
