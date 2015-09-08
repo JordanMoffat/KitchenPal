@@ -66,9 +66,7 @@ public class AddItem extends ActionBarActivity {
     }
 
     public void kill() {
-        Intent i = new Intent(this, MainActivity.class);
-        // i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(i);
+
         finish();
     }
 
@@ -87,6 +85,7 @@ public class AddItem extends ActionBarActivity {
             case R.id.barcode:
                 Intent i = new Intent(AddItem.this, BarcodeScanner.class);
                 startActivity(i);
+                finish();
                 return true;
             case android.R.id.home:
                 this.finish();

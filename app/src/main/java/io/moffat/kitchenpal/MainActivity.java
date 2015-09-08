@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -37,9 +38,8 @@ public class MainActivity extends ActionBarActivity {
     private ListView listView;
     private CustomAdapter newCustomAdapter;
     ProgressDialog progress;
-    private ListView navList;
-    private ArrayAdapter<String> navAdapter;
-    private DrawerLayout mDrawerLayout;
+  private NavigationView navigationView;
+    private DrawerLayout drawerLayout;
 
 
     @Override
@@ -60,8 +60,7 @@ public class MainActivity extends ActionBarActivity {
         name.setText(forename + " " + surname);
         email.setText(ParseUser.getCurrentUser().getEmail());
 
-        String[] pageArray = {"Shopping List", "Archive", "Scales", "Graphs"};
-        navAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, pageArray);
+
      //   navList.setAdapter(navAdapter);
 
         refreshList();
@@ -75,7 +74,7 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(MainActivity.this, AddItem.class);
-             //   intent.putExtra("flag", "main");
+                //   intent.putExtra("flag", "main");
                 startActivity(intent);
 
                 //  Toast.makeText(MainActivity.this, "Hello World", Toast.LENGTH_SHORT).show();
@@ -84,7 +83,75 @@ public class MainActivity extends ActionBarActivity {
         });
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Kitchen Pal");
+        toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
 
+        navigationView = (NavigationView)findViewById(R.id.navigation_view);
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
+            @Override
+        public boolean onNavigationItemSelected(MenuItem menuItem){
+               // if(menuItem.isChecked()) menuItem.setChecked(false);
+             //   else menuItem.setChecked(true);
+
+                drawerLayout.closeDrawers();
+
+                switch (menuItem.getItemId()){
+
+                    case R.id.add:
+                        Intent i = new Intent(MainActivity.this, AddItem.class);
+                        startActivity(i);
+                        return true;
+                    case R.id.barcodeadd:
+                        Intent barcode = new Intent(MainActivity.this, BarcodeScanner.class);
+                        startActivity(barcode);
+                        return true;
+                    case R.id.shoppinglist:
+                        Intent shop = new Intent(MainActivity.this, ShoppingList.class);
+                        startActivity(shop);
+                        return true;
+                    case R.id.archive:
+                        Toast.makeText(getApplicationContext(),"Feature not available in this version",Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.scales:
+                        Toast.makeText(getApplicationContext(),"Feature not available in this version",Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.LogOut:
+                        ParseUser.logOut();
+                        Intent logout = new Intent(MainActivity.this, LoginActivity2.class);
+                        startActivity(logout);
+                        return true;
+
+                    default:
+                        Toast.makeText(getApplicationContext(),"Somethings Wrong",Toast.LENGTH_SHORT).show();
+                        return true;
+
+                }
+            }
+
+        });
+
+        drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,
+                drawerLayout,
+                toolbar,
+                R.string.openDrawer,
+                R.string.closeDrawer){
+
+            @Override
+        public void onDrawerClosed(View drawerView){
+                super.onDrawerClosed(drawerView);
+            }
+
+            @Override
+        public void onDrawerOpened(View drawerView){
+
+                super.onDrawerOpened(drawerView);
+            }
+
+        };
+
+        drawerLayout.setDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
 
     }
 
@@ -115,10 +182,6 @@ public class MainActivity extends ActionBarActivity {
             case R.id.refresh:
                 refreshList();
                 return true;
-            case R.id.open_shopping_list:
-                Intent intent = new Intent(MainActivity.this, ShoppingList.class);
-                startActivity(intent);
-          return true;
             case R.id.LogOut:
                 ParseUser.logOut();
                 Intent logout = new Intent(MainActivity.this, LoginActivity2.class);

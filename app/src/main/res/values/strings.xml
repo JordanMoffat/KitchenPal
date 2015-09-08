@@ -27,4 +27,7 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_splash_screen">Kitchen Pal</string>
+
+    <string name="openDrawer">Navigation</string>
+    <string name="closeDrawer">"Kitchen Pal</string>
 </resources>
