@@ -104,7 +104,7 @@ public class ShoppingList extends ActionBarActivity {
                     case R.id.archive:
                         Intent archive = new Intent(ShoppingList.this, ArchiveActivity.class);
                         startActivity(archive);
-                        finish(); 
+                        finish();
                         return true;
                     case R.id.scales:
                         Toast.makeText(getApplicationContext(), "Feature not available in this version", Toast.LENGTH_SHORT).show();
@@ -113,6 +113,9 @@ public class ShoppingList extends ActionBarActivity {
                         ParseUser.logOut();
                         Intent logout = new Intent(ShoppingList.this, LoginActivity2.class);
                         startActivity(logout);
+                        return true;
+                    case R.id.recipe:
+                        Toast.makeText(getApplicationContext(),"Feature not available in this version",Toast.LENGTH_SHORT).show();
                         return true;
 
                     default:

@@ -104,6 +104,9 @@ public class ArchiveActivity extends ActionBarActivity{
                         Intent logout = new Intent(ArchiveActivity.this, LoginActivity2.class);
                         startActivity(logout);
                         return true;
+                    case R.id.recipe:
+                        Toast.makeText(getApplicationContext(),"Feature not available in this version",Toast.LENGTH_SHORT).show();
+                        return true;
 
                     default:
                         Toast.makeText(getApplicationContext(),"Somethings Wrong",Toast.LENGTH_SHORT).show();

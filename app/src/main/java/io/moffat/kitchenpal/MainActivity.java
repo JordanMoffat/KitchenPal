@@ -124,7 +124,9 @@ public class MainActivity extends ActionBarActivity{
                         Intent logout = new Intent(MainActivity.this, LoginActivity2.class);
                         startActivity(logout);
                         return true;
-
+                    case R.id.recipe:
+                        Toast.makeText(getApplicationContext(),"Feature not available in this version",Toast.LENGTH_SHORT).show();
+                        return true;
                     default:
                         Toast.makeText(getApplicationContext(),"Somethings Wrong",Toast.LENGTH_SHORT).show();
                         return true;
@@ -185,11 +187,6 @@ public class MainActivity extends ActionBarActivity{
                 return true;
             case R.id.refresh:
                 refreshList();
-                return true;
-            case R.id.LogOut:
-                ParseUser.logOut();
-                Intent logout = new Intent(MainActivity.this, LoginActivity2.class);
-                startActivity(logout);
                 return true;
 
         }
