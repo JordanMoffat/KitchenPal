@@ -2,6 +2,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="io.moffat.kitchenpal.util.RecipeView">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+
+
+    <ToggleButton
+
+        android:id="@+id/fav"
+        android:title="Favourite"
+        android:orderInCategory="200"
+        android:textOff="Add to Favourites"
+        android:textOn="Remove from Favourites"
+        >
+
+
+    </ToggleButton>
+
 </menu>

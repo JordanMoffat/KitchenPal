@@ -87,10 +87,6 @@ public class ForgottenPassword extends ActionBarActivity {
 
 
     public boolean isEmailValid(String email) {
-      if (email.contains("@")){
-          return true;
-      } else {
-          return false;
-      }
+        return email.contains("@");
       }
 }

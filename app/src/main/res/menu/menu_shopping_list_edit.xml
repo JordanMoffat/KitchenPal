@@ -14,4 +14,12 @@ android:icon="@drawable/playlist_minus"
 app:showAsAction="always"
     ></item>
 
+    <item
+        android:id="@+id/search"
+        android:orderInCategory="200"
+        android:title="Search for Recipe"
+        android:icon="@drawable/ic_search_white_24dp"
+        app:showAsAction="ifRoom"
+        ></item>
+
     </menu>

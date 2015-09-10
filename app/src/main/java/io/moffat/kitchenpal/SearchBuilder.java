@@ -9,9 +9,6 @@ public class SearchBuilder {
     public String builtURL(String queryBuilder){
         String queryBuild = new String();
 
-        //might have to build in support for multiple string search
-        //possible string[]?
-        //depends on design
 
 
         if (queryBuilder !=null){
@@ -23,8 +20,10 @@ public class SearchBuilder {
                     }
                 }
             }
+
+        //link + queryBuild
         return queryBuild;
     }
-    //http://api.upcdatabase.org/json/38231fc5c2fca1055f13a18306c4c817/
+
 
 }

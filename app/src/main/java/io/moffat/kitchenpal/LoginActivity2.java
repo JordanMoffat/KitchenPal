@@ -305,11 +305,7 @@ public class LoginActivity2 extends Activity implements LoaderCallbacks<Cursor> 
                 });
             // TODO: register the new account here.
 
-            if (ParseUser.getCurrentUser() == null){
-                return false;
-            } else {
-                return true;
-            }
+            return ParseUser.getCurrentUser() != null;
         }
 
         @Override

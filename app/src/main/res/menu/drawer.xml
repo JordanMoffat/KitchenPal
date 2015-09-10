@@ -31,10 +31,18 @@
             android:title="Archive" />
 
         <item
+            android:id="@+id/recipe"
+            android:checked="false"
+            android:icon="@drawable/ic_receipt_white_24dp"
+            android:title="Saved Recipes" />
+
+        <item
         android:id="@+id/scales"
         android:checked="false"
         android:icon="@drawable/balance13"
         android:title="Scales" />
+
+
 
     </group>
 

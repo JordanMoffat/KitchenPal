@@ -188,31 +188,19 @@ public class Register extends ActionBarActivity {
 
     public boolean passwordMatch(String password, String confirm){
 
-        if (password.equals(confirm)){
-            return true;
-        } else {
-            return false;
-        }
+        return password.equals(confirm);
 
     }
 
     public boolean validEmail(String email){
 
-        if (email.contains("@") && (email.contains("."))){
-            return true;
-        } else {
-            return false;
-        }
+        return email.contains("@") && (email.contains("."));
 
     }
 
     public boolean emailMatch(String email, String confirmEmail){
 
-        if (email.equals(confirmEmail)){
-            return true;
-        } else {
-            return false;
-        }
+        return email.equals(confirmEmail);
 
     }
 

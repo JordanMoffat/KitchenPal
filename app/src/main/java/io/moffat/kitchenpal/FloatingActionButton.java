@@ -13,7 +13,7 @@ import android.widget.FrameLayout;
  */
 public class FloatingActionButton extends FrameLayout implements Checkable{
 
-    public static interface OnCheckedChangeListener {
+    public interface OnCheckedChangeListener {
 
         /**
          * Called when the checked state of a FAB has changed.
