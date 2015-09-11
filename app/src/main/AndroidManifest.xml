@@ -176,6 +176,14 @@
             android:name=".util.RecipeView"
             android:label="@string/title_activity_recipe_view" >
         </activity>
+        <activity
+            android:name=".SavedRecipes"
+            android:label="@string/title_activity_saved_recipes"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.moffat.kitchenpal.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

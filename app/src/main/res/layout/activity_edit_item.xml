@@ -116,7 +116,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Expiry Date"
+        android:text="Category"
         android:id="@+id/SpinnerCat"
         android:layout_marginLeft="16dp"
         android:layout_alignTop="@+id/date"

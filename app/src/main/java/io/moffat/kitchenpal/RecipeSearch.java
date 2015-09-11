@@ -1,6 +1,7 @@
 package io.moffat.kitchenpal;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -36,10 +37,14 @@ public class RecipeSearch extends ActionBarActivity {
             }
         });
 
+        Intent i = getIntent();
+        i.getStringExtra("ingredient");
+
 
         //do url build here
         String product = new String();
 
+        product = i.getStringExtra("ingredient");
         SearchBuilder build = new SearchBuilder();
         String url = build.builtURL(product);
 
@@ -76,7 +81,7 @@ public class RecipeSearch extends ActionBarActivity {
 
         @Override
         protected String doInBackground(String... urls) {
-            String chc = "";
+
             //do http request and add objects to array here.
             //need to do a custom adapter
             return "";
