@@ -19,6 +19,8 @@ import org.json.JSONObject;
 
 public class RecipeSearch extends ActionBarActivity {
 
+    ProgressDialog progress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,11 +78,12 @@ public class RecipeSearch extends ActionBarActivity {
     class Populate extends AsyncTask<String, String, String> {
 
         protected void onPreExecute() {
-            //show progress dialog
+            progress = ProgressDialog.show(RecipeSearch.this, "Finding Barcode", "Searching....", true);
         }
 
         @Override
         protected String doInBackground(String... urls) {
+
 
             //do http request and add objects to array here.
             //need to do a custom adapter
@@ -93,7 +96,7 @@ public class RecipeSearch extends ActionBarActivity {
             //arrayadapter
             //listView.setAdapter(adapter);
 
-
+            progress.dismiss();
         }
     }
 }
