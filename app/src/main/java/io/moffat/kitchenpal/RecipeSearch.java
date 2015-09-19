@@ -2,9 +2,11 @@ package io.moffat.kitchenpal;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,34 +16,29 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 
 public class RecipeSearch extends ActionBarActivity {
 
     ProgressDialog progress;
+    RecipeAdapter recipeAdapter;
+    private Toolbar toolbar;
+ //   JSONArray jArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_search);
-        getSupportActionBar().setHomeButtonEnabled(true);
-
-        ListView recipes = (ListView)findViewById(R.id.recipeView);
-        recipes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                //get item location
-                //get individual URL
-                //pass url via intent
-                //open activity and do stuff there
-            }
-        });
+        toolbar = (Toolbar)findViewById(R.id.tool_bar);
 
         Intent i = getIntent();
-        i.getStringExtra("ingredient");
+        String intentstring = i.getStringExtra("ingredient");
 
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Recipes");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //do url build here
         String product = new String();
@@ -75,27 +72,74 @@ public class RecipeSearch extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    class Populate extends AsyncTask<String, String, String> {
+    class Populate extends AsyncTask<String, String, JSONArray> {
 
         protected void onPreExecute() {
-            progress = ProgressDialog.show(RecipeSearch.this, "Finding Barcode", "Searching....", true);
+            progress = ProgressDialog.show(RecipeSearch.this, "Finding Recipes", "Searching....", true);
         }
 
         @Override
-        protected String doInBackground(String... urls) {
+        protected JSONArray doInBackground(String... urls) {
+            JSONParser recipeParse = new JSONParser();
+            String rawJSON = recipeParse.getJSON(urls[0]);
 
+            try {
 
+                if (rawJSON != null) {
+                    JSONObject object = new JSONObject(rawJSON);
+                    JSONArray jArray = object.getJSONArray("recipes");
+                    return jArray;
+                } else {
+                    JSONArray jArray = null;
+                    return jArray;
+                }
+
+            } catch(Exception e) {
+                System.out.println(e);
+                Toast.makeText(getApplicationContext(), "Error Searching for Recipes",
+                        Toast.LENGTH_SHORT).show();
+
+             JSONArray jArray = null;
+                return jArray;
+            }
             //do http request and add objects to array here.
             //need to do a custom adapter
-            return "";
+           // return null;
         }
 
         @Override
-        protected void onPostExecute(String jsonObject) {
-            //setadapter here
-            //arrayadapter
-            //listView.setAdapter(adapter);
+        protected void onPostExecute(JSONArray jArray) {
 
+            if (jArray != null) {
+                final ListView recipes = (ListView) findViewById(R.id.recipeView);
+
+                recipes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        JSONObject selected = (JSONObject) (recipes.getItemAtPosition(position));
+
+                        String url = null;
+                        try {
+                            url = selected.getString("source_url");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+                        }
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(url));
+                        startActivity(i);
+
+                    }
+                });
+
+                recipeAdapter = new RecipeAdapter(RecipeSearch.this, jArray);//jArray is your json array
+                recipes.setAdapter(recipeAdapter);
+
+            } else {
+                Toast.makeText(getApplicationContext(), "No Recipes Found", Toast.LENGTH_SHORT).show();
+                finish();
+            }
             progress.dismiss();
         }
     }
