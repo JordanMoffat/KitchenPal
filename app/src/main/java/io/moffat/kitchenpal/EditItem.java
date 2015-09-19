@@ -96,6 +96,13 @@ public class EditItem extends ActionBarActivity {
             case android.R.id.home:
                 this.finish();
                 return true;
+            case R.id.search:
+                Intent search = new Intent (EditItem.this, RecipeSearch.class);
+                EditText product = (EditText)findViewById(R.id.ProductName);
+                search.putExtra("ingredient", product.getText().toString());
+                startActivity(search);
+                this.finish();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
 
