@@ -6,29 +6,44 @@
        android:layout_height="40dp"
        android:paddingTop="8dp"
 
+       android:id="@+id/recipeIcon"
        android:src="@drawable/balance13"
        android:layout_marginLeft="16dp"
        android:layout_marginTop="8dp"
-       android:layout_marginBottom="8dp" />
+       android:layout_marginBottom="8dp"
+       android:layout_centerVertical="true" />
 
     <TextView
-        android:id="@+id/text1"
+        android:id="@+id/recipeTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
-        android:text="test"
-
+        android:text="Recipe For Food"
+        android:layout_marginRight="72dp"
         android:layout_marginLeft="72dp"
         android:layout_marginTop="16dp" />
 
     <TextView
-        android:id="@+id/timestamp"
+        android:id="@+id/supplier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/AccentColor"
-        android:layout_below="@+id/text1"
+        android:layout_below="@+id/recipeTitle"
         android:textSize="14sp"
 
         android:layout_marginLeft="72dp"
-        android:layout_marginBottom="16dp" />
+    android:layout_marginBottom="16dp"
+        android:text="Secondary Text" />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_favorite_border_white_24dp"
+        android:tint="@color/black_overlay"
+        android:layout_marginLeft="16dp"
+        android:focusable="false"
+        android:id="@+id/favbutton"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="16dp"
+        android:layout_centerVertical="true" />
 </RelativeLayout>
