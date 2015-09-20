@@ -10,10 +10,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -114,7 +117,7 @@ public class RecipeSearch extends ActionBarActivity {
                 final ListView recipes = (ListView) findViewById(R.id.recipeView);
 
                 recipes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
+                    @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                         JSONObject selected = (JSONObject) (recipes.getItemAtPosition(position));
@@ -132,6 +135,28 @@ public class RecipeSearch extends ActionBarActivity {
 
                     }
                 });
+               final String tag ="";
+                recipes.setOnScrollListener(new AbsListView.OnScrollListener() {
+                    @Override
+                    public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+
+                        Picasso picasso = Picasso.with(getApplicationContext());
+                        if (scrollState == SCROLL_STATE_IDLE ||
+                                scrollState == SCROLL_STATE_TOUCH_SCROLL) {
+                            picasso.resumeTag(tag);
+                        } else {
+                            picasso.pauseTag(tag);
+                        }
+                    }
+
+                    @Override
+                    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+                        Picasso picasso = Picasso.with(getApplicationContext());
+                        picasso.pauseTag(tag);
+                    }
+                });
 
                 recipeAdapter = new RecipeAdapter(RecipeSearch.this, jArray);//jArray is your json array
                 recipes.setAdapter(recipeAdapter);
@@ -140,6 +165,9 @@ public class RecipeSearch extends ActionBarActivity {
                 Toast.makeText(getApplicationContext(), "No Recipes Found", Toast.LENGTH_SHORT).show();
                 finish();
             }
+
+
+
             progress.dismiss();
         }
     }
