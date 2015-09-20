@@ -53,6 +53,7 @@ public class MainActivity extends ActionBarActivity{
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
 
 
+
         TextView name = (TextView)findViewById(R.id.name);
         TextView email = (TextView)findViewById(R.id.header_email);
         String forename = ParseUser.getCurrentUser().get("forename").toString();
@@ -125,7 +126,8 @@ public class MainActivity extends ActionBarActivity{
                         startActivity(logout);
                         return true;
                     case R.id.recipe:
-                        Toast.makeText(getApplicationContext(),"Feature not available in this version",Toast.LENGTH_SHORT).show();
+                       Intent recipe = new Intent(MainActivity.this, SavedRecipes.class);
+                        startActivity(recipe);
                         return true;
                     default:
                         Toast.makeText(getApplicationContext(),"Somethings Wrong",Toast.LENGTH_SHORT).show();
