@@ -19,6 +19,8 @@ public class SearchBuilder {
             }
         }
 
+        queryBuild = queryBuild.replaceAll("[^a-zA-Z0-9/]" , "&20");
+
         String pre = "http://food2fork.com/api/search?key=ceb7e716ec7e3e82354c9c03d076b46b&q=";
         String url = pre + queryBuild;
 
