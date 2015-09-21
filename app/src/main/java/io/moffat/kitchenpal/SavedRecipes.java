@@ -66,6 +66,7 @@ public class SavedRecipes extends ActionBarActivity {
     public void create(){
 
         mainAdapter = new ParseQueryAdapter<ParseObject>(SavedRecipes.this, "recipe");
+        mainAdapter.setTextKey("title");
 
 
         savedRecipe = new SavedRecipeAdapter(SavedRecipes.this);
@@ -82,9 +83,8 @@ public class SavedRecipes extends ActionBarActivity {
                 Intent i = new Intent(Intent.ACTION_VIEW);
 
 
-                String url = selected.getString("source_url");
+                String url = selected.getString("source");
                 i.setData(Uri.parse(url));
-                startActivity(i);
                 startActivity(i);
             }
         });
