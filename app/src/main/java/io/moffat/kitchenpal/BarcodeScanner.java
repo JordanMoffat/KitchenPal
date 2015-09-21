@@ -21,11 +21,15 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class BarcodeScanner extends Activity implements ZXingScannerView.ResultHandler {
     private  ZXingScannerView mScannerView;
+    private static final String AUTO_FOCUS_STATE = "AUTO_FOCUS_STATE";
+    private boolean mAutoFocus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        mScannerView = new ZXingScannerView(this);
+
+
         setContentView(mScannerView);
     }
 

@@ -55,7 +55,7 @@ public class RecipeAdapter extends BaseAdapter implements ListAdapter {
 
     @Override
     public JSONObject getItem(int position){
-        if(null==jsonArray) return null;
+        if(jsonArray==null) return null;
         else
             return jsonArray.optJSONObject(position);
     }

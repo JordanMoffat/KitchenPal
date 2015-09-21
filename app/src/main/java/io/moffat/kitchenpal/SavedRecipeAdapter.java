@@ -27,11 +27,14 @@ public class SavedRecipeAdapter extends ParseQueryAdapter<ParseObject> {
                 query.whereEqualTo("user", ParseUser.getCurrentUser());
              //   query.whereEqualTo("arch  ived", false);
 
+
                 return query;
 
             }
         });
     }
+
+
 
 
 
@@ -51,9 +54,11 @@ public class SavedRecipeAdapter extends ParseQueryAdapter<ParseObject> {
        final ImageView button = (ImageView)v.findViewById(R.id.favbutton);
 
 
+
         title.setText(object.getString("title"));
         supplier.setText(object.getString("publisher"));
        button.setImageResource(R.drawable.ic_favorite_white_24dp);
+
 
        Picasso.with(getContext())
                 .load(object.getString("imageUrl"))
@@ -66,18 +71,21 @@ public class SavedRecipeAdapter extends ParseQueryAdapter<ParseObject> {
             @Override
             public void onClick(View v) {
 
-                
-               // ParseObject selected = (ParseObject);
-               // selected.put("archived", true);
 
-             //   button.setImageResource(R.drawable.ic_favorite_border_white_24dp);
+
+
+                        // ParseObject selected = (ParseObject);
+                        // selected.put("archived", true);
+              //  v.s
+
+
+                        button.setImageResource(R.drawable.ic_favorite_border_white_24dp);
+
 
             }
         });
 
         return v;
     }
-
-
 }
 
