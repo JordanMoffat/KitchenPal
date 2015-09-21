@@ -1,7 +1,18 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="io.moffat.kitchenpal.SavedRecipes">
+    android:background="@color/White"
+    android:elevation="16dp"
+    android:clickable="false">
+
+<RelativeLayout
+    tools:context="io.moffat.kitchenpal.SavedRecipes"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <include
         android:id="@+id/tool_bar"
@@ -17,3 +28,14 @@
         />
 
 </RelativeLayout>
+
+<android.support.design.widget.NavigationView
+android:id="@+id/navigation_view"
+android:layout_height="match_parent"
+android:layout_width="wrap_content"
+android:layout_gravity="start"
+app:headerLayout="@layout/nav_drawer_header"
+app:menu="@menu/drawer_saved_recipes"
+    />
+
+/></android.support.v4.widget.DrawerLayout>

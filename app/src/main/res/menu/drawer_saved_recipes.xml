@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+
+        <item
+            android:id="@+id/mainList"
+            android:checked="false"
+            android:icon="@drawable/ic_list_white_24dp"
+            android:title="Main List" />
+
+        <item
+            android:id="@+id/shoppingList"
+            android:checked="false"
+            android:icon="@drawable/ic_list_white_24dp"
+            android:title="Shopping List" />
+
+        <item
+            android:id="@+id/archivelist"
+            android:checked="false"
+            android:icon="@drawable/ic_archive_white_24dp"
+            android:title="Archive" />
+
+        <item
+            android:id="@+id/scales"
+            android:checked="false"
+            android:icon="@drawable/balance13"
+            android:title="Scales" />
+
+    </group>
+
+    <group android:id="@+id/groupLog">
+        <item
+            android:id="@+id/LogOut"
+            android:checked="false"
+            android:icon="@drawable/ic_exit_to_app_white_24dp"
+            android:title="Log Out" />
+    </group>
+
+
+</menu>
