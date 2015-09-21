@@ -5,18 +5,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONObject;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Jordan on 03/08/2015.
  */
 public class SavedRecipeAdapter extends ParseQueryAdapter<ParseObject> {
+
+
 
     public SavedRecipeAdapter(Context context){
 
@@ -25,7 +32,7 @@ public class SavedRecipeAdapter extends ParseQueryAdapter<ParseObject> {
             public ParseQuery create(){
                 ParseQuery query = new ParseQuery("recipe");
                 query.whereEqualTo("user", ParseUser.getCurrentUser());
-             //   query.whereEqualTo("arch  ived", false);
+             query.whereEqualTo("archived", false);
 
 
                 return query;
@@ -37,9 +44,8 @@ public class SavedRecipeAdapter extends ParseQueryAdapter<ParseObject> {
 
 
 
-
     @Override
-    public View getItemView(ParseObject object, View v, ViewGroup parent) {
+    public View getItemView(final ParseObject object, View v, ViewGroup parent) {
         if (v == null) {
             v = View.inflate(getContext(), R.layout.recipe_item, null);
         }
@@ -53,8 +59,6 @@ public class SavedRecipeAdapter extends ParseQueryAdapter<ParseObject> {
         TextView supplier = (TextView) v.findViewById(R.id.supplier);
        final ImageView button = (ImageView)v.findViewById(R.id.favbutton);
 
-
-
         title.setText(object.getString("title"));
         supplier.setText(object.getString("publisher"));
        button.setImageResource(R.drawable.ic_favorite_white_24dp);
@@ -66,20 +70,19 @@ public class SavedRecipeAdapter extends ParseQueryAdapter<ParseObject> {
                 .centerCrop()
                 .into(icon);
 
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ParseObject selected = object;
 
+                object.put("archived", true);
 
+                object.saveInBackground();
 
+                button.setImageResource(R.drawable.ic_favorite_border_white_24dp);
 
-                        // ParseObject selected = (ParseObject);
-                        // selected.put("archived", true);
-              //  v.s
-
-
-                        button.setImageResource(R.drawable.ic_favorite_border_white_24dp);
+                Toast.makeText(getContext(), "Removed from favourites",
+                        Toast.LENGTH_SHORT).show();
 
 
             }
