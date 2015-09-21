@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.parse.ParseObject;
 import com.parse.ParseUser;
-import com.pkmmte.view.CircularImageView;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -23,6 +22,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URI;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Jordan on 10/09/2015.
@@ -71,7 +72,7 @@ public class RecipeAdapter extends BaseAdapter implements ListAdapter {
             v = View.inflate(activity, R.layout.recipe_item, null);
         }
 
-        CircularImageView icon = (CircularImageView)v.findViewById(R.id.recipeIcon);
+        CircleImageView icon = (CircleImageView)v.findViewById(R.id.recipeIcon);
         TextView title = (TextView) v.findViewById(R.id.recipeTitle);
         TextView supplier = (TextView) v.findViewById(R.id.supplier);
 

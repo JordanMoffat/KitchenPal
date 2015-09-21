@@ -141,20 +141,20 @@ public class RecipeSearch extends ActionBarActivity {
                     public void onScrollStateChanged(AbsListView view, int scrollState) {
 
 
-                        Picasso picasso = Picasso.with(getApplicationContext());
+                /*        Picasso picasso = Picasso.with(getApplicationContext());
                         if (scrollState == SCROLL_STATE_IDLE ||
                                 scrollState == SCROLL_STATE_TOUCH_SCROLL) {
                             picasso.resumeTag(tag);
                         } else {
                             picasso.pauseTag(tag);
                         }
-                    }
+*/                    }
 
                     @Override
                     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
-                        Picasso picasso = Picasso.with(getApplicationContext());
-                        picasso.pauseTag(tag);
+                    //    Picasso picasso = Picasso.with(getApplicationContext());
+                      //  picasso.pauseTag(tag);
                     }
                 });
 
