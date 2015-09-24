@@ -46,6 +46,7 @@ public class SavedRecipes extends ActionBarActivity {
 
         navigationView = (NavigationView)findViewById(R.id.navigation_view);
 
+
         TextView name = (TextView)findViewById(R.id.name);
         TextView email = (TextView)findViewById(R.id.header_email);
         String forename = ParseUser.getCurrentUser().get("forename").toString();

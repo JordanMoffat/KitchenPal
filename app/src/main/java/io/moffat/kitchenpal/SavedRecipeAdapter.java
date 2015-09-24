@@ -71,20 +71,37 @@ public class SavedRecipeAdapter extends ParseQueryAdapter<ParseObject> {
                 .into(icon);
 
         button.setOnClickListener(new View.OnClickListener() {
+
+            int buttonOps = 0;
             @Override
             public void onClick(View v) {
-                ParseObject selected = object;
+                if (buttonOps == 0) {
+                    button.setImageResource(R.drawable.ic_favorite_border_white_24dp);
+                    buttonOps = 1;
 
-                object.put("archived", true);
+                    ParseObject selected = object;
 
-                object.saveInBackground();
+                    selected.put("archived", true);
 
-                button.setImageResource(R.drawable.ic_favorite_border_white_24dp);
+                    selected.saveInBackground();
 
-                Toast.makeText(getContext(), "Removed from favourites",
-                        Toast.LENGTH_SHORT).show();
+                    //     button.setImageResource(R.drawable.ic_favorite_border_white_24dp);
+
+                    Toast.makeText(getContext(), "Removed from favourites",
+                            Toast.LENGTH_SHORT).show();
 
 
+                } else if (buttonOps == 1) {
+                    button.setImageResource(R.drawable.ic_favorite_white_24dp);
+                    buttonOps = 0;
+                    ParseObject selected = object;
+
+                    selected.put("archived", false);
+
+                    selected.saveInBackground();
+
+                    //   button.setImageResource(R.drawable.ic_favorite_border_white_24dp);
+                }
             }
         });
 
