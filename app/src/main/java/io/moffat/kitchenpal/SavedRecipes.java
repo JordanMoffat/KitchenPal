@@ -83,10 +83,12 @@ public class SavedRecipes extends ActionBarActivity {
                         ParseUser.logOut();
                         Intent logout = new Intent(SavedRecipes.this, LoginActivity2.class);
                         startActivity(logout);
+                        finish();
                         return true;
                     case R.id.mainList:
                         Intent recipe = new Intent(SavedRecipes.this, MainActivity.class);
                         startActivity(recipe);
+                        finish();
                         return true;
                     default:
                         Toast.makeText(getApplicationContext(), "Somethings Wrong", Toast.LENGTH_SHORT).show();

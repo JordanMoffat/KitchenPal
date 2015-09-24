@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -130,10 +131,9 @@ public class RecipeAdapter extends BaseAdapter implements ListAdapter {
         }
        final ImageView fav = (ImageView)v.findViewById(R.id.favbutton);
         fav.setOnClickListener(new View.OnClickListener() {
-            int buttonOps = 0;
+
             @Override
             public void onClick(View v) {
-
 
                     fav.setImageResource(R.drawable.ic_favorite_white_24dp);
 
@@ -153,7 +153,6 @@ public class RecipeAdapter extends BaseAdapter implements ListAdapter {
 
                     Toast.makeText(activity, "Added to favourites",
                             Toast.LENGTH_SHORT).show();
-               
             }
         });
 
