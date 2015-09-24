@@ -33,13 +33,13 @@ import org.w3c.dom.Text;
 public class MainActivity extends ActionBarActivity{
 
     private Toolbar toolbar;
-   android.support.design.widget.FloatingActionButton FAB;
+    android.support.design.widget.FloatingActionButton FAB;
     public final static String EXTRA_MESSAGE = "io.moffat.kitchenpal.MESSAGE";
     private ParseQueryAdapter<ParseObject> mainAdapter;
     private ListView listView;
     private CustomAdapter newCustomAdapter;
     ProgressDialog progress;
-  private NavigationView navigationView;
+    private NavigationView navigationView;
     private DrawerLayout drawerLayout;
 
 
@@ -63,7 +63,7 @@ public class MainActivity extends ActionBarActivity{
         email.setText(ParseUser.getCurrentUser().getEmail());
 
 
-     //   navList.setAdapter(navAdapter);
+        //   navList.setAdapter(navAdapter);
 
         refreshList();
 
@@ -91,9 +91,9 @@ public class MainActivity extends ActionBarActivity{
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
             @Override
-        public boolean onNavigationItemSelected(MenuItem menuItem){
-               // if(menuItem.isChecked()) menuItem.setChecked(false);
-             //   else menuItem.setChecked(true);
+            public boolean onNavigationItemSelected(MenuItem menuItem){
+                // if(menuItem.isChecked()) menuItem.setChecked(false);
+                //   else menuItem.setChecked(true);
 
                 drawerLayout.closeDrawers();
 
@@ -126,7 +126,7 @@ public class MainActivity extends ActionBarActivity{
                         startActivity(logout);
                         return true;
                     case R.id.recipe:
-                       Intent recipe = new Intent(MainActivity.this, SavedRecipes.class);
+                        Intent recipe = new Intent(MainActivity.this, SavedRecipes.class);
                         startActivity(recipe);
                         return true;
                     default:
@@ -146,12 +146,12 @@ public class MainActivity extends ActionBarActivity{
                 R.string.closeDrawer){
 
             @Override
-        public void onDrawerClosed(View drawerView){
+            public void onDrawerClosed(View drawerView){
                 super.onDrawerClosed(drawerView);
             }
 
             @Override
-        public void onDrawerOpened(View drawerView){
+            public void onDrawerOpened(View drawerView){
 
                 super.onDrawerOpened(drawerView);
             }
