@@ -133,7 +133,8 @@
         <activity
             android:name=".Register"
             android:label="@string/title_activity_register"
-            android:parentActivityName=".LoginActivity2" >
+            android:parentActivityName=".LoginActivity2"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="io.moffat.kitchenpal.LoginActivity2" />
@@ -149,7 +150,8 @@
         <activity
             android:name=".RecipeSearch"
             android:label="@string/title_activity_recipe_search"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="io.moffat.kitchenpal.MainActivity" />
@@ -166,15 +168,18 @@
         </activity>
         <activity
             android:name=".ArchiveActivity"
-            android:label="@string/title_activity_archive" >
+            android:label="@string/title_activity_archive"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".EditArchive"
-            android:label="@string/title_activity_edit_archive" >
+            android:label="@string/title_activity_edit_archive"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".util.RecipeView"
-            android:label="@string/title_activity_recipe_view" >
+            android:label="@string/title_activity_recipe_view"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".SavedRecipes"
