@@ -13,7 +13,10 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.squareup.picasso.Picasso;
 
@@ -22,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URI;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -126,27 +130,30 @@ public class RecipeAdapter extends BaseAdapter implements ListAdapter {
         }
        final ImageView fav = (ImageView)v.findViewById(R.id.favbutton);
         fav.setOnClickListener(new View.OnClickListener() {
+            int buttonOps = 0;
             @Override
             public void onClick(View v) {
 
-                fav.setImageResource(R.drawable.ic_favorite_white_24dp);
+
+                    fav.setImageResource(R.drawable.ic_favorite_white_24dp);
 
                     JSONObject selected = (JSONObject) getItem(position);
                     ParseObject saved = new ParseObject("recipe");
                     saved.put("user", ParseUser.getCurrentUser());
-                try {
-                    saved.put("imageUrl", selected.get("image_url"));
-                    saved.put("title", selected.get("title"));
-                    saved.put("publisher", selected.get("publisher"));
-                    saved.put("source", selected.get("source_url"));
-                    saved.put("archived", false);
-                }catch (Exception e){
+                    try {
+                        saved.put("imageUrl", selected.get("image_url"));
+                        saved.put("title", selected.get("title"));
+                        saved.put("publisher", selected.get("publisher"));
+                        saved.put("source", selected.get("source_url"));
+                        saved.put("archived", false);
+                    } catch (Exception e) {
 
-                }
-                saved.saveInBackground();
+                    }
+                    saved.saveInBackground();
 
-                Toast.makeText(activity, "Added to favourites",
-                        Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, "Added to favourites",
+                            Toast.LENGTH_SHORT).show();
+               
             }
         });
 
