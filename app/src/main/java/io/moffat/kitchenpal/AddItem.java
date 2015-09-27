@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.parse.*;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.text.*;
 import java.util.Calendar;
@@ -126,7 +128,9 @@ public class AddItem extends ActionBarActivity {
         quantityCategory.setAdapter(quantityAdapter);
 
         final CheckBox listFlag = (CheckBox) findViewById(R.id.shoppingCheckBox);
-           Intent i =getIntent();
+        final CheckBox mainFlag = (CheckBox) findViewById(R.id.mainCheckBox);
+        
+        Intent i =getIntent();
         if (i.hasExtra("flag")){
 
             URLBuilder url = new URLBuilder();
@@ -138,50 +142,70 @@ public class AddItem extends ActionBarActivity {
 
         }
 
-            search = (Button) findViewById(R.id.btnSearch);
-            search.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //do rest stuff here
+        search = (Button) findViewById(R.id.btnSearch);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //do rest stuff here
+            }
+        });
+
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+
+        };
+
+        ProductName = (EditText) findViewById(R.id.ProductName);
+        ISDN_text = (EditText) findViewById(R.id.ISDN);
+        expiry_date = (EditText) findViewById(R.id.expiry_date);
+        final EditText quantity = (EditText) findViewById(R.id.quantity);
+
+
+        expiry_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                new DatePickerDialog(AddItem.this, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+
+            }
+        });
+
+
+
+        Button save = (Button) findViewById(R.id.btnSave);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                boolean cancel = false;
+                View focusView = null;
+
+                ProductName.setError(null);
+                mainFlag.setError(null);
+                listFlag.setError(null);
+
+
+                if (TextUtils.isEmpty(ProductName.getText())) {
+                    ProductName.setError("Product Name Required");
+                    focusView = ProductName;
+                    cancel = true;
                 }
-            });
 
-            final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+                if (cancel) {
 
-                @Override
-                public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                      int dayOfMonth) {
-                    // TODO Auto-generated method stub
-                    myCalendar.set(Calendar.YEAR, year);
-                    myCalendar.set(Calendar.MONTH, monthOfYear);
-                    myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                    updateLabel();
-                }
-
-            };
-
-            ProductName = (EditText) findViewById(R.id.ProductName);
-            ISDN_text = (EditText) findViewById(R.id.ISDN);
-            expiry_date = (EditText) findViewById(R.id.expiry_date);
-            final EditText quantity = (EditText) findViewById(R.id.quantity);
-
-
-            expiry_date.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    new DatePickerDialog(AddItem.this, date, myCalendar
-                            .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                            myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-
-                }
-            });
-
-            Button save = (Button) findViewById(R.id.btnSave);
-            save.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
+                    focusView.requestFocus();
+                } else {
 
                     String dateString = expiry_date.getText().toString();
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -192,7 +216,6 @@ public class AddItem extends ActionBarActivity {
                     dateFormat.setTimeZone(tz);
 
 
-
                     try {
                         convertedDate = dateFormat.parse(dateString);
                     } catch (java.text.ParseException e) {
@@ -200,7 +223,7 @@ public class AddItem extends ActionBarActivity {
                     }
 
                     ParseObject newProduct = new ParseObject("Product");
-                    CheckBox mainFlag = (CheckBox) findViewById(R.id.mainCheckBox);
+
 
                     if (listFlag.isChecked() && mainFlag.isChecked()) {
                         newProduct.put("productName", ProductName.getText().toString());
@@ -291,75 +314,78 @@ public class AddItem extends ActionBarActivity {
                     } else if (!listFlag.isChecked() && !mainFlag.isChecked()) {
                         Toast.makeText(getApplicationContext(), "List not selected!",
                                 Toast.LENGTH_SHORT).show();
+                        listFlag.setError("Please select a list!");
+                        mainFlag.setError("Please select a list!");
                     }
                 }
-            });
+            }
+        });
 
-            Button search = (Button) findViewById(R.id.btnSearch);
-            search.setOnClickListener(new View.OnClickListener() {
+        Button search = (Button) findViewById(R.id.btnSearch);
+        search.setOnClickListener(new View.OnClickListener() {
 
-                public void onClick(View v) {
+            public void onClick(View v) {
 
-                    EditText code = (EditText) findViewById(R.id.ISDN);
-                    URLBuilder url = new URLBuilder();
-                    String barcodeString = code.getText().toString();
-                    String message = url.builtURL(barcodeString);
-                    new BarcodeSearch().execute(message);
-                }
+                EditText code = (EditText) findViewById(R.id.ISDN);
+                URLBuilder url = new URLBuilder();
+                String barcodeString = code.getText().toString();
+                String message = url.builtURL(barcodeString);
+                new BarcodeSearch().execute(message);
+            }
 
 
-            });
+        });
 
     }
 
-        class BarcodeSearch extends AsyncTask<String, Void, JSONObject> {
+    class BarcodeSearch extends AsyncTask<String, Void, JSONObject> {
 
-            protected void onPreExecute() {
-                progress = ProgressDialog.show(AddItem.this, "Finding Barcode", "Searching....", true);
+        protected void onPreExecute() {
+            progress = ProgressDialog.show(AddItem.this, "Finding Barcode", "Searching....", true);
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... urls) {
+
+            JSONObject jsonProduct = new JSONObject();
+            JSONParser barcodeParse = new JSONParser();
+            String restParse = barcodeParse.getJSON(urls[0]);
+            try {
+                JSONArray objectArray = new JSONArray(restParse);
+                jsonProduct = objectArray.getJSONObject(0);
+                return jsonProduct;
+                //do some shit here to turn json array into json object
+            }catch(Exception e)
+            {
+                System.out.println(e);
+                //return restParse;
+                return null;
             }
+        }
 
-            @Override
-            protected JSONObject doInBackground(String... urls) {
-
-                JSONObject jsonProduct = new JSONObject();
-                JSONParser barcodeParse = new JSONParser();
-                String restParse = barcodeParse.getJSON(urls[0]);
-                try {
-                    JSONArray objectArray = new JSONArray(restParse);
-                    jsonProduct = objectArray.getJSONObject(0);
-                    return jsonProduct;
-                    //do some shit here to turn json array into json object
-                }catch(Exception e)
-                {
-                    System.out.println(e);
-                    //return restParse;
-                    return null;
-                }
-            }
-
-            @Override
-            protected void onPostExecute(JSONObject jsonObject) {
-                //  TextView tv = (TextView) findViewById(R.id.txtView);
-                // tv.setText(jsonObject.toString());
-                if(jsonObject.has("error")){
-                    EditText name = (EditText)findViewById(R.id.ProductName);
-                    Toast.makeText(getApplicationContext(), "Barcode not found in Database",
-                            Toast.LENGTH_SHORT).show();
-                    progress.dismiss();
-                } else if (jsonObject.has("name") && (jsonObject.has("ean")))
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            //  TextView tv = (TextView) findViewById(R.id.txtView);
+            // tv.setText(jsonObject.toString());
+            if(jsonObject.has("error")){
+                EditText name = (EditText)findViewById(R.id.ProductName);
+                Toast.makeText(getApplicationContext(), "Barcode not found in Database",
+                        Toast.LENGTH_SHORT).show();
+                progress.dismiss();
+            } else if (jsonObject.has("name") && (jsonObject.has("ean")))
                 progress.dismiss();{
 
-                    try {
-                        EditText name = (EditText) findViewById(R.id.ProductName);
-                        name.setText(jsonObject.getString("name"));
-                        EditText barcode = (EditText) findViewById(R.id.ISDN);
-                        barcode.setText(jsonObject.getString("ean"));
+                try {
+                    EditText name = (EditText) findViewById(R.id.ProductName);
+                    name.setText(jsonObject.getString("name"));
+                    EditText barcode = (EditText) findViewById(R.id.ISDN);
+                    barcode.setText(jsonObject.getString("ean"));
 
-                    } catch (Exception e) {
-                        Toast.makeText(getApplicationContext(), "Error",
-                                Toast.LENGTH_SHORT).show();
-                    }
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Error",
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         }
+    }
 }
