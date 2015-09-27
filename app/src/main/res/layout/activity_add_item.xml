@@ -155,7 +155,7 @@
         android:layout_alignTop="@+id/shoppingCheckBox"
         android:layout_alignStart="@+id/SpinnerCat"
         android:layout_alignBottom="@+id/shoppingCheckBox"
-        android:layout_toStartOf="@+id/btnSave" />
+        android:layout_toStartOf="@+id/measureSpinner" />
 
     <TextView
         android:layout_width="wrap_content"
