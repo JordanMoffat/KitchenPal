@@ -80,12 +80,11 @@ public class SavedRecipeAdapter extends ParseQueryAdapter<ParseObject> {
                     buttonOps = 1;
 
                     ParseObject selected = object;
-
                     selected.put("archived", true);
-
                     selected.saveInBackground();
 
                     //     button.setImageResource(R.drawable.ic_favorite_border_white_24dp);
+
 
                     Toast.makeText(getContext(), "Removed from favourites",
                             Toast.LENGTH_SHORT).show();
@@ -99,7 +98,6 @@ public class SavedRecipeAdapter extends ParseQueryAdapter<ParseObject> {
                     selected.put("archived", false);
 
                     selected.saveInBackground();
-
                     //   button.setImageResource(R.drawable.ic_favorite_border_white_24dp);
                 }
             }
