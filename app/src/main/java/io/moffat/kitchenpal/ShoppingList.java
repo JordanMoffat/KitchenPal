@@ -189,6 +189,11 @@ public class ShoppingList extends ActionBarActivity {
 
     }
 
+    public void onResume(){
+        super.onResume();
+        refreshList();
+    }
+
     public void refreshList(){
 
         progress = ProgressDialog.show(ShoppingList.this, "Loading Items", "Loading...", true);
@@ -227,14 +232,15 @@ public class ShoppingList extends ActionBarActivity {
                             }
                         });
 
-                        progress.dismiss();
+
                     }
                 });
             }
         }).start();
 
+        progress.dismiss();
 
-     //   mainAdapter = new ParseQueryAdapter<ParseObject>(this, "Product");
+        //   mainAdapter = new ParseQueryAdapter<ParseObject>(this, "Product");
 
 
 
