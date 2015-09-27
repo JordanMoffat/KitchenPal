@@ -154,6 +154,11 @@ public class SavedRecipes extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void onResume(){
+        super.onResume();
+        create();
+    }
+
     public void create(){
 
         mainAdapter = new ParseQueryAdapter<ParseObject>(SavedRecipes.this, "recipe");
