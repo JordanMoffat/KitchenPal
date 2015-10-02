@@ -10,13 +10,14 @@ import com.parse.ParsePush;
  * Created by Jordan on 08/08/2015.
  */
 public class KitchenPalApp extends Application {
-
+    @Override
     public void onCreate(){
-    //    super.onCreate();
+        super.onCreate();
 
         Parse.initialize(this, "fKFcxAML9tqkehYq0UxpMhkjSLIVdZEgIXTNLEtt", "poN3brKJyOkYPNZQWlCHMbzWHJAZIW4TMzQETGoJ");
         ParseInstallation.getCurrentInstallation().saveInBackground();
-        ParsePush.subscribeInBackground("Expires");
+       ParsePush.subscribeInBackground("Expiry");
+        //Account key: ZpCJ4MOKxMNtGVacK0nMuNEFSe73ZUhANOwI3gCt
     }
 
 }

@@ -129,7 +129,7 @@ public class AddItem extends ActionBarActivity {
 
         final CheckBox listFlag = (CheckBox) findViewById(R.id.shoppingCheckBox);
         final CheckBox mainFlag = (CheckBox) findViewById(R.id.mainCheckBox);
-        
+
         Intent i =getIntent();
         if (i.hasExtra("flag")){
 
