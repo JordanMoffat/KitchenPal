@@ -26,12 +26,11 @@
       IMPORTANT: Change "com.parse.starter.permission.C2D_MESSAGE" in the lines below
       to match your app's package name + ".permission.C2D_MESSAGE".
     -->
-    <permission android:protectionLevel="signature"
-        android:name="io.moffat.kitchenpal.permission.C2D_MESSAGE" />
+    <permission
+        android:name="io.moffat.kitchenpal.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
     <uses-permission android:name="io.moffat.kitchepal.permission.C2D_MESSAGE" />
-
-
-
     <!--
       IMPORTANT: Change "com.parse.starter.permission.C2D_MESSAGE" in the lines below
       to match your app's package name + ".permission.C2D_MESSAGE".
@@ -40,11 +39,9 @@
         android:name="io.moffat.kitchenpal"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="io.moffat.kitchenpal" />
+    <uses-permission android:name="io.moffat.kitchenpal.permission.C2D_MESSAGE" />
 
     <application
-
-
         android:name=".KitchenPalApp"
         android:allowBackup="true"
         android:icon="@mipmap/iconlarge"
@@ -56,6 +53,9 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.parse.push.notification_icon"
+            android:resource="@drawable/push_ico" />
 
         <service android:name="com.parse.PushService" />
 
@@ -164,7 +164,7 @@
             android:name=".RecipeSearch"
             android:label="@string/title_activity_recipe_search"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="io.moffat.kitchenpal.MainActivity" />
@@ -182,17 +182,17 @@
         <activity
             android:name=".ArchiveActivity"
             android:label="@string/title_activity_archive"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".EditArchive"
             android:label="@string/title_activity_edit_archive"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".util.RecipeView"
             android:label="@string/title_activity_recipe_view"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".SavedRecipes"
@@ -202,24 +202,26 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="io.moffat.kitchenpal.MainActivity" />
         </activity>
+
         <service android:name="com.parse.PushService" />
-        <receiver android:name="com.parse.ParsePushBroadcastReceiver"
-            android:exported="false">
+
+        <receiver
+            android:name="com.parse.ParsePushBroadcastReceiver"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.parse.push.intent.RECEIVE" />
                 <action android:name="com.parse.push.intent.DELETE" />
                 <action android:name="com.parse.push.intent.OPEN" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.parse.GcmBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND">
+        <receiver
+            android:name="com.parse.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
-                <!--
-                  IMPORTANT: Change "com.parse.starter" to match your app's package name.
-                -->
+<!--                   IMPORTANT: Change "com.parse.starter" to match your app's package name. -->
                 <category android:name="io.moffat.kitchenpal" />
             </intent-filter>
         </receiver>
