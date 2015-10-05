@@ -9,6 +9,9 @@
         android:paddingLeft="16dp"
         android:paddingTop="20dp"
         android:textColor="@color/primary_text_default_material_light"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:layout_marginRight="16dp"
 
          />
 
