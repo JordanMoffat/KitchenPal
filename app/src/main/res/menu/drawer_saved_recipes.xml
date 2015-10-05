@@ -5,25 +5,25 @@
 
 
         <item
-            android:id="@+id/mainList"
+            android:id="@+id/srmainList"
             android:checked="false"
             android:icon="@drawable/ic_list_white_24dp"
             android:title="Main List" />
 
         <item
-            android:id="@+id/shoppingList"
+            android:id="@+id/srshoppingList"
             android:checked="false"
             android:icon="@drawable/ic_list_white_24dp"
             android:title="Shopping List" />
 
         <item
-            android:id="@+id/archivelist"
+            android:id="@+id/srarchivelist"
             android:checked="false"
             android:icon="@drawable/ic_archive_white_24dp"
             android:title="Archive" />
 
         <item
-            android:id="@+id/scales"
+            android:id="@+id/srscales"
             android:checked="false"
             android:icon="@drawable/balance13"
             android:title="Scales" />

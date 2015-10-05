@@ -66,17 +66,17 @@ public class SavedRecipes extends ActionBarActivity {
                 switch (menuItem.getItemId()) {
 
 
-                    case R.id.shoppinglist:
+                    case R.id.srshoppingList:
                         Intent shop = new Intent(SavedRecipes.this, ShoppingList.class);
                         startActivity(shop);
                         finish();
                         return true;
-                    case R.id.archive:
+                    case R.id.srarchivelist:
                         Intent archive = new Intent(SavedRecipes.this, ArchiveActivity.class);
                         startActivity(archive);
                         finish();
                         return true;
-                    case R.id.scales:
+                    case R.id.srscales:
                         Toast.makeText(getApplicationContext(), "Feature not available in this version", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.LogOut:
@@ -85,7 +85,7 @@ public class SavedRecipes extends ActionBarActivity {
                         startActivity(logout);
                         finish();
                         return true;
-                    case R.id.mainList:
+                    case R.id.srmainList:
                         Intent recipe = new Intent(SavedRecipes.this, MainActivity.class);
                         startActivity(recipe);
                         finish();

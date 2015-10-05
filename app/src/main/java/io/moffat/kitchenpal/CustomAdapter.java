@@ -80,6 +80,8 @@ public class CustomAdapter extends ParseQueryAdapter<ParseObject> {
             timestampView.setText("Expires: " + s);
     }
 
+        TextView amount = (TextView)v.findViewById(R.id.quantity);
+        amount.setText(object.getString("quantity") + " " + object.getString("unit"));
 
 
         return v;

@@ -49,7 +49,10 @@ public class ArchiveAdapter extends ParseQueryAdapter<ParseObject> {
 
 
         TextView timestampView = (TextView) v.findViewById(R.id.timestamp);
-        timestampView.setText(object.getString("ISDN"));
+        timestampView.setText("ISDN "+object.getString("ISDN"));
+
+        TextView amount = (TextView)v.findViewById(R.id.quantity);
+        amount.setText(object.getString("type"));
 
 
         return v;

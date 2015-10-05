@@ -8,8 +8,19 @@
         android:textSize="16sp"
         android:paddingLeft="16dp"
         android:paddingTop="20dp"
+        android:textColor="@color/primary_text_default_material_light"
 
          />
+
+    <TextView
+        android:id="@+id/quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/secondary_text_default_material_light"
+        android:layout_below="@+id/text1"
+        android:textSize="14sp"
+        android:paddingLeft="16dp"
+        />
 
 
     <TextView
@@ -17,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/AccentColor"
-        android:layout_below="@+id/text1"
+        android:layout_below="@+id/quantity"
         android:textSize="14sp"
         android:paddingLeft="16dp"
         android:paddingBottom="20dp"

@@ -21,7 +21,8 @@
         android:text="Recipe For Food"
         android:layout_marginRight="72dp"
         android:layout_marginLeft="72dp"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:textColor="@color/primary_text_default_material_light"/>
 
     <TextView
         android:id="@+id/supplier"

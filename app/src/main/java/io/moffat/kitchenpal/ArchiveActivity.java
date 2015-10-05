@@ -86,17 +86,17 @@ public class ArchiveActivity extends ActionBarActivity{
                 switch (menuItem.getItemId()){
 
 
-                    case R.id.shoppinglist:
+                    case R.id.archiveshoppingList:
                         Intent shop = new Intent(ArchiveActivity.this, ShoppingList.class);
                         startActivity(shop);
                         finish();
                         return true;
-                    case R.id.mainList:
+                    case R.id.archivemainList:
                         Intent main = new Intent(ArchiveActivity.this, MainActivity.class);
                         startActivity(main);
                         finish();
                         return true;
-                    case R.id.scales:
+                    case R.id.archivescales:
                         Toast.makeText(getApplicationContext(),"Feature not available in this version",Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.LogOut:
@@ -104,8 +104,9 @@ public class ArchiveActivity extends ActionBarActivity{
                         Intent logout = new Intent(ArchiveActivity.this, LoginActivity2.class);
                         startActivity(logout);
                         return true;
-                    case R.id.recipe:
-                        Toast.makeText(getApplicationContext(),"Feature not available in this version",Toast.LENGTH_SHORT).show();
+                    case R.id.archiverecipe:
+                        Intent recipe = new Intent(ArchiveActivity.this, SavedRecipes.class);
+                        startActivity(recipe);
                         return true;
 
                     default:
