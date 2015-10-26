@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_scales_detail" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="io.moffat.kitchenpal.scales_detail">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
+
+        <include layout="@layout/isdn"></include>
+        <include layout="@layout/expiry"></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+
+            android:layout_marginTop="16dp"
+            android:id="@+id/divider1"
+            android:background="@android:color/darker_gray"/>
+
+        <include layout="@layout/scales"></include>
+        <include layout="@layout/percentage"></include>
+        <include layout="@layout/volume"></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+
+            android:layout_marginTop="16dp"
+            android:id="@+id/divider2"
+            android:background="@android:color/darker_gray"/>
+        <include layout="@layout/category"></include>
+        <include layout="@layout/added"></include>
+        <include layout="@layout/placeholder"></include>
+
+
+
+<!--<div>Icon made by <a href="http://picol.org" title="Picol">Picol</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
+
+-->
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
