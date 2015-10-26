@@ -97,7 +97,9 @@ public class ArchiveActivity extends ActionBarActivity{
                         finish();
                         return true;
                     case R.id.archivescales:
-                        Toast.makeText(getApplicationContext(),"Feature not available in this version",Toast.LENGTH_SHORT).show();
+                        Intent viewScales = new Intent(ArchiveActivity.this, scales_detail.class);
+                        startActivity(viewScales);
+
                         return true;
                     case R.id.LogOut:
                         ParseUser.logOut();

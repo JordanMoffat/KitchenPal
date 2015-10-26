@@ -107,8 +107,10 @@ public class ShoppingList extends ActionBarActivity {
                         finish();
                         return true;
                     case R.id.scales:
-                        Toast.makeText(getApplicationContext(), "Feature not available in this version", Toast.LENGTH_SHORT).show();
-                        return true;
+                        Intent viewScales = new Intent(ShoppingList.this, scales_detail.class);
+                        startActivity(viewScales);
+
+                         return true;
                     case R.id.LogOut:
                         ParseUser.logOut();
                         Intent logout = new Intent(ShoppingList.this, LoginActivity2.class);

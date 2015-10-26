@@ -118,7 +118,9 @@ public class MainActivity extends ActionBarActivity{
                         finish();
                         return true;
                     case R.id.scales:
-                        Toast.makeText(getApplicationContext(),"Feature not available in this version",Toast.LENGTH_SHORT).show();
+                       Intent viewScales = new Intent(MainActivity.this, scales_detail.class);
+                        startActivity(viewScales);
+
                         return true;
                     case R.id.LogOut:
                         ParseUser.logOut();
