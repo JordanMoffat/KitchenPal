@@ -1,0 +1,169 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+
+
+    tools:context="io.moffat.kitchenpal.EditItem"
+    android:id="@+id/EditItem"
+    style="@style/AppTheme">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar"
+        ></include>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textCapSentences"
+        android:ems="10"
+        android:layout_marginRight="16dp"
+        android:id="@+id/ProductName"
+        android:layout_below="@+id/lblProductName"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/lblISDN" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/ISDN"
+
+        android:layout_marginRight="16dp"
+        android:layout_below="@+id/lblISDN"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="16dp" />
+
+
+
+        <Button
+            android:layout_width="117dp"
+            android:layout_height="wrap_content"
+            android:text="@string/btnSave"
+            android:id="@+id/btnSave"
+            android:theme="@style/Base.Theme.AppCompat.Light"
+            style="@android:style/TextAppearance.Material.Button"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+
+            android:nestedScrollingEnabled="true"
+            android:layout_gravity="right|bottom"
+            android:layout_column="2"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:editable = "false"
+        android:text="Product Name"
+        android:id="@+id/lblProductName"
+        android:labelFor="@+id/ProductName"
+        android:layout_below="@+id/tool_bar"
+        android:layout_alignStart="@+id/ProductName"
+        android:layout_marginTop="39dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Barcode Number"
+        android:id="@+id/lblISDN"
+        android:labelFor="@+id/ISDN"
+        android:layout_below="@+id/ProductName"
+        android:layout_alignStart="@+id/ISDN" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:id="@+id/btnSearch"
+        android:layout_below="@+id/ISDN"
+        android:layout_alignEnd="@+id/ISDN"
+        android:nestedScrollingEnabled="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Expiry Date"
+
+        android:id="@+id/date"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="16dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:focusable="false"
+        android:id="@+id/expiry_date"
+        android:layout_below="@+id/date"
+        android:layout_alignEnd="@+id/lblISDN"
+        android:layout_alignStart="@+id/date" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnercategory"
+        android:layout_alignBottom="@+id/expiry_date"
+        android:layout_alignEnd="@+id/btnSearch"
+        android:layout_toEndOf="@+id/expiry_date"
+        android:spinnerMode="dropdown"
+        android:layout_below="@+id/date"
+        android:layout_marginLeft="12dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Category"
+        android:id="@+id/SpinnerCat"
+        android:layout_marginLeft="16dp"
+        android:layout_alignTop="@+id/date"
+        android:layout_toEndOf="@+id/expiry_date" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/quantity"
+        android:layout_below="@+id/lblQuantity"
+        android:layout_alignStart="@+id/lblQuantity"
+        android:layout_toStartOf="@+id/btnSearch" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Printed Quantity"
+        android:id="@+id/lblQuantity"
+        android:layout_below="@+id/expiry_date"
+        android:layout_alignStart="@+id/expiry_date" />
+
+    CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Item to Shopping List?"
+        android:id="@+id/shoppingCheckBox"
+        android:layout_below="@+id/quantity"
+        android:layout_alignStart="@+id/quantity"
+        android:layout_toStartOf="@+id/spinnercategory" />
+
+    CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Item to Main List?"
+        android:id="@+id/mainCheckBox"
+        android:layout_alignTop="@+id/shoppingCheckBox"
+        android:layout_alignStart="@+id/SpinnerCat"
+        android:layout_alignBottom="@+id/shoppingCheckBox"
+        android:layout_toStartOf="@+id/btnSave" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/measureSpinner"
+        android:layout_alignEnd="@+id/spinnercategory"
+        android:layout_toEndOf="@+id/quantity"
+        android:layout_alignBottom="@+id/quantity"
+        android:layout_alignTop="@+id/quantity" />
+
+</RelativeLayout>

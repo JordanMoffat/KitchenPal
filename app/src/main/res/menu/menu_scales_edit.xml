@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context="io.moffat.kitchenpal.AddItem">
+
+
+    <item
+    android:id="@+id/eaten"
+    android:orderInCategory="200"
+    android:title="Mark as Eaten"
+    android:icon="@drawable/dessert9"
+    app:showAsAction="always"
+    ></item>
+
+    <item
+        android:id="@+id/discarded"
+        android:orderInCategory="200"
+        android:title="Mark as Discared"
+        android:icon="@drawable/ic_delete_white_24dp"
+        app:showAsAction="always"
+        ></item>
+
+    <item
+        android:id="@+id/search"
+        android:orderInCategory="200"
+        android:title="Search for Recipe"
+        android:icon="@drawable/ic_search_white_24dp"
+        app:showAsAction="ifRoom"
+        ></item>
+
+</menu>
