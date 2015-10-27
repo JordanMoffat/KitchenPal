@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -22,7 +21,6 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -85,12 +83,17 @@ public class ScalesEdit extends ActionBarActivity {
             return true;
         }
         switch (item.getItemId()){
-            case R.id.discarded:
-                markDiscarded();
-                return true;
+            case R.id.clear:
+                EditText name = (EditText)findViewById(R.id.ProductName);
+                EditText quan = (EditText)findViewById(R.id.quantity);
+                EditText isdn = (EditText)findViewById(R.id.ISDN);
+                EditText date = (EditText)findViewById(R.id.expiry_date);
 
-            case R.id.eaten:
-                markEaten();
+                name.setText("");
+                quan.setText("");
+                isdn.setText("");
+                date.setText("");
+
                 return true;
             case android.R.id.home:
                 this.finish();
@@ -127,7 +130,7 @@ public class ScalesEdit extends ActionBarActivity {
         final EditText expiry_date;
 
         final Spinner spinnercategory = (Spinner) findViewById(R.id.spinnercategory);
-        final String[] items = new String[]{"Juice","Dairy"};
+        final String[] items = new String[]{"Juice", "Dairy"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items);
         spinnercategory.setAdapter(adapter);
 
@@ -180,52 +183,48 @@ public class ScalesEdit extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("scales");
+                query.getInBackground("sBdw9q2dqH", new GetCallback<ParseObject>() {
+                    public void done(ParseObject editProduct, ParseException e) {
+                        if (e == null) {
 
-                String dateString = expiry_date.getText().toString();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                Date convertedDate = new Date();
+                            editProduct.put("name", ProductName.getText().toString());
+                            editProduct.put("ISDN", ISDN_text.getText().toString());
 
-                TimeZone tz = TimeZone.getTimeZone("GMT0");
-                dateFormat.setTimeZone(tz);
+                            String dateString = expiry_date.getText().toString();
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                            Date convertedDate = new Date();
+                            TimeZone tz = TimeZone.getTimeZone("GMT0");
+                            dateFormat.setTimeZone(tz);
 
-                try {
-                    convertedDate = dateFormat.parse(dateString);
-                } catch (java.text.ParseException e) {
-                    e.printStackTrace();
-
-                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Product");
-                    Intent i = getIntent();
-                    String queryString = i.getStringExtra("id");
-                    query.getInBackground(queryString, new GetCallback<ParseObject>() {
-                        @Override
-                        public void done(ParseObject editProduct, ParseException e) {
-                            if (e == null) {
-                                editProduct.put("productName", ProductName.getText().toString());
-                                editProduct.put("ISDN", ISDN_text.getText().toString());
-
-                                String dateString = expiry_date.getText().toString();
-                                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                                Date convertedDate = new Date();
-                                TimeZone tz = TimeZone.getTimeZone("GMT0");
-                                dateFormat.setTimeZone(tz);
-
-                                try {
-                                    convertedDate = dateFormat.parse(dateString);
-                                } catch (java.text.ParseException x) {
-                                    e.printStackTrace();
-                                }
-                                editProduct.put("expiry", convertedDate);
-                                editProduct.put("type", spinnercategory.getSelectedItem().toString());
-                                editProduct.put("quantity", Float.parseFloat(quantity.getText().toString()));
-                              //  editProduct.put("username", ParseUser.getCurrentUser());
-                                editProduct.put("unit", quantityCategory.getSelectedItem().toString());
-                                editProduct.put("archived", false);
-                                editProduct.saveInBackground();
+                            try {
+                                convertedDate = dateFormat.parse(dateString);
+                            } catch (java.text.ParseException x) {
+                                e.printStackTrace();
                             }
-                        }
-                    });
+                            editProduct.put("expiry", convertedDate);
+                            editProduct.put("type", spinnercategory.getSelectedItem().toString());
+                            editProduct.put("quantity", Float.parseFloat(quantity.getText().toString()));
+                            //  editProduct.put("username", ParseUser.getCurrentUser());
+                            editProduct.put("unit", quantityCategory.getSelectedItem().toString());
 
-                }
+                            editProduct.saveInBackground();
+                            Toast.makeText(getApplicationContext(), "Saved",
+                                    Toast.LENGTH_SHORT).show();
+
+                            kill();
+                        } else {
+
+
+                            Toast.makeText(getApplicationContext(), "Error Saving",
+                                    Toast.LENGTH_SHORT).show();
+                            // Now let's update it with some new data. In this case, only cheatMode and score
+                            // will get sent to the Parse Cloud. playerName hasn't changed.
+
+
+                        }
+                    }
+                });
             }
         });
 
@@ -246,55 +245,58 @@ public class ScalesEdit extends ActionBarActivity {
 
         });
 
-     //   Intent i = getIntent();
-      //  if (i.hasExtra("id")){
+        //   Intent i = getIntent();
+        //  if (i.hasExtra("id")){
 
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("scales");
-            String queryString = "sBdw9q2dqH";
-            query.getInBackground(queryString, new GetCallback<ParseObject>() {
-                @Override
-                public void done(ParseObject parseObject, ParseException e) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("scales");
+        query.getInBackground("sBdw9q2dqH", new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
+                if (e == null) {
                     //   parseObject.getString("productName");
-                    ProductName.setText(parseObject.getString("name"));
+                    ProductName.setText(object.getString("name"));
 
                     //Sets the category spinner
                     int index = -1;
-                    for (int i=0;i<items.length;i++){
-                        if (items[i].equals(parseObject.getString("type"))){
+                    for (int i = 0; i < items.length; i++) {
+                        if (items[i].equals(object.getString("type"))) {
                             index = i;
                             break;
                         }
                     }
-                    if (index >=0) {
+                    if (index >= 0) {
                         spinnercategory.setSelection(index);
                     } else {
                         spinnercategory.setSelection(0);
                     }
 
                     int UnitIndex = -1;
-                    for (int j=0;j<quantities.length;j++){
-                        if (quantities[j].equals(parseObject.getString("unit"))){
+                    for (int j = 0; j < quantities.length; j++) {
+                        if (quantities[j].equals(object.getString("unit"))) {
                             UnitIndex = j;
                             break;
                         }
                     }
-                    if (UnitIndex >=0) {
+                    if (UnitIndex >= 0) {
                         quantityCategory.setSelection(UnitIndex);
                     } else {
                         quantityCategory.setSelection(0);
                     }
                     //sets the Barcode number and the quantity
-                    ISDN_text.setText(parseObject.getString("ISDN"));
-                    quantity.setText((parseObject.getNumber("quantity")).toString());
+                    ISDN_text.setText(object.getString("ISDN"));
+                    float q = object.getNumber("quantity").floatValue();
+                    String s1 = Float.toString(q);
+                    quantity.setText(s1);
 
                     Format formatter = new SimpleDateFormat("dd/MM/yyyy");
-                    String s = formatter.format(parseObject.getDate("expiry"));
-
+                    String s = formatter.format(object.getDate("expiry"));
                     expiry_date.setText(s);
-                }
-            });
-        }
 
+                } else {
+
+                }
+            }
+        });
+    }
 
 
     class BarcodeSearch extends AsyncTask<String, Void, JSONObject> {
@@ -305,7 +307,6 @@ public class ScalesEdit extends ActionBarActivity {
 
         @Override
         protected JSONObject doInBackground(String... urls) {
-
 
 
             JSONObject jsonProduct = new JSONObject();
@@ -319,8 +320,7 @@ public class ScalesEdit extends ActionBarActivity {
                 return jsonProduct;
                 //do some shit here to turn json array into json object
 
-            }catch(Exception e)
-            {
+            } catch (Exception e) {
                 System.out.println(e);
                 //return restParse;
                 return null;
@@ -331,8 +331,8 @@ public class ScalesEdit extends ActionBarActivity {
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
 
-            if(jsonObject.has("error")){
-                EditText name = (EditText)findViewById(R.id.ProductName);
+            if (jsonObject.has("error")) {
+                EditText name = (EditText) findViewById(R.id.ProductName);
                 Toast.makeText(getApplicationContext(), "Barcode not found in Database",
                         Toast.LENGTH_SHORT).show();
                 progress.dismiss();
@@ -353,46 +353,7 @@ public class ScalesEdit extends ActionBarActivity {
         }
     }
 
-    public void markEaten(){
-
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Product");
-        Intent i = getIntent();
 
 
-        String queryString = i.getStringExtra("id");
-        query.getInBackground(queryString, new GetCallback<ParseObject>() {
-            public void done(ParseObject editProduct, ParseException e) {
-                if (e == null) {
-                    editProduct.put("eaten", true);
-                    //    editProduct.put("expiry", null);
-                    editProduct.saveInBackground();
-                }
-            }
-        });
-
-        Toast.makeText(ScalesEdit.this, "Marked as Eaten", Toast.LENGTH_SHORT).show();
-        kill();
-
-    }
-    public void markDiscarded(){
-        //edit object
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Product");
-        Intent i = getIntent();
-        String queryString = i.getStringExtra("id");
-        query.getInBackground(queryString, new GetCallback<ParseObject>() {
-                    public void done (ParseObject editProduct, ParseException e){
-                        if (e == null) {
-                            editProduct.put("discarded", true);
-                            // editProduct.put("expiry", null);
-                            editProduct.saveInBackground();
-                        }
-                    }
-                }
-
-        );
-        Toast.makeText(ScalesEdit.this,"Marked as Discarded",Toast.LENGTH_SHORT).
-                show();
-        kill();
-    }
 
 }

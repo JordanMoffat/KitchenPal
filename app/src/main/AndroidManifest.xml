@@ -235,6 +235,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="io.moffat.kitchenpal.MainActivity" />
         </activity>
+        <activity
+            android:name=".ScalesEdit"
+            android:label="@string/title_activity_scales_edit"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.moffat.kitchenpal.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

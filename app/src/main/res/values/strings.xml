@@ -125,4 +125,5 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="title_activity_scales_detail">scales_detail</string>
+    <string name="title_activity_scales_edit">ScalesEdit</string>
 </resources>

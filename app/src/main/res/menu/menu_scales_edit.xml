@@ -4,20 +4,13 @@
 
 
     <item
-    android:id="@+id/eaten"
+    android:id="@+id/clear"
     android:orderInCategory="200"
-    android:title="Mark as Eaten"
-    android:icon="@drawable/dessert9"
+    android:title="Clear"
+    android:icon="@drawable/ic_clear_white_24dp"
     app:showAsAction="always"
     ></item>
 
-    <item
-        android:id="@+id/discarded"
-        android:orderInCategory="200"
-        android:title="Mark as Discared"
-        android:icon="@drawable/ic_delete_white_24dp"
-        app:showAsAction="always"
-        ></item>
 
     <item
         android:id="@+id/search"
