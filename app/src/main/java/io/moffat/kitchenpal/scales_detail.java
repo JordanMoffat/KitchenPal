@@ -19,6 +19,7 @@ import org.w3c.dom.Text;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class scales_detail extends AppCompatActivity {
 
@@ -46,34 +47,68 @@ public class scales_detail extends AppCompatActivity {
 
                     toolBarLayout.setTitle(object.getString("name"));
                     isdn.setText(object.getString("ISDN"));
+
                     Format formatter = new SimpleDateFormat("dd/MM/yyyy");
                     String s = formatter.format(object.getDate("expiry"));
-                    expiry.setText(s);
+                    expiry.setText("Expires: " + s);
 
                     Format formatter2 = new SimpleDateFormat("dd/MM/yyyy");
-                    String s2 = formatter2.format(object.getDate("updatedAt"));
-                    added.setText(s2);
+
+                    String s2 = formatter2.format(object.getUpdatedAt());
+                    added.setText("Added on " + s2);
 
 
-                    String qwan = object.getNumber("original").toString() + object.getString("unit");
-                   original.setText(qwan);
+
+
+                    String weightstring = (object.getString("weight") + "ml");
+                    reading.setText(weightstring);
+
+                    String qwan = (object.getNumber("quantity").toString() + object.getString("unit"));
+                    original.setText(qwan);
 
                     if(object.getString("unit").equals("L")){
-                        int value = object.getNumber("original").intValue();
-                        value = (value * 1000);
-                        float per = 0;
-                        per = object.getNumber("weight").floatValue();
-                        float percent = (value /100)*per;
-                        String str = Float.toString(percent);
-                        percentage.setText(str);
+                        float original = object.getNumber("quantity").floatValue();
+                        original = (original*1000);
 
-                        category.setText("category");
+                        float reading = Float.valueOf(object.getString("weight"));
 
+                        float total = ((reading/original)*100);
+
+                        if (total > 100){
+                            total = 100;
+                        }
+                        String out = Float.toString(total);
+
+
+
+                        percentage.setText(out + "%");
+
+
+                    } else {
+                        float original = object.getNumber("quantity").floatValue();
+                       // original = (original*1000);
+
+                        float reading = Float.valueOf(object.getString("weight"));
+
+                        float total = ((reading/original)*100);
+                        if (total > 100){
+                            total = 100;
+                        }
+
+                        String out = Float.toString(total);
+
+
+                        percentage.setText(out + "%");
                     }
+
+                    category.setText(object.getString("type"));
+               //     added.setText(object.getDate("updatedAt").toString());
+
+                    //somethings not working here
 
                     // object will be your game score
                 } else {
-                    // something went wrong
+                    toolBarLayout.setTitle("Error");
                 }
             }
         });
@@ -95,5 +130,7 @@ public class scales_detail extends AppCompatActivity {
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 }
