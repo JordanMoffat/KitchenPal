@@ -40,6 +40,7 @@ public class scales_detail extends AppCompatActivity {
         final TextView category = (TextView)findViewById(R.id.category);
         final  TextView added = (TextView) findViewById(R.id.added);
 
+
         ParseQuery<ParseObject> query = ParseQuery.getQuery("scales");
         query.getInBackground("sBdw9q2dqH", new GetCallback<ParseObject>() {
             public void done(ParseObject object, ParseException e) {
