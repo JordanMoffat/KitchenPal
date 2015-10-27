@@ -56,7 +56,7 @@ public class scales_detail extends AppCompatActivity {
                     Format formatter2 = new SimpleDateFormat("dd/MM/yyyy");
 
                     String s2 = formatter2.format(object.getUpdatedAt());
-                    added.setText("Added on " + s2);
+                    added.setText("Updated at " + s2);
 
 
 
