@@ -99,7 +99,6 @@ public class ArchiveActivity extends ActionBarActivity{
                     case R.id.archivescales:
                         Intent viewScales = new Intent(ArchiveActivity.this, scales_detail.class);
                         startActivity(viewScales);
-
                         return true;
                     case R.id.LogOut:
                         ParseUser.logOut();

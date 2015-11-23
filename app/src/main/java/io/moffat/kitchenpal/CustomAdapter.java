@@ -43,49 +43,49 @@ public class CustomAdapter extends ParseQueryAdapter<ParseObject> {
     }
 
     @Override
-    public View getItemView(ParseObject object, View v, ViewGroup parent) {
-        if (v == null) {
-            v = View.inflate(getContext(), R.layout.parse_item, null);
+        public View getItemView(ParseObject object, View v, ViewGroup parent) {
+            if (v == null) {
+                v = View.inflate(getContext(), R.layout.parse_item, null);
+            }
+
+
+            super.getItemView(object, v, parent);
+
+
+            TextView titleTextView = (TextView) v.findViewById(R.id.text1);
+            titleTextView.setText(object.getString("productName"));
+
+
+
+            TextView timestampView = (TextView) v.findViewById(R.id.timestamp);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            TimeZone timeZone = TimeZone.getDefault();
+            sdf.setTimeZone(timeZone);
+            String date = sdf.format(Calendar.getInstance().getTime());
+            Date datecomp = new Date();
+            datecomp.getDate();
+
+            int check = object.getDate("expiry").compareTo(datecomp);
+
+            if (check < 0) {
+                Format formatter = new SimpleDateFormat("dd/MM/yyyy");
+                String s = formatter.format(object.getDate("expiry"));
+                timestampView.setTextColor(Color.RED);
+                timestampView.setText("Expired on "+ s);
+            } else if (check > 0) {
+                Format formatter = new SimpleDateFormat("dd/MM/yyyy");
+                String s = formatter.format(object.getDate("expiry"));
+                timestampView.setTextColor(Color.parseColor("#64DD17"));
+                timestampView.setText("Expires: " + s);
         }
 
-
-        super.getItemView(object, v, parent);
-
-
-        TextView titleTextView = (TextView) v.findViewById(R.id.text1);
-        titleTextView.setText(object.getString("productName"));
+            TextView amount = (TextView)v.findViewById(R.id.quantity);
+            amount.setText(object.getString("quantity") + " " + object.getString("unit"));
 
 
-
-        TextView timestampView = (TextView) v.findViewById(R.id.timestamp);
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        TimeZone timeZone = TimeZone.getDefault();
-        sdf.setTimeZone(timeZone);
-        String date = sdf.format(Calendar.getInstance().getTime());
-        Date datecomp = new Date();
-        datecomp.getDate();
-
-        int check = object.getDate("expiry").compareTo(datecomp);
-
-        if (check < 0) {
-            Format formatter = new SimpleDateFormat("dd/MM/yyyy");
-            String s = formatter.format(object.getDate("expiry"));
-            timestampView.setTextColor(Color.RED);
-            timestampView.setText("Expired on "+ s);
-        } else if (check > 0) {
-            Format formatter = new SimpleDateFormat("dd/MM/yyyy");
-            String s = formatter.format(object.getDate("expiry"));
-            timestampView.setTextColor(Color.parseColor("#64DD17"));
-            timestampView.setText("Expires: " + s);
-    }
-
-        TextView amount = (TextView)v.findViewById(R.id.quantity);
-        amount.setText(object.getString("quantity") + " " + object.getString("unit"));
-
-
-        return v;
-    }
+            return v;
+        }
 
 
 }

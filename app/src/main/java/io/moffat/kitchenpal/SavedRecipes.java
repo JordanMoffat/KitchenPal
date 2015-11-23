@@ -77,7 +77,8 @@ public class SavedRecipes extends ActionBarActivity {
                         finish();
                         return true;
                     case R.id.srscales:
-                        Toast.makeText(getApplicationContext(), "Feature not available in this version", Toast.LENGTH_SHORT).show();
+                        Intent scales = new Intent(SavedRecipes.this, scales_detail.class);
+                        startActivity(scales);
                         return true;
                     case R.id.LogOut:
                         ParseUser.logOut();
